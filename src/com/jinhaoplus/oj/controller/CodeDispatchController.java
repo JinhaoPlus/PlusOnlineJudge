@@ -31,7 +31,8 @@ public class CodeDispatchController{
 		code.setSourceId(id);
 		Source2FileService.persistentFile(code);
 		String result = cCoreService.compileCode(id);
-		
+		result += cCoreService.runCode(id);
+		result += cCoreService.OJResult();
 		return result;
 	}
 }
