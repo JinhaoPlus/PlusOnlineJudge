@@ -1,10 +1,10 @@
 package com.jinhaoplus.oj.service;
 
 public interface PyCoreService {
-	//对python源程序的编译
+	//Compile python source Code
 	public String compileCode(Long codeId);
-	//对python程序的运行
+	//Run the compiled Code
 	public String runCode(Long codeId);
-	//对python程序运行的Online Judge结果的分析
+	//OJ Result of the Running
 	public String OJResult();
 }
