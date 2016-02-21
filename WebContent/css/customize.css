@@ -1,3 +1,7 @@
+/*
+home page css sheet
+*/
+
 .orange{
 	color: #FFA500;
 	font-family : monaco;
@@ -5,4 +9,20 @@
 
 body{
 	padding-top: 100px;
+}
+
+/*
+login page css sheet
+*/
+.form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
 }
