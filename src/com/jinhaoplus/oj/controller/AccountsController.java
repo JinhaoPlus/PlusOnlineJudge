@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.AccountsService;
 
@@ -23,11 +25,12 @@ public class AccountsController {
 	
 	@RequestMapping(value="/signup")
 	@ResponseBody
-	public String signUp(HttpServletRequest request,HttpServletResponse response,User user) {
-		String userName = request.getParameter("username");
-		String idEmail = request.getParameter("id_email");
-		String password = request.getParameter("password");
-		System.out.println(user);
-		return "success";
+	public ModelAndView signUp(HttpServletRequest request,HttpServletResponse response,User user) {
+		CommonMessage message = new CommonMessage("200","Signup Successful");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("signup-success");
+		System.out.println(request.getContextPath());
+		modelAndView.addObject("some", "jinhaoluo");
+		return modelAndView;
 	}
 }
