@@ -1,15 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>PlusOnlineJudge!</title>
+<title>Sign Up!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrapValidator.min.css" rel="stylesheet">
-<link href="css/customize.css" rel="stylesheet">
-
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrapValidator.min.js"></script>
+<%@	include file="include.jsp"%>
 <script type="text/javascript">
 	$(function() {
 		valid_form();
@@ -86,51 +83,10 @@
 </script>
 </head>
 <body>
-	<nav class="navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<div class="navbar-brand">
-					<div class="orange">PlusOnlineJudge!</div>
-				</div>
-			</div>
-			<div class="navbar-collapse collapse" style="height: 1px;">
-				<ul class="nav navbar-nav">
-					<li id="problems"><a href="#"><span
-							class="glyphicon glyphicon-th"> Problems</span></a></li>
-					<li id="try"><a href="#"><span
-							class="glyphicon glyphicon-edit"> Try!</span></a></li>
-					<li id="discuss"><a href="#"><span
-							class="glyphicon glyphicon-comment"> Discuss</span></a></li>
-				</ul>
-				<ul id="navBar-right" class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						style="margin-bottom: -5px" data-toggle="dropdown"><span
-							class="glyphicon glyphicon-user"> JinhaoLuo</span> <span
-							class="caret"></span> </a>
-						<ul class="dropdown-menu">
-							<li><a href="/profile/">Profile</a></li>
-							<li class="divider"></li>
-							<li><a href="/submissions/"><span
-									class="glyphicon glyphicon-list"> Submissions</span></a></li>
-							<li><a href="/discuss/user/JinhaoLuo"><span
-									class="glyphicon glyphicon-comment"> My Discuss</span></a></li>
-							<li><a href="/accounts/password/change/"><span
-									class="glyphicon glyphicon-ok"> Change Password</span></a></li>
-							<li><a href="/accounts/logout/"><span
-									class="glyphicon glyphicon-log-out"> Log out</span></a></li>
-						</ul></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<%@	include file="topnav.jsp"%>
 	<div class="container">
 		<div class="container">
-			<form class="form-signin" id="form-signin" action="/PlusOnlineJudge/accounts/signup/" method="p">
+			<form class="form-signin" id="form-signin" action="/PlusOnlineJudge/accounts/signup/" method="post">
 				<h3 class="form-signin-heading">Sign Up</h3>
 				<hr>
 				<div class="form-group">

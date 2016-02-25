@@ -29,8 +29,30 @@ public class AccountsController {
 		CommonMessage message = new CommonMessage("200","Signup Successful");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("signup-success");
-		System.out.println(request.getContextPath());
 		modelAndView.addObject("some", "jinhaoluo");
+		modelAndView.addObject("message", message);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/tologin")
+	@ResponseBody
+	public ModelAndView tologin(HttpServletRequest request,HttpServletResponse response,User user) {
+		CommonMessage message = new CommonMessage("200","To Login");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login");
+		modelAndView.addObject("some", "jinhaoluo");
+		modelAndView.addObject("message", message);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/login")
+	@ResponseBody
+	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,User user) {
+		CommonMessage message = new CommonMessage("200","To Login");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("index");
+		modelAndView.addObject("some", "jinhaoluo");
+		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
 }
