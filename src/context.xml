@@ -8,7 +8,7 @@
 	<context:component-scan base-package="com.jinhaoplus.oj"></context:component-scan>
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
-	
+
 	<!-- ViewResolver Configuration -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -16,7 +16,8 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
-	<!-- Mapper from pojo to json for transfer pojo information from server directly -->
+	<!-- Mapper from pojo to json for transfer pojo information from server 
+		directly -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
@@ -38,6 +39,27 @@
 					</property>
 				</bean>
 			</list>
+		</property>
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="username">
+			<value>hxx</value>
+		</property>
+		<property name="password">
+			<value>zhunbeichufa</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://123.57.41.55:3306/hxx</value>
+		</property>
+	</bean>
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>sqlMapConfig.xml</value>
 		</property>
 	</bean>
 </beans>

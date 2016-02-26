@@ -9,12 +9,14 @@
 <%@	include file="include.jsp"%>
 </head>
 <body>
+session:${sessionScope.some }
+request:${requestScope.some }
 	<%@	include file="topnav.jsp"%>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-offset-1 col-md-8 blog-main">
 					<div class="row">
-						<div id="brief_stats" class="col-md-8"><p>Welcome, <a href="/profile/">JinhaoLuo</a>!
+						<div id="brief_stats" class="col-md-8"><p>Welcome, <a href="/profile/">${sessionScope.name }</a>!
 						You have solved <strong>0 / 312</strong> problems. (<a href="/session/">manage sessions</a>)</p></div>
 						<input id="searchText" type="text" placeholder="Search Problems" class="col-md-4 pull-right search-query">
 					</div>

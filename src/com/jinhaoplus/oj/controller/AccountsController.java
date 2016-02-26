@@ -23,36 +23,30 @@ public class AccountsController {
 		this.accountsService = accountsService;
 	}
 	
-	@RequestMapping(value="/signup")
+	
+	@RequestMapping(value="/tosignup")
 	@ResponseBody
-	public ModelAndView signUp(HttpServletRequest request,HttpServletResponse response,User user) {
+	public ModelAndView toSignUp(HttpServletRequest request,HttpServletResponse response,User user) {
 		CommonMessage message = new CommonMessage("200","Signup Successful");
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("signup-success");
+		modelAndView.setViewName("signup");
 		modelAndView.addObject("some", "jinhaoluo");
 		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
+	
 	
 	@RequestMapping(value="/tologin")
 	@ResponseBody
-	public ModelAndView tologin(HttpServletRequest request,HttpServletResponse response,User user) {
+	public ModelAndView toLogin(HttpServletRequest request,HttpServletResponse response,User user) {
 		CommonMessage message = new CommonMessage("200","To Login");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
+		request.getSession().setAttribute("user", user);
 		modelAndView.addObject("some", "jinhaoluo");
 		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/login")
-	@ResponseBody
-	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,User user) {
-		CommonMessage message = new CommonMessage("200","To Login");
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("index");
-		modelAndView.addObject("some", "jinhaoluo");
-		modelAndView.addObject("message", message);
-		return modelAndView;
-	}
+	
 }
