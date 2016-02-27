@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.jinhaoplus.oj.domain.User;
 
-public interface AccountDao {
+public interface AccountsDao {
 
 	public List<User> getList();
 

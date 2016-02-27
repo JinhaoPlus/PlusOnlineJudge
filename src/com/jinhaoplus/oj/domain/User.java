@@ -1,10 +1,18 @@
 package com.jinhaoplus.oj.domain;
 
 public class User {
+	private int userid;
 	private String username;
 	private String email;
 	private String password;
 	
+	
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -25,7 +33,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", email=" + email
-				+ ", password=" + password + "]";
+		return "User [userid=" + userid + ", username=" + username + ", email=" + email + ", password=" + password
+				+ "]";
 	}
+	
 }

@@ -1,7 +1,9 @@
 package com.jinhaoplus.oj.service;
 
+import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.User;
 
 public interface AccountsService {
-	public String signUpService(User user);
+	public CommonMessage signUp(User user);
+	public CommonMessage login(User user);
 }

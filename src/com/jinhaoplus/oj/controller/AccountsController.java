@@ -1,5 +1,7 @@
 package com.jinhaoplus.oj.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,6 +37,27 @@ public class AccountsController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/signup")
+	@ResponseBody
+	public ModelAndView signUp(HttpServletRequest request,HttpServletResponse response,User user) {
+		CommonMessage message = new CommonMessage("200","Signup Successful");
+		ModelAndView modelAndView = new ModelAndView();
+		message = accountsService.signUp(user);
+		
+		modelAndView.setViewName("signup-success");
+		modelAndView.addObject("some", "jinhaoluo");
+		modelAndView.addObject("message", message);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/login")
+	public void login(HttpServletRequest request,HttpServletResponse response,User user) throws IOException {
+		CommonMessage message = new CommonMessage("200","Signup Successful");
+		message = accountsService.login(user);
+		if(message.getCode().equals("200"))
+			request.getSession().setAttribute("loginuser", user);;
+		response.sendRedirect(request.getContextPath()+"/index");
+	}
 	
 	@RequestMapping(value="/tologin")
 	@ResponseBody

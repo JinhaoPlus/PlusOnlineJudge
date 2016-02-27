@@ -8,29 +8,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@	include file="include.jsp"%>
 </head>
+<script type="text/javascript">
+	$(function() {
+		valid_form();
+	});
+	function valid_form() {
+		var validator = $('#form-signin')
+				.bootstrapValidator(
+						{
+							message : 'This value is not valid',
+							fields : {
+								username : {
+									message : 'The username is not valid',
+									validators : {
+										notEmpty : {
+											message : 'The username is required and can\'t be empty'
+										}
+									}
+								},
+								password : {
+									validators : {
+										notEmpty : {
+											message : 'The password is required and can\'t be empty'
+										}
+									}
+								}
+							}
+						});
+	}
+</script>
+</head>
 <body>
 	<%@	include file="topnav.jsp"%>
 	<div class="container">
-		<form class="form-signin" method="POST" action="${ctx }/index">
-			<h3 class="form-signin-heading">Login</h3>
-			<hr />
-			<div class="form-group">
-				<input autofocus="autofocus" id="username" name="username"
-					placeholder="Username" type="text" />
-			</div>
-			<div class="form-group">
-				<input id="password" name="password" placeholder="Password"
-					type="password" />
-			</div>
-			<label class="form-group"><input id="id_remember"
-				name="remember" type="checkbox" />Remember Me</label>
-			<div class="form-group">
-
-				<button class="btn btn-primary" type="submit">Login</button>
-				<a class="pull-right" href="/accounts/password/reset/">Forgot
-					Password?</a>
-			</div>
-		</form>
+		<div class="container">
+			<form class="form-signin" id="form-signin"
+				action="/PlusOnlineJudge/accounts/login/" method="post">
+				<h3 class="form-signin-heading">Sign Up</h3>
+				<hr>
+				<div class="form-group">
+					<input autofocus="autofocus" id="username" maxlength="30"
+						name="username" placeholder="Username" type="text"
+						class="form-control">
+				</div>
+				<div class="form-group">
+					<input id="password" name="password" placeholder="Password"
+						type="password" class="form-control">
+				</div>
+				<button class="btn btn-primary" type="submit"
+					onclick="valid_submit();">Login PlusOJ</button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

@@ -3,32 +3,32 @@
 <sqlMap>
 	<typeAlias type="com.jinhaoplus.oj.domain.User" alias="user" />
 	<!-- 获得全查询列表 -->
-	<select id="getAllUsers" resultMap="ibatisTest">
+	<select id="getAllUsers" resultClass="user">
 		select * from tbl_ploj_user
 	</select>
 
 	<!-- 根据用户名获得用户对象 -->
-	<select id="getUsersByName" resultMap="ibatisTest">
-		select * from Ibatis where name=#value#
+	<select id="getUsersByName" resultClass="user">
+		select * from tbl_ploj_user where username=#value#
 	</select>
 
 	<!-- 根据id获得用户对象 -->
-	<select id="getUsersById" resultMap="ibatisTest">
-		select * from Ibatis where id=#value#
+	<select id="getUsersById" resultClass="user">
+		select * from tbl_ploj_user where userid=#value#
 	</select>
 
 	<!-- 新增用户对象 -->
 	<insert id="insertUsers" parameterClass="user">
-		insert into ibatis (id,name) values (#id#,#name#)
+		insert into tbl_ploj_user (userid,username,email,password) values (#userid#,#username#,#email#,#password#)
 	</insert>
 
 	<!-- 删除用户对象 -->
 	<delete id="deleteUsers">
-		delete from ibatis where id=#value#
+		delete from tbl_ploj_user where userid=#value#
 	</delete>
 
 	<!-- 更新用户对象 -->
 	<delete id="updateUsers" parameterClass="user">
-		update ibatis set name=#name# where id=#id#
+		update tbl_ploj_user set username=#username# where userid=#userid#
 	</delete>
 </sqlMap>
