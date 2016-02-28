@@ -25,5 +25,10 @@ public class HaskellCoreServiceImpl implements LangCoreService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public String createTempSourceFile(String fileOrDirName) {
+		return fileOrDirName;
+	}
 
 }

@@ -1,11 +1,11 @@
 package com.jinhaoplus.oj.service.langCore.impl;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 
 import org.springframework.stereotype.Service;
 
-import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
 
 @Service
@@ -15,7 +15,9 @@ public class CCoreServiceImpl implements LangCoreService {
 	public String compileCode(int problemId,String path) {
 		String result="";
 		try {
-			Process compileProcess = Runtime.getRuntime().exec("gcc -o hello d:\\temp.c");
+			String fileName = path.substring(0,path.lastIndexOf("."));
+			String compileCommand = "gcc -o "+fileName+" "+path;
+			Process compileProcess = Runtime.getRuntime().exec(compileCommand);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(compileProcess.getInputStream()));
 			String compileResult = bufferedReader.readLine();
 			result += "[compile INFO] "+compileResult+"\n";
@@ -51,5 +53,11 @@ public class CCoreServiceImpl implements LangCoreService {
 		}
 		return result;
 	}
+
+	@Override
+	public String createTempSourceFile(String fileOrDirName) {
+		return fileOrDirName;
+	}
+
 	
 }

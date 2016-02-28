@@ -1,5 +1,7 @@
 package com.jinhaoplus.oj.service.langCore.impl;
 
+import javax.xml.transform.Source;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,9 +86,11 @@ public class CoreDisptcherService implements CoreDispatcherService{
 	public void workFlow(ProblemSolution solution,String path) {
 		String code = solution.getCodeSubmit();
 		//write Code to temp file
-		String sourceFilePath = path+Source2FileService.renameForTempSource(solution)+"."+solution.getSolutionLanguage();
-		Source2FileService.persistentFile(solution,sourceFilePath);
+		String fileOrDirName = path+Source2FileService.renameForTempSource(solution)+"."+solution.getSolutionLanguage();
+		//Complile source file
 		if(langCoreService!=null){
+			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
+			Source2FileService.persistentFile(solution, sourceFilePath);
 			langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
 		}
 	}

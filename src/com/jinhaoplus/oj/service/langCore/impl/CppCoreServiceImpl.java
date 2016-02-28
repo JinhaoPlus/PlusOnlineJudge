@@ -27,4 +27,8 @@ public class CppCoreServiceImpl implements LangCoreService {
 		return null;
 	}
 
+	@Override
+	public String createTempSourceFile(String fileOrDirName) {
+		return fileOrDirName;
+	}
 }
