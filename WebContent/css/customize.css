@@ -27,3 +27,15 @@ login page css sheet
 .form-group {
     margin-bottom: 15px;
 }
+
+.question-content {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    line-height: 30px;
+    border-left: 3px solid #ddd;
+    padding-left: 20px;
+    padding-bottom: 2px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}

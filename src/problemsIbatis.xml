@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+	<typeAlias type="com.jinhaoplus.oj.domain.Problem" alias="problem" />
+	<!-- 获得全查询列表 -->
+	<select id="getAllProblems" resultClass="problem">
+		select 
+			problem_id as problemId,
+			problem_digest as problemDigest,
+			problem_content as problemContent,
+			problem_language as problemLanguage
+		 from tbl_ploj_problems
+	</select>
+
+	<!-- 根据id获得用户对象 -->
+	<select id="getProblemById" resultClass="problem">
+		select 
+			problem_id as problemId,
+			problem_digest as problemDigest,
+			problem_content as problemContent,
+			problem_language as problemLanguage
+		 from tbl_ploj_problems where problem_id=#value#
+	</select>
+</sqlMap>

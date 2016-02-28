@@ -24,7 +24,7 @@
 			<ul id="navBar-right" class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					style="margin-bottom: -5px" data-toggle="dropdown"><span
-						class="glyphicon glyphicon-user"> JinhaoLuo</span> <span
+						class="glyphicon glyphicon-user"> ${sessionScope.loginuser.username}</span> <span
 						class="caret"></span> </a>
 					<ul class="dropdown-menu">
 						<li><a href="/profile/">Profile</a></li>
