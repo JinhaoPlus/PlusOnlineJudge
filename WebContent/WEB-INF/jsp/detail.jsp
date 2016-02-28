@@ -44,8 +44,8 @@
 					<option value="c">C</option>
 					<option value="cpp">C++</option>
 					<option value="java" selected="selected">Java</option>
-					<option value="python">Python</option>
-					<option value="ruby">Ruby</option>
+					<option value="py">Python</option>
+					<option value="rb">Ruby</option>
 					<option value="haskell">Haskell</option>
 				</select>
 			</div>
@@ -81,7 +81,6 @@
 		var editor = ace.edit("editor");
 		editor.setTheme("ace/theme/monokai");
 		editor.getSession().setMode("ace/mode/java");
-		var text = editor.getValue();
 		function resetCode() {
 			editor.setValue("");
 		}
@@ -110,7 +109,21 @@
 				editor.setTheme("ace/theme/solarized_dark");
 		}
 		function submitCode() {
-			
+			var codeToSubmit = editor.getValue();
+			var problemId = ${chosenProblem.problemId};
+			var solutionLanguage = $('#lang option:selected').val();
+			$.ajax({
+				type:"POST",
+				url:"${ctx}/problems/submitCode",
+				data:{
+					codeSubmit:codeToSubmit,
+					problemId:problemId,
+					solutionLanguage:solutionLanguage
+				},
+				success:function(msg){
+					alert("Code Submitted");
+				}
+			});
 		}
 	</script>
 </body>

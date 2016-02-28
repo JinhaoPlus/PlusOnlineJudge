@@ -1,7 +1,5 @@
 package com.jinhaoplus.oj.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jinhaoplus.oj.domain.CommonMessage;
-import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.ProblemsService;
 
@@ -33,10 +30,6 @@ public class IndexController {
 		HttpSession session = request.getSession();
 		modelAndView.addObject("username", ((User)session.getAttribute("loginuser")).getUsername());
 		modelAndView.addObject("problemsList", problemsService.getAllProblems());
-		List<Problem> list = problemsService.getAllProblems();
-		for (Problem problem : list) {
-			System.out.println(problem);
-		}
 		modelAndView.addObject("message", message);
 		return modelAndView;
 	}

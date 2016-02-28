@@ -1,17 +1,18 @@
-package com.jinhaoplus.oj.service.impl;
+package com.jinhaoplus.oj.service.langCore.impl;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import org.springframework.stereotype.Service;
 
-import com.jinhaoplus.oj.service.CCoreService;
+import com.jinhaoplus.oj.domain.ProblemSolution;
+import com.jinhaoplus.oj.service.langCore.LangCoreService;
 
 @Service
-public class CCoreServiceImpl implements CCoreService {
+public class CCoreServiceImpl implements LangCoreService {
 
 	@Override
-	public String compileCode(Long codeId) {
+	public String compileCode(int problemId,String path) {
 		String result="";
 		try {
 			Process compileProcess = Runtime.getRuntime().exec("gcc -o hello d:\\temp.c");
