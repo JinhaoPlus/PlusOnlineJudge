@@ -1,5 +1,8 @@
 package com.jinhaoplus.oj.service.langCore.impl;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import org.springframework.stereotype.Service;
 
 import com.jinhaoplus.oj.domain.ProblemSolution;
@@ -9,9 +12,10 @@ import com.jinhaoplus.oj.service.langCore.LangCoreService;
 public class PyCoreServiceImpl implements LangCoreService {
 
 	@Override
+	//Interpreted Language doesn't need to be compiled : directly from source to be executable
 	public String compileCode(int problemId,String path) {
-		// TODO Auto-generated method stub
-		return null;
+		String result="";
+		return result;
 	}
 
 	@Override

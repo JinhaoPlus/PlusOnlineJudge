@@ -25,4 +25,29 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.css</url-pattern>
 	</servlet-mapping>
+	
+	<!-- set the login filter -->
+	<filter>
+     	<filter-name>loginFilter</filter-name>
+	    <filter-class>
+	        com.jinhaoplus.oj.common.LoginFilter
+	    </filter-class>
+	    
+	    <init-param>
+			<param-name>freePages</param-name>
+			<param-value>/accounts/tologin;/accounts/tosignup;/accounts/signup;/accounts/login</param-value>
+		</init-param>
+	    <init-param>
+			<param-name>wildCard</param-name>
+			<param-value>.woff;.ttf;.js;.css;.jpg;.JPG;.gif;.png;.PNG;.html;.xml;.swf;.cab;.xlsx;.pdf;.PDF;.doc;.DOC;.docx;.DOCX;.txt;.TXT;</param-value>
+		</init-param>
+		<init-param>
+			<param-name>toPage</param-name>
+			<param-value>/accounts/tologin</param-value>
+		</init-param>
+	 </filter>
+	 <filter-mapping>
+	    <filter-name>loginFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	 </filter-mapping>
 </web-app>

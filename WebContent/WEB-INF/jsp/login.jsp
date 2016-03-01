@@ -44,7 +44,7 @@
 		<div class="container">
 			<form class="form-signin" id="form-signin"
 				action="/PlusOnlineJudge/accounts/login/" method="post">
-				<h3 class="form-signin-heading">Sign Up</h3>
+				<h3 class="form-signin-heading">Login</h3>
 				<hr>
 				<div class="form-group">
 					<input autofocus="autofocus" id="username" maxlength="30"
