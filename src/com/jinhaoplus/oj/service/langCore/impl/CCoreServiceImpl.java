@@ -29,18 +29,9 @@ public class CCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String runCode(Long codeId) {
-		String result="";
-		try {
-			Process runProcess = Runtime.getRuntime().exec("hello.exe");
-			BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
-			String runResult = bufferedReader1.readLine();
-			result += "[run INFO] "+runResult+"\n";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
+	public String runCode(int ProblemId, String path) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

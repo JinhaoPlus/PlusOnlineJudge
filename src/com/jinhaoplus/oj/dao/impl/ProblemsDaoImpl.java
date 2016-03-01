@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.Problem;
+import com.jinhaoplus.oj.domain.ProblemTest;
 
 @Repository
 public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsDao{
@@ -36,9 +37,11 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 
 	@Override
 	public Problem getById(int id) {
-		Problem problem = (Problem) getSqlMapClientTemplate().queryForObject("getProblemById",id);
-		System.out.println(problem);
-		return problem;
+		return (Problem) getSqlMapClientTemplate().queryForObject("getProblemById",id);
+	}
+	@Override
+	public List<ProblemTest> getTestByProblemId(int problemId) {
+		return  (List<ProblemTest>) getSqlMapClientTemplate().queryForList("getTestByProblemId",problemId);
 	}
 
 }

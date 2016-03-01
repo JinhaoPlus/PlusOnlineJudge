@@ -2,6 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap>
 	<typeAlias type="com.jinhaoplus.oj.domain.Problem" alias="problem" />
+	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTest" alias="problemTest" />
 	<!-- 获得全查询列表 -->
 	<select id="getAllProblems" resultClass="problem">
 		select 
@@ -20,5 +21,15 @@
 			problem_content as problemContent,
 			problem_language as problemLanguage
 		 from tbl_ploj_problems where problem_id=#value#
+	</select>
+	
+	<!-- 根据问题id获得问题测试用例 -->
+	<select id="getTestByProblemId" resultClass="problemTest">
+		select 
+			testid as problemTestId,
+			test_problem_id as problemId,
+			test_input as problemTestInput,
+			test_output as problemTestOutput
+		 from tbl_ploj_tests where test_problem_id=#value#
 	</select>
 </sqlMap>
