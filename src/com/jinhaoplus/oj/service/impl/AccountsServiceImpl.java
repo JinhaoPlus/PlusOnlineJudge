@@ -26,10 +26,10 @@ public class AccountsServiceImpl implements AccountsService{
 		User probUser = accountsDao.getByName(user.getUsername());
 		if(probUser == null){
 			accountsDao.insert(user);
-			return new CommonMessage("200", "signup successfully");
+			return new CommonMessage("200", "signup successfully","");
 		}
 		else
-			return new CommonMessage("500", "username invalid");
+			return new CommonMessage("500", "username invalid","");
 	}
 
 	@Override
@@ -37,10 +37,10 @@ public class AccountsServiceImpl implements AccountsService{
 		user.setPassword(SecurityUtils.AESEncrypt(user.getPassword()));
 		User probUser = accountsDao.getByName(user.getUsername());
 		if(probUser != null && probUser.getPassword().equals(user.getPassword())){
-			return new CommonMessage("200", "login successfully");
+			return new CommonMessage("200", "login successfully","");
 		}
 		else {
-			return new CommonMessage("500", "invalid name or password");
+			return new CommonMessage("500", "invalid name or password","");
 		}
 	}
 

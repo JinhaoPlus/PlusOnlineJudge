@@ -24,7 +24,7 @@ public class IndexController {
 
 	@RequestMapping(value="/index")
 	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
-		CommonMessage message = new CommonMessage("200","To Login");
+		CommonMessage message = new CommonMessage("200","To Login","");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("index");
 		HttpSession session = request.getSession();

@@ -28,30 +28,25 @@ public class AccountsController {
 	
 	@RequestMapping(value="/tosignup")
 	public ModelAndView toSignUp(HttpServletRequest request,HttpServletResponse response,User user) {
-		CommonMessage message = new CommonMessage("200","Signup Successful");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("signup");
 		modelAndView.addObject("some", "jinhaoluo");
-		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/signup")
 	public ModelAndView signUp(HttpServletRequest request,HttpServletResponse response,User user) {
-		CommonMessage message = new CommonMessage("200","Signup Successful");
 		ModelAndView modelAndView = new ModelAndView();
-		message = accountsService.signUp(user);
+		CommonMessage message = accountsService.signUp(user);
 		
 		modelAndView.setViewName("signup-success");
 		modelAndView.addObject("some", "jinhaoluo");
-		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/login")
 	public void login(HttpServletRequest request,HttpServletResponse response,User user) throws IOException {
-		CommonMessage message = new CommonMessage("200","Signup Successful");
-		message = accountsService.login(user);
+		CommonMessage message = accountsService.login(user);
 		if(message.getCode().equals("200"))
 			request.getSession().setAttribute("loginuser", user);
 		response.sendRedirect(request.getContextPath()+"/index");
@@ -65,7 +60,7 @@ public class AccountsController {
 	
 	@RequestMapping(value="/tologin")
 	public ModelAndView toLogin(HttpServletRequest request,HttpServletResponse response,User user) {
-		CommonMessage message = new CommonMessage("200","To Login");
+		CommonMessage message = new CommonMessage("200","To Login","");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		request.getSession().setAttribute("user", user);

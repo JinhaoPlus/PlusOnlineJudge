@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jinhaoplus.oj.dao.ProblemsDao;
+import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
 
@@ -26,7 +27,7 @@ public class JavaCoreServiceImpl implements LangCoreService {
 
 
 	@Override
-	public String compileCode(int problemId, String path) {
+	public CommonMessage compileCode(int problemId, String path) {
 		String result = "";
 		try {
 			String compileCommand = "javac " + path;
@@ -37,7 +38,7 @@ public class JavaCoreServiceImpl implements LangCoreService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
+		return null;
 	}
 
 
