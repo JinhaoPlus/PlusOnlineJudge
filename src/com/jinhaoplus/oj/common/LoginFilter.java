@@ -164,10 +164,8 @@ public class LoginFilter extends HttpServlet implements Filter{
 			if (!httpResponse.isCommitted()) { // 如果响应未提交,交给过滤器链
 				try {
 					chain.doFilter(request, response);
-				} catch (ServletException sx) {
-					filterConfig.getServletContext().log(sx.getMessage());
-				} catch (IOException iox) {
-					filterConfig.getServletContext().log(iox.getMessage());
+				} catch (Exception e){
+					e.printStackTrace();
 				}
 			}
 		}

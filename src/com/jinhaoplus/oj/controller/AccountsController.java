@@ -57,6 +57,12 @@ public class AccountsController {
 		response.sendRedirect(request.getContextPath()+"/index");
 	}
 	
+	@RequestMapping(value="/logout")
+	public void loginout(HttpServletRequest request,HttpServletResponse response,User user) throws IOException {
+		request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/index");
+	}
+	
 	@RequestMapping(value="/tologin")
 	public ModelAndView toLogin(HttpServletRequest request,HttpServletResponse response,User user) {
 		CommonMessage message = new CommonMessage("200","To Login");
