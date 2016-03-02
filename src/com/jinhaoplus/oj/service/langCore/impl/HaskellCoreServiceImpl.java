@@ -15,11 +15,11 @@ public class HaskellCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String runCode(Long codeId) {
+	public String runCode(int ProblemId, String path) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public String OJResult() {
 		// TODO Auto-generated method stub

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.Problem;
+import com.jinhaoplus.oj.domain.ProblemSolution;
+import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.service.ProblemsService;
 
 @Service
@@ -33,6 +35,13 @@ public class ProblemsServiceImpl implements ProblemsService{
 	@Override
 	public Problem getById(int id) {
 		return problemsDao.getById(id);
+	}
+
+
+
+	@Override
+	public List<ProblemTest> getTestByProblemId(int problemId) {
+		return problemsDao.getTestByProblemId(problemId);
 	}
 
 }

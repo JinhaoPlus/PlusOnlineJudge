@@ -5,7 +5,7 @@ public interface LangCoreService {
 	//Compile source Code
 	public String compileCode(int ProblemId,String path);
 	//Run compiled Code
-	public String runCode(Long codeId);
+	public String runCode(int problemId,String path);
 	//OJ Result of the Running
 	public String OJResult();
 }

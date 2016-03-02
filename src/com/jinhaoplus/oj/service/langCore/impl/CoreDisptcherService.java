@@ -92,6 +92,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
 			Source2FileService.persistentFile(solution, sourceFilePath);
 			langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
+			langCoreService.runCode(solution.getProblemId(),sourceFilePath);
 		}
 	}
 
