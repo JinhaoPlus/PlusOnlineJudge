@@ -19,7 +19,12 @@
                 </fileset>
             </classpath>
         </javac>
-        <mkdir dir="sourceWait" />
+        <copy todir="${dest.dir}">
+            <fileset dir="${src.dir}">
+                <include name="*.xml" />
+                <include name="*.properties" />
+            </fileset>
+        </copy>
     </target>
     <target name="war" depends="compile" description="generate war package">
         <delete dir="${war.name}"/>
