@@ -50,7 +50,7 @@ public class ProblemsController {
 	public String submitCode(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
 		coreDispatcherService.dispatchCore(solution);
 		String userName = ((User)request.getSession().getAttribute("loginuser")).getUsername();
-		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
+		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
 		solution.setSolutionCoder(userName);
 		coreDispatcherService.workFlow(solution,sourceWaitPath);
 		return "success";

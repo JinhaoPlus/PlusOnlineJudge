@@ -2,7 +2,6 @@ package com.jinhaoplus.oj.util;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 
 import com.jinhaoplus.oj.domain.ProblemSolution;
 
@@ -15,7 +14,6 @@ public class Source2FileService {
 		long sysMill = System.currentTimeMillis();
 		rename.append("prblm");
 		rename.append(solution.getProblemId());
-		rename.append("#");
 		rename.append(solution.getSolutionCoder().substring(0, 4));
 		rename.append(new String(new Long(sysMill).toString()));
 		return rename.toString();

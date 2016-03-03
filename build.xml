@@ -19,7 +19,7 @@
                 </fileset>
             </classpath>
         </javac>
-        <copy file="${src.dir}/context.xml" todir="${dest.dir}"/>
+        <mkdir dir="sourceWait" />
     </target>
     <target name="war" depends="compile" description="generate war package">
         <delete dir="${war.name}"/>
