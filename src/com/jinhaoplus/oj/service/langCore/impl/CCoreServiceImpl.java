@@ -31,45 +31,7 @@ public class CCoreServiceImpl implements LangCoreService {
 	
 	@Override
 	public CommonMessage compileCode(int problemId,String path) {
-//		CommonMessage message;
-//		String fileName = path.substring(0,path.lastIndexOf("."));
-//		ProcessBuilder processBuilder;
-//        boolean compiled = true;
-//        processBuilder = new ProcessBuilder("gcc","-std=c++0x","-w","-o", fileName, path);
-//        processBuilder.redirectErrorStream(true);
-//
-//        try {
-//            Process compileProcess = processBuilder.start();
-//            //Regard the shell as IO object , so we can use inputStream to read some lines from this special IO
-//            InputStream is = compileProcess.getInputStream();
-//            BufferedReader b = new BufferedReader(new InputStreamReader(is));
-//            StringBuffer compileInfo=new StringBuffer("");
-//            String compileInfoLine;
-//            //if correctly compiled , there should not be output in the shell , so the inputStream should be null
-//            while ((compileInfoLine = b.readLine()) != null) {
-//                compiled = false;
-//                compileInfo.append(compileInfoLine);
-//            }
-//            compileProcess.waitFor();
-//
-//            if(compiled){
-//            	message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_SUCCESS_CODE"), 
-//            								PropertiesUtil.getProperty("COMPILE_SUCCESS"),
-//            								"");
-//            	is.close();
-//            }
-//            else{
-//            	message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_ERROR_CODE"), 
-//											PropertiesUtil.getProperty("COMPILE_ERROR"),
-//											compileInfo.toString());
-//                is.close();
-//               
-//            }
-//            return message;
-//        } catch (Exception e) {
-//            System.out.println("in compile\n " + e);
-//        }
-//		return null;
+
 		CommonMessage message = null;
 		ProcessBuilder processBuilder;
 
