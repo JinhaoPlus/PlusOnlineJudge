@@ -114,9 +114,7 @@ public class CCoreServiceImpl implements LangCoreService {
 		for (ProblemTest problemTest : problemTests) {
 			CommonMessage message = null;
 			ProcessBuilder processBuilder;
-			String javaDir = path.substring(0,path.lastIndexOf("/"));
-			processBuilder = new ProcessBuilder("cd",javaDir,"&&","java","Test");
-			System.out.println("run Command:"+"cd "+javaDir+" && "+"java Test");
+			processBuilder = new ProcessBuilder(path.substring(0, path.lastIndexOf(".")));
 			processBuilder.redirectErrorStream(true);
 
 			try {
