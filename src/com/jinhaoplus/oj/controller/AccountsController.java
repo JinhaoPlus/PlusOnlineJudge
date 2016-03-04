@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.AccountsService;
+import com.jinhaoplus.oj.util.PropertiesUtil;
 
 @Controller
 @RequestMapping(value="/accounts")

@@ -35,6 +35,27 @@
 				<div class="row question-content">
 					<div class="col-md-12">${chosenProblem.problemContent }</div>
 				</div>
+				<div class="row question-content table-responsive">
+						<table class="table table-hover table-striped">
+							<caption>Optional OJ Tests</caption>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Input</th>
+									<th>OutPut</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${displayTests }" var="test">
+									<tr>
+										<td>aaa</td>
+										<td>${test.problemTestInput }</td>
+										<td>${test.problemTestOutput }</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 			</div>
 		</div>
 		<br />
@@ -62,8 +83,8 @@
 					<span class="glyphicon glyphicon-refresh"></span>
 				</button>
 				<button id="submit" class="btn btn-primary btn-pad" type="submit"
-					data-original-title="Shortcut: Command + enter" onclick="submitCode();">Submit
-					Solution</button>
+					data-original-title="Shortcut: Command + enter"
+					onclick="submitCode();">Submit Solution</button>
 				<button id="discuss" class="btn btn btn-success" type="button">
 					Go to Discuss !</button>
 			</div>
@@ -110,17 +131,21 @@
 		}
 		function submitCode() {
 			var codeToSubmit = editor.getValue();
-			var problemId = ${chosenProblem.problemId};
+			var problemId = $
+			{
+				chosenProblem.problemId
+			}
+			;
 			var solutionLanguage = $('#lang option:selected').val();
 			$.ajax({
-				type:"POST",
-				url:"${ctx}/problems/submitCode",
-				data:{
-					codeSubmit:codeToSubmit,
-					problemId:problemId,
-					solutionLanguage:solutionLanguage
+				type : "POST",
+				url : "${ctx}/problems/submitCode",
+				data : {
+					codeSubmit : codeToSubmit,
+					problemId : problemId,
+					solutionLanguage : solutionLanguage
 				},
-				success:function(msg){
+				success : function(msg) {
 					alert("Code Submitted");
 				}
 			});

@@ -16,6 +16,7 @@ import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
+import com.jinhaoplus.oj.util.PropertiesUtil;
 
 @Service
 public class CCoreServiceImpl implements LangCoreService {
@@ -48,18 +49,18 @@ public class CCoreServiceImpl implements LangCoreService {
 			ResultReadCallable compileErrorThread = new ResultReadCallable(errorStream);
 			Future<String> compileErrorInfo = executor.submit(compileErrorThread);
 			Future<String> compileResultInfo = executor.submit(compileResultThread);
-			System.out.println("-------------------------------------------");
-			System.out.println(compileResultInfo.get());
-			System.out.println(compileErrorInfo.get());
-			System.out.println("-------------------------------------------");
+
 			compileProcess.waitFor();
 			compileProcess.destroy();
 			
 			if(compileProcess.exitValue()==0){
-				System.out.println("compile successfully");
+				message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_SUCCESS_CODE"), 
+						PropertiesUtil.getProperty("COMPILE_SUCCESS"), 
+						compileResultInfo.get());
 			}else{
-				System.out.println("compile error");
-				System.out.println(compileErrorInfo.get());
+				message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_ERROR_CODE"), 
+						PropertiesUtil.getProperty("COMPILE_ERROR"), 
+						compileErrorInfo.get());
 			}
 		} catch (Exception e) {
 
@@ -91,18 +92,18 @@ public class CCoreServiceImpl implements LangCoreService {
 				Future<String> runErrorInfo = executor.submit(runErrorThread);
 				Future<String> runResultInfo = executor.submit(runResultThread);
 				executor.submit(runTestWriteThread);
-				System.out.println("-------------------------------------------");
-				System.out.println(runResultInfo.get());
-				System.out.println(runErrorInfo.get());
-				System.out.println("-------------------------------------------");
+				
 				runProcess.waitFor();
 				runProcess.destroy();
 				
 				if(runProcess.exitValue()==0){
-					System.out.println("run successfully");
+					message = new CommonMessage(PropertiesUtil.getProperty("RUN_SUCCESS_CODE"), 
+							PropertiesUtil.getProperty("RUN_SUCCESS"), 
+							runResultInfo.get());
 				}else{
-					System.out.println("run error");
-					System.out.println(runErrorInfo.get());
+					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
+							PropertiesUtil.getProperty("RUN_ERROR"), 
+							runErrorInfo.get());
 				}
 			} catch (Exception e) {
 

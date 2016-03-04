@@ -1,5 +1,8 @@
 package com.jinhaoplus.oj.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.ProblemSolution;
+import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.CoreDispatcherService;
 import com.jinhaoplus.oj.service.ProblemsService;
@@ -39,6 +43,8 @@ public class ProblemsController {
 		modelAndView.setViewName("detail");
 		Problem problem = problemsService.getById(Integer.parseInt(problemId));
 		modelAndView.addObject("chosenProblem", problem);
+		List<ProblemTest> displayTests = problemsService.getDisplayTestByProblemId(Integer.parseInt(problemId));
+		modelAndView.addObject("displayTests",displayTests);
 		return modelAndView;
 	}
 	

@@ -12,4 +12,5 @@ public interface ProblemsService {
 	public List<Problem> getAllProblems();
 	public Problem getById(int id);
 	public List<ProblemTest> getTestByProblemId(int problemId);
+	public List<ProblemTest> getDisplayTestByProblemId(int problemId);
 }

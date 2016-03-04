@@ -18,6 +18,7 @@ import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
+import com.jinhaoplus.oj.util.PropertiesUtil;
 
 
 @Service
@@ -64,18 +65,18 @@ public class RubyCoreServiceImpl implements LangCoreService {
 				Future<String> runErrorInfo = executor.submit(runErrorThread);
 				Future<String> runResultInfo = executor.submit(runResultThread);
 				executor.submit(runTestWriteThread);
-				System.out.println("-------------------------------------------");
-				System.out.println(runResultInfo.get());
-				System.out.println(runErrorInfo.get());
-				System.out.println("-------------------------------------------");
+				
 				runProcess.waitFor();
 				runProcess.destroy();
 				
 				if(runProcess.exitValue()==0){
-					System.out.println("run successfully");
+					message = new CommonMessage(PropertiesUtil.getProperty("RUN_SUCCESS_CODE"), 
+							PropertiesUtil.getProperty("RUN_SUCCESS"), 
+							runResultInfo.get());
 				}else{
-					System.out.println("run error");
-					System.out.println(runErrorInfo.get());
+					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
+							PropertiesUtil.getProperty("RUN_ERROR"), 
+							runErrorInfo.get());
 				}
 			} catch (Exception e) {
 
