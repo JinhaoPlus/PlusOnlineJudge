@@ -1,4 +1,4 @@
-package com.jinhaoplus.oj.service.langCore;
+package com.jinhaoplus.oj.service;
 
 import com.jinhaoplus.oj.domain.ProblemSolution;
 

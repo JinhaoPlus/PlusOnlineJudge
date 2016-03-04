@@ -1,11 +1,19 @@
-package com.jinhaoplus.oj.service.langCore.impl;
+package com.jinhaoplus.oj.service.impl;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jinhaoplus.oj.domain.ProblemSolution;
-import com.jinhaoplus.oj.service.langCore.CoreDispatcherService;
+import com.jinhaoplus.oj.service.CoreDispatcherService;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
+import com.jinhaoplus.oj.service.langCore.impl.CCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.CppCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.HaskellCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.JavaCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.PyCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.RubyCoreServiceImpl;
 import com.jinhaoplus.oj.util.Source2FileService;
 
 @Service

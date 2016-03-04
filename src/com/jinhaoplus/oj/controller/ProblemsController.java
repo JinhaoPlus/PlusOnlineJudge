@@ -13,11 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.User;
+import com.jinhaoplus.oj.service.CoreDispatcherService;
 import com.jinhaoplus.oj.service.ProblemsService;
-
-import sun.print.resources.serviceui;
-
-import com.jinhaoplus.oj.service.langCore.CoreDispatcherService;
 
 @Controller
 @RequestMapping(value="/problems")
