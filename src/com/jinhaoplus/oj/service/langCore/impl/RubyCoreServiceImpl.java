@@ -17,6 +17,7 @@ import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
+import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
 import com.jinhaoplus.oj.util.PropertiesUtil;
 
@@ -41,7 +42,7 @@ public class RubyCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String runCode(int problemId, String path) {
+	public List<ProblemTestResult> runCode(int problemId, String path) {
 		List<ProblemTest> problemTests = problemsDao
 				.getTestByProblemId(problemId);
 		for (ProblemTest problemTest : problemTests) {

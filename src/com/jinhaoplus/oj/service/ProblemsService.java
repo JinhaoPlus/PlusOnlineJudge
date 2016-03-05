@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.ProblemTest;
+import com.jinhaoplus.oj.domain.ProblemTestResult;
 
 @Service
 public interface ProblemsService {
@@ -13,4 +14,5 @@ public interface ProblemsService {
 	public Problem getById(int id);
 	public List<ProblemTest> getTestByProblemId(int problemId);
 	public List<ProblemTest> getDisplayTestByProblemId(int problemId);
+	public void insertTestResult(ProblemTestResult testResult);
 }

@@ -3,6 +3,7 @@
 <sqlMap>
 	<typeAlias type="com.jinhaoplus.oj.domain.Problem" alias="problem" />
 	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTest" alias="problemTest" />
+	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTestResult" alias="problemTestResult" />
 	<!-- 获得全查询列表 -->
 	<select id="getAllProblems" resultClass="problem">
 		select 
@@ -32,4 +33,12 @@
 			test_output as problemTestOutput
 		 from tbl_ploj_tests where test_problem_id=#value#
 	</select>
+	
+	<!-- 将测试结果存入数据库 -->
+	<insert id="insertTestResult" parameterClass="problemTestResult">
+		insert into tbl_ploj_test_result
+			(problem_id,test_id,result,oj_result)
+			values
+			(#problemId#,#testId#,#result#,#ojResult#)
+	</insert>
 </sqlMap>

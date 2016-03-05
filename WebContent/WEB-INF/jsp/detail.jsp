@@ -26,48 +26,67 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="question-title" style="overflow: hidden;">
-					<h3 style="display: inline-block; margin-top: 0px;">
-						#${chosenProblem.problemId}. ${chosenProblem.problemDigest}</h3>
+					<h1 style="display: inline-block; margin-top: 0px;">
+						#${chosenProblem.problemId}. ${chosenProblem.problemDigest}
+					</h1>
 
-
+					<h5>Tips : You can use <span class="orange">${chosenProblem.problemLanguage}</span> as your programming Languages.</h5>
 				</div>
 				<hr>
+				
 				<div class="row question-content">
 					<div class="col-md-12">${chosenProblem.problemContent }</div>
 				</div>
-				<div class="row question-content table-responsive">
-						<table class="table table-hover table-striped">
-							<caption>Optional OJ Tests</caption>
-							<thead>
+				<%int count = 0; %>
+				<div class="row result-content table-responsive">
+					<table class="table table-hover table-striped col-md-2">
+						<caption>Optional OJ Tests</caption>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Input</th>
+								<th>OutPut</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${displayTests }" var="test">
 								<tr>
-									<th>#</th>
-									<th>Input</th>
-									<th>OutPut</th>
+									<td><%=++count %></td>
+									<td>${test.problemTestInput }</td>
+									<td>${test.problemTestOutput }</td>
 								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${displayTests }" var="test">
-									<tr>
-										<td>aaa</td>
-										<td>${test.problemTestInput }</td>
-										<td>${test.problemTestOutput }</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<br />
 		<div class="row" style="margin-bottom: 12px;">
 			<div class="col-md-2">
 				<select class="form-control" id="lang" onchange="changeLanguage();">
-					<option value="c">C</option>
-					<option value="cpp">C++</option>
-					<option value="java" selected="selected">Java</option>
-					<option value="py">Python</option>
-					<option value="rb">Ruby</option>
-					<option value="haskell">Haskell</option>
+					<c:forEach items="${problemLanguages }" var="language">
+						<c:if test="${language eq 'c' }">
+							<option value="c">C</option>
+						</c:if>
+						<c:if test="${language eq 'cpp' }">
+							<option value="cpp">C++</option>
+						</c:if>
+						<c:if test="${language eq 'java' }">
+							<option value="java">Java</option>
+						</c:if>
+						<c:if test="${language eq 'python' }">
+							<option value="py">Python</option>
+						</c:if>
+						<c:if test="${language eq 'ruby' }">
+							<option value="rb">Python</option>
+						</c:if>
+						<c:if test="${language eq 'haskell' }">
+							<option value="haskell">Haskell</option>
+						</c:if>
+						
+					</c:forEach>
+					
 				</select>
 			</div>
 			<div class="col-md-2">
@@ -93,9 +112,33 @@
 			style="margin-bottom: 12px;">
 			<div id="editor"></div>
 		</pre>
+		<div id="resultDiv" class="row table-responsive">
+		</div>
 
 	</div>
-
+	<div class="modal fade" id="resultDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   		<div class="modal-dialog">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	               OJ Result Detail
+	            </h4>
+	         </div>
+	         <div class="modal-body">
+	            在这里添加一些文本
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" 
+	               data-dismiss="modal">close
+	            </button>
+	         </div>
+	      </div><!-- /.modal-content -->
+		</div>
+	</div>
 
 
 	<script>
@@ -131,12 +174,9 @@
 		}
 		function submitCode() {
 			var codeToSubmit = editor.getValue();
-			var problemId = $
-			{
-				chosenProblem.problemId
-			}
-			;
+			var problemId = ${chosenProblem.problemId};
 			var solutionLanguage = $('#lang option:selected').val();
+			$('#resultDiv').addClass('result-content');
 			$.ajax({
 				type : "POST",
 				url : "${ctx}/problems/submitCode",
@@ -146,9 +186,58 @@
 					solutionLanguage : solutionLanguage
 				},
 				success : function(msg) {
-					alert("Code Submitted");
+					var results = "";
+					var count = 0;
+					results += "<table class='table table-hover table-striped col-md-2'>";
+					results += "<caption>OJ Results</caption>";
+					results += "<thead>";
+					results += "<tr>";
+					results += 		"<th>#</th>";
+					results += 		"<th>Judge</th>";
+					results += 		"<th>Input</th>";
+					results += 		"<th>Expected Output</th>";
+					results += 		"<th>OutPut</th>";
+					results += 		"<th>Details</th>";
+					results += "</tr>";
+					
+					results += "</thead>";
+					
+					results += "<tbody>";
+					
+					$.each(msg,function(index,item){
+						var realTestInput = item.testInput;
+						var realTestOutput = item.testOutput;
+						var realResult = item.result;
+						var realOjResult = item.ojResult;
+						
+						var cutLength = 30;
+						var displayTestInput = realTestInput.length>=cutLength?realTestInput.substr(0,cutLength)+"...":realTestInput;
+						var displayTestOutput = realTestOutput.length>=cutLength?realTestOutput.substr(0,cutLength)+"...":realTestOutput;
+						var displayResult = realResult.length>=cutLength?realResult.substr(0,cutLength)+"...":realResult;
+						
+						if(realOjResult == 'AC')
+							results += "<tr class='success'><td>"+(++count)+"</td>";
+						else if(realOjResult == 'CE')
+							results += "<tr class='warning'><td>"+(++count)+"</td>";
+						else if(realOjResult == 'WA')
+							results += "<tr class='danger'><td>"+(++count)+"</td>";
+						results += "<td>"+realOjResult+"</td>";
+						results += "<td>"+displayTestInput+"</td>";
+						results += "<td>"+displayTestOutput+"</td>";
+						results += "<td>"+displayResult+"</td>";
+						results += "<td><button type='button' class='btn btn-info' onclick='resultDetail();'>detail</button></td></tr>";
+					});
+					results += "</tbody>";
+					results += "</table>";
+					
+					$('#resultDiv').empty().append(results);
 				}
 			});
+		}
+		function resultDetail(item){
+			alert(realOjResult+realTestInput+realTestOutput+realResult);
+			alert(item['testInput']);
+			$("#resultDetailModal").modal();
 		}
 	</script>
 </body>

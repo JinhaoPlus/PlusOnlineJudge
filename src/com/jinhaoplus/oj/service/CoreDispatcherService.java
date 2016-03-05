@@ -1,8 +1,11 @@
 package com.jinhaoplus.oj.service;
 
+import java.util.List;
+
 import com.jinhaoplus.oj.domain.ProblemSolution;
+import com.jinhaoplus.oj.domain.ProblemTestResult;
 
 public interface CoreDispatcherService {
 	public void dispatchCore(ProblemSolution solution); 
-	public void workFlow(ProblemSolution solution,String path);
+	public List<ProblemTestResult> workFlow(ProblemSolution solution,String path);
 }

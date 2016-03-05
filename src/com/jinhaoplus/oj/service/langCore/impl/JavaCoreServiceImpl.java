@@ -3,6 +3,7 @@ package com.jinhaoplus.oj.service.langCore.impl;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Executors;
@@ -17,6 +18,7 @@ import com.jinhaoplus.oj.common.TestWriteCallable;
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.ProblemTest;
+import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
 import com.jinhaoplus.oj.util.PropertiesUtil;
 import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
@@ -72,9 +74,10 @@ public class JavaCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String runCode(int problemId, String path) {
+	public List<ProblemTestResult> runCode(int problemId, String path) {
 		List<ProblemTest> problemTests = problemsDao
 				.getTestByProblemId(problemId);
+		List<ProblemTestResult> results = new ArrayList<>();
 		for (ProblemTest problemTest : problemTests) {
 			CommonMessage message = null;
 			ProcessBuilder processBuilder;
@@ -102,6 +105,11 @@ public class JavaCoreServiceImpl implements LangCoreService {
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_SUCCESS_CODE"), 
 							PropertiesUtil.getProperty("RUN_SUCCESS"), 
 							runResultInfo.get());
+					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "AC", message);
+					problemsDao.insertTestResult(testResult);
+					testResult.setTestInput(problemTest.getProblemTestInput());
+					testResult.setTestOutput(problemTest.getProblemTestOutput());
+					results.add(testResult);
 				}else{
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 							PropertiesUtil.getProperty("RUN_ERROR"), 
@@ -112,7 +120,7 @@ public class JavaCoreServiceImpl implements LangCoreService {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return results;
 	}
 
 	@Override

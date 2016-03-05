@@ -1,9 +1,11 @@
 package com.jinhaoplus.oj.service.langCore.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.jinhaoplus.oj.domain.CommonMessage;
-import com.jinhaoplus.oj.domain.ProblemSolution;
+import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
 
 
@@ -17,7 +19,7 @@ public class CppCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String runCode(int ProblemId, String path) {
+	public List<ProblemTestResult> runCode(int ProblemId, String path) {
 		// TODO Auto-generated method stub
 		return null;
 	}

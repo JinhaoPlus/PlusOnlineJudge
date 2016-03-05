@@ -2,10 +2,13 @@ package com.jinhaoplus.oj.service.impl;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jinhaoplus.oj.domain.ProblemSolution;
+import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.CoreDispatcherService;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
 import com.jinhaoplus.oj.service.langCore.impl.CCoreServiceImpl;
@@ -89,7 +92,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 
 
 	@Override
-	public void workFlow(ProblemSolution solution,String path) {
+	public List<ProblemTestResult> workFlow(ProblemSolution solution,String path) {
 		String code = solution.getCodeSubmit();
 		//write Code to temp file
 		String fileOrDirName = path+Source2FileService.renameForTempSource(solution)+"."+solution.getSolutionLanguage();
@@ -98,8 +101,10 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
 			Source2FileService.persistentFile(solution, sourceFilePath);
 			langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
-			langCoreService.runCode(solution.getProblemId(),sourceFilePath);
+			List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),sourceFilePath);
+			return results;
 		}
+		return null;
 	}
 
 	
