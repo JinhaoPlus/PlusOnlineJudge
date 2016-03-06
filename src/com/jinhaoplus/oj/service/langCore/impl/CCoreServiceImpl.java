@@ -2,6 +2,7 @@ package com.jinhaoplus.oj.service.langCore.impl;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -83,6 +84,7 @@ public class CCoreServiceImpl implements LangCoreService {
 	public List<ProblemTestResult> runCode(int problemId, String path) {
 		List<ProblemTest> problemTests = problemsDao
 				.getTestByProblemId(problemId);
+		List<ProblemTestResult> results = new ArrayList<>();
 		for (ProblemTest problemTest : problemTests) {
 			CommonMessage message = null;
 			ProcessBuilder processBuilder;
@@ -109,6 +111,13 @@ public class CCoreServiceImpl implements LangCoreService {
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_SUCCESS_CODE"), 
 							PropertiesUtil.getProperty("RUN_SUCCESS"), 
 							runResultInfo.get());
+					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
+					String OJResult = this.OJResult(problemTest,testResult);
+					testResult.setOjResult(OJResult);
+					problemsDao.insertTestResult(testResult);
+					testResult.setTestInput(problemTest.getProblemTestInput());
+					testResult.setTestOutput(problemTest.getProblemTestOutput());
+					results.add(testResult);
 				}else{
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 							PropertiesUtil.getProperty("RUN_ERROR"), 
@@ -119,7 +128,7 @@ public class CCoreServiceImpl implements LangCoreService {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return results;
 	}
 
 	@Override
