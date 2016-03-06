@@ -56,12 +56,12 @@
 		select 
 			solution_id as solutionId,
 			problem_id as problemId,
-			code_submit as codeSubmit,
 			solution_coder_id as solutionCoderId,
 			solution_language as solutionLanguage,
 			solution_submit_time as codeSubmitTime,
 			solution_oj_result as finalOJResult
 		 from tbl_ploj_solution where solution_coder_id=#value#
+		 order by solution_submit_time desc
 	</select>
 	
 	<!--获取提交Id全部提交的代码 -->
@@ -75,4 +75,17 @@
 			solution_oj_result as finalOJResult
 		 from tbl_ploj_solution where solution_id=#value#
 	</select>
+	
+	<!--获取提交Id全部提交的代码 -->
+	<select id="getTestResultById" resultClass="problemTestResult">
+		select 
+			problem_id as problemId,
+			code_submit as codeSubmit,
+			solution_coder_id as solutionCoderId,
+			solution_language as solutionLanguage,
+			solution_submit_time as codeSubmitTime,
+			solution_oj_result as finalOJResult
+		 from tbl_ploj_solution where solution_id=#value#
+	</select>
+	
 </sqlMap>

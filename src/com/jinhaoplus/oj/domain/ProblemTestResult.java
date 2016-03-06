@@ -3,6 +3,7 @@ package com.jinhaoplus.oj.domain;
 public class ProblemTestResult {
 	private int resultId;
 	private int problemId;
+	private int solutionId;
 	private int testId;
 	private String testInput;
 	private String testOutput;
@@ -20,6 +21,13 @@ public class ProblemTestResult {
 	}
 	public void setProblemId(int problemId) {
 		this.problemId = problemId;
+	}
+	
+	public int getSolutionId() {
+		return solutionId;
+	}
+	public void setSolutionId(int solutionId) {
+		this.solutionId = solutionId;
 	}
 	public int getTestId() {
 		return testId;

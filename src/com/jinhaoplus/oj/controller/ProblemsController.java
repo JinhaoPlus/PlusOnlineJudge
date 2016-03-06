@@ -66,5 +66,16 @@ public class ProblemsController {
 		return results;
 	}
 	
+	@RequestMapping(value="/getSolutionDetail")
+	@ResponseBody
+	public String getSolutionDetail(HttpServletRequest request,HttpServletResponse response){
+		String problemId = request.getParameter("problemId");
+		String solutionId = request.getParameter("solutionId");
+		Problem problem = problemsService.getById(Integer.parseInt(problemId));
+		problemsService.getSolutionById(solutionId)
+		
+		
+		return null;
+	}
 	
 }

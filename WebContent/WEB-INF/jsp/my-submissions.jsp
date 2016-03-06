@@ -7,67 +7,110 @@
 <title>My Submissions</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@	include file="include.jsp"%>
+<script type="text/javascript">
+	function solutionMoreInfo(problemId,solutionId){
+		$.ajax({
+			type : "POST",
+			url : "${ctx}/problems/getSolutionDetail",
+			success : function(msg) {
+				
+			},
+			data : {
+				problemId : problemId,
+				solutionId : solutionId
+			}
+		});
+		$('#detailModal').modal('toggle');
+	}
+</script>
 </head>
 <body>
-	<%@	include file="topnav.jsp"%>
-	<div class="container">
-		<div class="row">
-			<div id="brief_stats" class="col-md-8">
-				<p>
-					Hello, <a href="/profile/">${username }</a>! You have solved <strong>0
-						/ 1</strong> problems. (<a href="/session/">manage sessions</a>)
-				</p>
+		<div class="modal fade" id="detailModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+					</div>
+					<div class="modal-body">在这里添加一些文本</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">close
+						</button>
+					</div>
+				</div>
 			</div>
-			<input id="searchText" type="text" placeholder="Search Problems"
-				class="col-md-4 pull-right search-query">
 		</div>
-		<div class="row col-md-4">
-			<select id="filterchosen" class="form-control"
-				onchange="selecthandler(this.value);">
-				<option value="default" selected="selected">Choose one
-					filter</option>
-				<option value="solved">Solved Problems</option>
-				<option value="unsolved">Unsolved Problems</option>
-				<option value="attempt">Attempted Problems</option>
-			</select>
-		</div>
-		<div id="problemListRow" class="row">
-			<table id="problemList" class="table table-striped table-centered">
-				<thead>
-					<tr>
-						<th class="header-id">
-							<div>#</div>
-						</th>
-						<th class="header-status">
-							<div>Status</div>
-						</th>
-						<th class="header-digest">
-							<div>Digest</div>
-						</th>
-						<th class="header-language">
-							<div>Language</div>
-						</th>
-						<th class="header-ac">
-							<div>Acceptance</div>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${problemsList }" var="problem">
+		<%@	include file="topnav.jsp"%>
+		<div class="container">
+			<div class="row">
+				<div id="brief_stats" class="col-md-8">
+					<h2>
+						Hello, <a href="/profile/">${loginuser.username }</a>! You have
+						submitted <span class="orange">${submitTimes }</span> times!
+					</h2>
+					<p>And these are all of your submissions :</p>
+				</div>
+			</div>
+			<div class="row col-md-4">
+				<select id="filterchosen" class="form-control"
+					onchange="selecthandler(this.value);">
+					<option value="default" selected="selected">Choose one
+						filter</option>
+					<option value="solved">Solved Problems</option>
+					<option value="unsolved">Unsolved Problems</option>
+					<option value="attempt">Attempted Problems</option>
+				</select>
+			</div>
+			<div id="problemListRow" class="row">
+				<table id="problemList" class="table table-striped table-centered">
+					<thead>
 						<tr>
-							<td>${problem.problemId }</td>
-							<td>ac</td>
-							<td><a href="${ctx }/problems/${problem.problemId }">
-									${problem.problemDigest } </a></td>
-							<td>${problem.problemLanguage }</td>
-							<td>30.4%</td>
-
+							<th>
+								<div>#</div>
+							</th>
+							<th>
+								<div>Problem#</div>
+							</th>
+							<th>
+								<div>Language</div>
+							</th>
+							<th>
+								<div>Submit Time</div>
+							</th>
+							<th>
+								<div>OJResult</div>
+							</th>
+							<th>
+								<div>More</div>
+							</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<%
+							int count = 0;
+						%>
+						<c:forEach items="${solutions }" var="solution">
+							<c:if test="${solution.finalOJResult == 'AC'}">
+								<tr class='success'>
+							</c:if>
+							<c:if test="${solution.finalOJResult != 'AC'}">
+								<tr class='danger'>
+							</c:if>
+							<td><%=++count%></td>
+							<td><a class="orange">${solution.problemId }</a></td>
+							<td>${solution.solutionLanguage }</td>
+							<td>${solution.codeSubmitTime }</td>
+							<td>${solution.finalOJResult }</td>
+							<td><div class="btn btn-info"
+									onclick="solutionMoreInfo(${solution.problemId},${solution.solutionId});">more
+									info</div></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</div>
-	</div>
 </body>
 </html>
