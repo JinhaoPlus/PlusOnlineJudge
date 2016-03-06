@@ -14,7 +14,7 @@ public class Source2FileService {
 		long sysMill = System.currentTimeMillis();
 		rename.append("prblm");
 		rename.append(solution.getProblemId());
-		rename.append(solution.getSolutionCoder().substring(0, 4));
+		rename.append(solution.getSolutionCoderId());
 		rename.append(new String(new Long(sysMill).toString()));
 		return rename.toString();
 	}

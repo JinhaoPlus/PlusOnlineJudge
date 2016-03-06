@@ -4,6 +4,7 @@
 	<typeAlias type="com.jinhaoplus.oj.domain.Problem" alias="problem" />
 	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTest" alias="problemTest" />
 	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTestResult" alias="problemTestResult" />
+	<typeAlias type="com.jinhaoplus.oj.domain.ProblemSolution" alias="problemSolution" />
 	<!-- 获得全查询列表 -->
 	<select id="getAllProblems" resultClass="problem">
 		select 
@@ -40,5 +41,13 @@
 			(problem_id,test_id,result,oj_result)
 			values
 			(#problemId#,#testId#,#result#,#ojResult#)
+	</insert>
+	
+	<!-- 将提交代码存入数据库 -->
+	<insert id="insertSolution" parameterClass="problemSolution">
+		insert into tbl_ploj_solution
+			(problem_id,code_submit,solution_coder_id,solution_language,solution_submit_time)
+			values
+			(#problemId#,#codeSubmit#,#solutionCoderId#,#solutionLanguage#,#codeSubmitTime#)
 	</insert>
 </sqlMap>

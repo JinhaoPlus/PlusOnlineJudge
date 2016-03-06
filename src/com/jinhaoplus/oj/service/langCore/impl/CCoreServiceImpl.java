@@ -14,6 +14,7 @@ import com.jinhaoplus.oj.common.ResultReadCallable;
 import com.jinhaoplus.oj.common.TestWriteCallable;
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
+import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
@@ -30,6 +31,13 @@ public class CCoreServiceImpl implements LangCoreService {
 	}
 	
 	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors .newCachedThreadPool();
+	
+	@Override
+	public CommonMessage insertSolution(ProblemSolution problemSolution) {
+		problemsDao.insertSolution(problemSolution);
+		return null;
+	}
+
 	
 	@Override
 	public CommonMessage compileCode(int problemId,String path) {
@@ -115,14 +123,12 @@ public class CCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String OJResult() {
-		String result="";
-		try {
-			result += "[run INFO] "+"AC"+"\n";
-		} catch (Exception e) {
-			e.printStackTrace();
+	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
+		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
+			return "AC";
+		}else{
+			return "WA";
 		}
-		return result;
 	}
 
 	@Override
@@ -130,5 +136,6 @@ public class CCoreServiceImpl implements LangCoreService {
 		return fileOrDirName;
 	}
 
+	
 	
 }

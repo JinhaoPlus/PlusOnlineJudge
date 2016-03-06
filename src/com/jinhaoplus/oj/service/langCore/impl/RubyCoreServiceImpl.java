@@ -36,6 +36,12 @@ public class RubyCoreServiceImpl implements LangCoreService {
 
 	
 	@Override
+	public CommonMessage insertSolution(ProblemSolution problemSolution) {
+		problemsDao.insertSolution(problemSolution);
+		return null;
+	}
+	
+	@Override
 	public CommonMessage compileCode(int problemId,String path) {
 		// TODO Auto-generated method stub
 		return null;
@@ -88,9 +94,12 @@ public class RubyCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String OJResult() {
-		// TODO Auto-generated method stub
-		return null;
+	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
+		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
+			return "AC";
+		}else{
+			return "WA";
+		}
 	}
 
 	@Override

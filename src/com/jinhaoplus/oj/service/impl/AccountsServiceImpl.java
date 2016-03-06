@@ -44,4 +44,9 @@ public class AccountsServiceImpl implements AccountsService{
 		}
 	}
 
+	@Override
+	public User getUserByName(String name) {
+		return accountsDao.getByName(name);
+	}
+
 }

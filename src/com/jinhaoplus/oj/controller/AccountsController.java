@@ -48,8 +48,10 @@ public class AccountsController {
 	@RequestMapping(value="/login")
 	public void login(HttpServletRequest request,HttpServletResponse response,User user) throws IOException {
 		CommonMessage message = accountsService.login(user);
-		if(message.getCode().equals("200"))
+		if(message.getCode().equals("200")){
+			user = accountsService.getUserByName(user.getUsername());
 			request.getSession().setAttribute("loginuser", user);
+		}
 		response.sendRedirect(request.getContextPath()+"/index");
 	}
 	

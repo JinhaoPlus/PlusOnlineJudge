@@ -99,6 +99,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		//Complile source file
 		if(langCoreService!=null){
 			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
+			langCoreService.insertSolution(solution);
 			Source2FileService.persistentFile(solution, sourceFilePath);
 			langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
 			List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),sourceFilePath);

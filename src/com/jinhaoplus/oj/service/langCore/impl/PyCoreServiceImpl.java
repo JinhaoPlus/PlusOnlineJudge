@@ -15,6 +15,7 @@ import com.jinhaoplus.oj.common.ResultReadCallable;
 import com.jinhaoplus.oj.common.TestWriteCallable;
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
+import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
@@ -32,6 +33,11 @@ public class PyCoreServiceImpl implements LangCoreService {
 	
 	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors .newCachedThreadPool();
 
+	@Override
+	public CommonMessage insertSolution(ProblemSolution problemSolution) {
+		problemsDao.insertSolution(problemSolution);
+		return null;
+	}
 	
 	@Override
 	//Interpreted Language doesn't need to be compiled : directly from source to be executable
@@ -86,9 +92,12 @@ public class PyCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String OJResult() {
-		// TODO Auto-generated method stub
-		return null;
+	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
+		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
+			return "AC";
+		}else{
+			return "WA";
+		}
 	}
 
 	@Override

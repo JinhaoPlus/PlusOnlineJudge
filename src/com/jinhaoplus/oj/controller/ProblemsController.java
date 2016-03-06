@@ -1,7 +1,7 @@
 package com.jinhaoplus.oj.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,9 +56,11 @@ public class ProblemsController {
 	@ResponseBody
 	public List<ProblemTestResult> submitCode(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
 		coreDispatcherService.dispatchCore(solution);
-		String userName = ((User)request.getSession().getAttribute("loginuser")).getUsername();
+		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
 		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
-		solution.setSolutionCoder(userName);
+		solution.setSolutionCoderId(userId);
+		solution.setCodeSubmitTime(new Date());
+		
 		List<ProblemTestResult> results = coreDispatcherService.workFlow(solution,sourceWaitPath);
 		return results;
 	}

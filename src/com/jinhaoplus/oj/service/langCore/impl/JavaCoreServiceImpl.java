@@ -17,6 +17,7 @@ import com.jinhaoplus.oj.common.ResultReadCallable;
 import com.jinhaoplus.oj.common.TestWriteCallable;
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
+import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
@@ -36,6 +37,14 @@ public class JavaCoreServiceImpl implements LangCoreService {
 	
 	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors .newCachedThreadPool();
 
+	@Override
+	public CommonMessage insertSolution(ProblemSolution problemSolution) {
+		CommonMessage message = null;
+		problemsDao.insertSolution(problemSolution);
+		return null;
+	}
+
+	
 	@Override
 	public CommonMessage compileCode(int problemId, String path) {
 		CommonMessage message = null;
@@ -105,7 +114,10 @@ public class JavaCoreServiceImpl implements LangCoreService {
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_SUCCESS_CODE"), 
 							PropertiesUtil.getProperty("RUN_SUCCESS"), 
 							runResultInfo.get());
-					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "AC", message);
+					
+					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
+					String OJResult = this.OJResult(problemTest,testResult);
+					testResult.setOjResult(OJResult);
 					problemsDao.insertTestResult(testResult);
 					testResult.setTestInput(problemTest.getProblemTestInput());
 					testResult.setTestOutput(problemTest.getProblemTestOutput());
@@ -124,9 +136,12 @@ public class JavaCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public String OJResult() {
-		// TODO Auto-generated method stub
-		return null;
+	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
+		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
+			return "AC";
+		}else{
+			return "WA";
+		}
 	}
 
 	@Override
@@ -144,4 +159,5 @@ public class JavaCoreServiceImpl implements LangCoreService {
 		return null;
 	}
 
+	
 }

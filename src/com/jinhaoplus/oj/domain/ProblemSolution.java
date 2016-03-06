@@ -1,11 +1,14 @@
 package com.jinhaoplus.oj.domain;
 
+import java.util.Date;
+
 public class ProblemSolution {
 	private int solutionId;
 	private int problemId;
 	private String codeSubmit;
-	private String solutionCoder;
+	private int solutionCoderId;
 	private String solutionLanguage;
+	private Date codeSubmitTime;
 	
 	
 	public int getSolutionId() {
@@ -37,14 +40,23 @@ public class ProblemSolution {
 		this.codeSubmit = codeSubmit;
 	}
 
-
-	public String getSolutionCoder() {
-		return solutionCoder;
+	public int getSolutionCoderId() {
+		return solutionCoderId;
 	}
 
 
-	public void setSolutionCoder(String solutionCoder) {
-		this.solutionCoder = solutionCoder;
+	public void setSolutionCoderId(int solutionCoderId) {
+		this.solutionCoderId = solutionCoderId;
+	}
+
+
+	public Date getCodeSubmitTime() {
+		return codeSubmitTime;
+	}
+
+
+	public void setCodeSubmitTime(Date codeSubmitTime) {
+		this.codeSubmitTime = codeSubmitTime;
 	}
 
 
