@@ -17,14 +17,17 @@
 	bottom: 0;
 	left: 0;
 }
-</style>
+</style> 
 <%@	include file="include.jsp"%>
 </head>
 <body>
 	<%@	include file="topnav.jsp"%>
+	<a href="mailto:rocking2013@hotmail.com">
+		<img src="${ctx }/res/help.png" class="img-responsive" height="60px" width="120px" id="help"/>
+	</a>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-11">
 				<div class="question-title" style="overflow: hidden;">
 					<h1 style="display: inline-block; margin-top: 0px;">
 						#${chosenProblem.problemId}. ${chosenProblem.problemDigest}
