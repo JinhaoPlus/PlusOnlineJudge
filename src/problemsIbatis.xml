@@ -46,8 +46,33 @@
 	<!-- 将提交代码存入数据库 -->
 	<insert id="insertSolution" parameterClass="problemSolution">
 		insert into tbl_ploj_solution
-			(problem_id,code_submit,solution_coder_id,solution_language,solution_submit_time)
+			(problem_id,code_submit,solution_coder_id,solution_language,solution_submit_time,solution_oj_result)
 			values
-			(#problemId#,#codeSubmit#,#solutionCoderId#,#solutionLanguage#,#codeSubmitTime#)
+			(#problemId#,#codeSubmit#,#solutionCoderId#,#solutionLanguage#,#codeSubmitTime#,#finalOJResult#)
 	</insert>
+	
+	<!--获取全部提交的代码 -->
+	<select id="getAllSolutions" resultClass="problemSolution">
+		select 
+			solution_id as solutionId,
+			problem_id as problemId,
+			code_submit as codeSubmit,
+			solution_coder_id as solutionCoderId,
+			solution_language as solutionLanguage,
+			solution_submit_time as codeSubmitTime,
+			solution_oj_result as finalOJResult
+		 from tbl_ploj_solution where solution_coder_id=#value#
+	</select>
+	
+	<!--获取提交Id全部提交的代码 -->
+	<select id="getSolutionById" resultClass="problemSolution">
+		select 
+			problem_id as problemId,
+			code_submit as codeSubmit,
+			solution_coder_id as solutionCoderId,
+			solution_language as solutionLanguage,
+			solution_submit_time as codeSubmitTime,
+			solution_oj_result as finalOJResult
+		 from tbl_ploj_solution where solution_id=#value#
+	</select>
 </sqlMap>

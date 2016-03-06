@@ -17,4 +17,6 @@ public interface ProblemsService {
 	public List<ProblemTest> getDisplayTestByProblemId(int problemId);
 	public void insertTestResult(ProblemTestResult testResult);
 	public void insertSolution(ProblemSolution problemSolution);
+	public List<ProblemSolution> getAllSolutions(int coderId);
+	public ProblemSolution getSolutionById(int solutionId);
 }

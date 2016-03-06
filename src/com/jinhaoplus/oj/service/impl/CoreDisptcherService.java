@@ -93,16 +93,24 @@ public class CoreDisptcherService implements CoreDispatcherService{
 
 	@Override
 	public List<ProblemTestResult> workFlow(ProblemSolution solution,String path) {
-		String code = solution.getCodeSubmit();
 		//write Code to temp file
 		String fileOrDirName = path+Source2FileService.renameForTempSource(solution)+"."+solution.getSolutionLanguage();
-		//Complile source file
+		//workflow source file
 		if(langCoreService!=null){
 			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
-			langCoreService.insertSolution(solution);
+			
 			Source2FileService.persistentFile(solution, sourceFilePath);
 			langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
 			List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),sourceFilePath);
+			String finalOJResult = "AC";
+			for (ProblemTestResult problemTestResult : results) {
+				if(!"AC".equals(problemTestResult.getOjResult())){
+					finalOJResult = "WA";
+					break;
+				}
+			}
+			solution.setFinalOJResult(finalOJResult);
+			langCoreService.insertSolution(solution);
 			return results;
 		}
 		return null;

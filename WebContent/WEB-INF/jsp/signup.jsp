@@ -109,7 +109,9 @@
 				</div>
 				<button class="btn btn-primary" type="submit"
 					onclick="valid_submit();">Sign Up for PlusOJ</button>
+				<a href="${ctx }/accounts/tologin"  class="btn btn-info">login?</a>
 			</form>
+			
 		</div>
 	</div>
 </body>

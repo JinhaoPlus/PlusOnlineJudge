@@ -29,7 +29,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="/profile/">Profile</a></li>
 						<li class="divider"></li>
-						<li><a href="/submissions/"><span
+						<li><a href="${ctx}/mySubmissions"><span
 								class="glyphicon glyphicon-list"> Submissions</span></a></li>
 						<li><a href="/discuss/user/JinhaoLuo"><span
 								class="glyphicon glyphicon-comment"> My Discuss</span></a></li>

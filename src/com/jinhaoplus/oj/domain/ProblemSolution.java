@@ -9,7 +9,7 @@ public class ProblemSolution {
 	private int solutionCoderId;
 	private String solutionLanguage;
 	private Date codeSubmitTime;
-	
+	private String finalOJResult;
 	
 	public int getSolutionId() {
 		return solutionId;
@@ -67,6 +67,16 @@ public class ProblemSolution {
 
 	public void setSolutionLanguage(String solutionLanguage) {
 		this.solutionLanguage = solutionLanguage;
+	}
+
+	
+	public String getFinalOJResult() {
+		return finalOJResult;
+	}
+
+
+	public void setFinalOJResult(String finalOJResult) {
+		this.finalOJResult = finalOJResult;
 	}
 
 

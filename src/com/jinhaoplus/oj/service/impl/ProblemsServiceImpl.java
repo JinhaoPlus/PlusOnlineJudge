@@ -75,4 +75,18 @@ public class ProblemsServiceImpl implements ProblemsService{
 		
 	}
 
+
+
+	@Override
+	public List<ProblemSolution> getAllSolutions(int coderId) {
+		return problemsDao.getAllSolutions(coderId);
+	}
+
+
+
+	@Override
+	public ProblemSolution getSolutionById(int solutionId) {
+		return problemsDao.getSolutionById(solutionId);
+	}
+
 }

@@ -36,6 +36,7 @@
 							}
 						});
 	}
+
 </script>
 </head>
 <body>
@@ -43,7 +44,7 @@
 	<div class="container">
 		<div class="container">
 			<form class="form-signin" id="form-signin"
-				action="/PlusOnlineJudge/accounts/login/" method="post">
+				action="${ctx }/accounts/login" method="post">
 				<h3 class="form-signin-heading">Login</h3>
 				<hr>
 				<div class="form-group">
@@ -57,6 +58,7 @@
 				</div>
 				<button class="btn btn-primary" type="submit"
 					onclick="valid_submit();">Login PlusOJ</button>
+				<a class="btn btn-info" href="${ctx }/accounts/tosignup">sign up?</a>
 			</form>
 		</div>
 	</div>
