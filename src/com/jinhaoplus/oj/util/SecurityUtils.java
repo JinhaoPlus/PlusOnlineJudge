@@ -17,7 +17,6 @@ public class SecurityUtils {
             byte messageDigest[] = digest.digest();
             // Create Hex String
             StringBuffer hexString = new StringBuffer();
-            // 字节数组转换为 十六进制 数
             for (int i = 0; i < messageDigest.length; i++) {
                 String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
                 if (shaHex.length() < 2) {
@@ -35,17 +34,11 @@ public class SecurityUtils {
 	
 	public static String AESEncrypt(String plainText) {
 		try {
-			// 双方协定的加密密钥字符串
 			byte[] key = new String("testtesttesttest").getBytes("utf-8");
-			// 初始化密码器
 			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-			// 初始化密钥
 			SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
-			// 密码器注入密码
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-			// 执行AES加密
 			byte[] cipherText = cipher.doFinal(plainText.getBytes("UTF8"));
-			// 执行Base64加密处理
 			String encryptedString = new String(Base64.encodeBase64(cipherText));
 			return encryptedString;
 		} catch (Exception e) {
@@ -56,18 +49,12 @@ public class SecurityUtils {
 
 	public static String AESDecrypt(String encryptedText) {
 		try {
-			// 双方协定的加密密钥字符串
 			byte[] key = new String("testtesttesttest").getBytes("utf-8");
-			// 初始化密码器
 			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
-			// 初始化密钥
 			SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
-			// 密码器注入密码
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
-			// 执行Base64解密处理
 			byte[] cipherText = Base64.decodeBase64(encryptedText
 					.getBytes("utf-8"));
-			// 执行AES解密
 			String decryptedString = new String(cipher.doFinal(cipherText),
 					"UTF-8");
 			return decryptedString;
