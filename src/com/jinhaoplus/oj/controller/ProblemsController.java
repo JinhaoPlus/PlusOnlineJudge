@@ -44,11 +44,11 @@ public class ProblemsController {
 	public ModelAndView chooseProblem(HttpServletRequest request,HttpServletResponse response,@PathVariable("problemid") String problemId){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("detail");
-		Problem problem = problemsService.getById(Integer.parseInt(problemId));
+		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
 		modelAndView.addObject("chosenProblem", problem);
 		modelAndView.addObject("problemLanguages", Arrays.asList(problem.getProblemLanguage().split("&")));
 		List<String> list =  Arrays.asList(problem.getProblemLanguage().split("&"));
-		List<ProblemTest> displayTests = problemsService.getDisplayTestByProblemId(Integer.parseInt(problemId));
+		List<ProblemTest> displayTests = problemsService.getDisplayTestsByProblemId(Integer.parseInt(problemId));
 		modelAndView.addObject("displayTests",displayTests);
 		return modelAndView;
 	}
@@ -61,8 +61,19 @@ public class ProblemsController {
 		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
 		solution.setSolutionCoderId(userId);
 		solution.setCodeSubmitTime(new Date());
-		
+		int solutionId = problemsService.insertSolution(solution);
+		solution.setSolutionId(solutionId);
 		List<ProblemTestResult> results = coreDispatcherService.workFlow(solution,sourceWaitPath);
+		String finalOJResult = "AC";
+		for (ProblemTestResult problemTestResult : results) {
+			if(!"AC".equals(problemTestResult.getOjResult())){
+				finalOJResult = "WA";
+				break;
+			}
+		}
+		solution.setFinalOJResult(finalOJResult);
+		problemsService.updateSolution(solution);
+		
 		return results;
 	}
 	
@@ -71,7 +82,7 @@ public class ProblemsController {
 	public String getSolutionDetail(HttpServletRequest request,HttpServletResponse response){
 		String problemId = request.getParameter("problemId");
 		String solutionId = request.getParameter("solutionId");
-		Problem problem = problemsService.getById(Integer.parseInt(problemId));
+		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
 		problemsService.getSolutionById(solutionId)
 		
 		

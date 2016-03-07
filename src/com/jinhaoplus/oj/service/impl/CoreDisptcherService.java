@@ -21,7 +21,7 @@ import com.jinhaoplus.oj.util.Source2FileService;
 
 @Service
 public class CoreDisptcherService implements CoreDispatcherService{
-	
+
 	private LangCoreService langCoreService = null;
 	
 	public void setLangCoreService(LangCoreService langCoreService) {
@@ -101,16 +101,9 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			
 			Source2FileService.persistentFile(solution, sourceFilePath);
 			langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
-			List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),sourceFilePath);
-			String finalOJResult = "AC";
-			for (ProblemTestResult problemTestResult : results) {
-				if(!"AC".equals(problemTestResult.getOjResult())){
-					finalOJResult = "WA";
-					break;
-				}
-			}
-			solution.setFinalOJResult(finalOJResult);
-			langCoreService.insertSolution(solution);
+			
+			List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),solution.getSolutionId() , sourceFilePath);
+			
 			return results;
 		}
 		return null;

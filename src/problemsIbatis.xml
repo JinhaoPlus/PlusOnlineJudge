@@ -3,100 +3,129 @@
 <sqlMap>
 	<typeAlias type="com.jinhaoplus.oj.domain.Problem" alias="problem" />
 	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTest" alias="problemTest" />
-	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTestResult" alias="problemTestResult" />
-	<typeAlias type="com.jinhaoplus.oj.domain.ProblemSolution" alias="problemSolution" />
+	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTestResult"
+		alias="problemTestResult" />
+	<typeAlias type="com.jinhaoplus.oj.domain.ProblemSolution"
+		alias="problemSolution" />
 	<!-- About Problems -->
 	<!-- Query all problems -->
 	<select id="getAllProblems" resultClass="problem">
-		select 
-			problem_id as problemId,
-			problem_digest as problemDigest,
-			problem_content as problemContent,
-			problem_language as problemLanguage
-		 from tbl_ploj_problems
+		select
+		problem_id as
+		problemId,
+		problem_digest as problemDigest,
+		problem_content as
+		problemContent,
+		problem_language as problemLanguage
+		from
+		tbl_ploj_problems
 	</select>
 
 	<!-- find problem by problemId -->
 	<select id="getProblemById" resultClass="problem">
-		select 
-			problem_id as problemId,
-			problem_digest as problemDigest,
-			problem_content as problemContent,
-			problem_language as problemLanguage
-		 from tbl_ploj_problems 
-		 where problem_id=#value#
+		select
+		problem_id as
+		problemId,
+		problem_digest as problemDigest,
+		problem_content as
+		problemContent,
+		problem_language as problemLanguage
+		from
+		tbl_ploj_problems
+		where problem_id=#value#
 	</select>
-	
+
 	<!-- About problem Tests -->
 	<!-- find test by problemId -->
 	<select id="getTestsByProblemId" resultClass="problemTest">
-		select 
-			testid as problemTestId,
-			test_problem_id as problemId,
-			test_input as problemTestInput,
-			test_output as problemTestOutput
-		 from tbl_ploj_tests 
-		 where test_problem_id=#value#
+		select
+		testid as
+		problemTestId,
+		test_problem_id as problemId,
+		test_input as
+		problemTestInput,
+		test_output as problemTestOutput
+		from tbl_ploj_tests
+		where test_problem_id=#value#
 	</select>
-	
-	
+
+
 	<!-- About Solution -->
 	<!-- insert Solution -->
 	<insert id="insertSolution" parameterClass="problemSolution">
 		insert into tbl_ploj_solution
-			(problem_id,code_submit,solution_coder_id,solution_language,solution_submit_time,solution_oj_result)
-			values
-			(#problemId#,#codeSubmit#,#solutionCoderId#,#solutionLanguage#,#codeSubmitTime#,#finalOJResult#)
+		(problem_id,code_submit,solution_coder_id,solution_language,solution_submit_time,solution_oj_result)
+		values
+		(#problemId#,#codeSubmit#,#solutionCoderId#,#solutionLanguage#,#codeSubmitTime#,#finalOJResult#)
+		<selectKey resultClass="int" type="post" keyProperty="solution_id">
+			select
+			LAST_INSERT_ID() as value
+		</selectKey>
 	</insert>
-	
+
+	<!-- update solution -->
+	<update id="updateSolution" parameterClass="problemSolution">
+		update tbl_ploj_solution
+		set solution_oj_result = #finalOJResult#
+		WHERE solution_id = #solutionId#
+	</update>
+
 	<!-- Query one's all solutions -->
 	<select id="getAllSolutionsByCoderId" resultClass="problemSolution">
-		select 
-			solution_id as solutionId,
-			problem_id as problemId,
-			solution_coder_id as solutionCoderId,
-			solution_language as solutionLanguage,
-			solution_submit_time as codeSubmitTime,
-			solution_oj_result as finalOJResult
-		 from tbl_ploj_solution 
-		 where solution_coder_id=#value#
-		 order by solution_submit_time desc
+		select
+		solution_id as solutionId,
+		problem_id as problemId,
+		solution_coder_id as
+		solutionCoderId,
+		solution_language as solutionLanguage,
+		solution_submit_time as codeSubmitTime,
+		solution_oj_result as
+		finalOJResult
+		from tbl_ploj_solution
+		where solution_coder_id=#value#
+		order by solution_submit_time desc
 	</select>
-	
+
 	<!-- find solution by id -->
 	<select id="getSolutionById" resultClass="problemSolution">
-		select 
-			problem_id as problemId,
-			code_submit as codeSubmit,
-			solution_coder_id as solutionCoderId,
-			solution_language as solutionLanguage,
-			solution_submit_time as codeSubmitTime,
-			solution_oj_result as finalOJResult
-		 from tbl_ploj_solution 
-		 where solution_id=#value#
+		select
+		problem_id as
+		problemId,
+		code_submit as codeSubmit,
+		solution_coder_id as
+		solutionCoderId,
+		solution_language as solutionLanguage,
+		solution_submit_time as codeSubmitTime,
+		solution_oj_result as
+		finalOJResult
+		from tbl_ploj_solution
+		where solution_id=#value#
 	</select>
-	
+
 	<!-- About Test Results -->
 	<!-- insert test Results -->
 	<insert id="insertTestResult" parameterClass="problemTestResult">
-		insert into tbl_ploj_test_result
-			(problem_id,test_id,solution_id,result,oj_result)
-			values
-			(#problemId#,#testId#,#solutionId#,#result#,#ojResult#)
+		insert into
+		tbl_ploj_test_result
+		(problem_id,test_id,solution_id,result,oj_result)
+		values
+		(#problemId#,#testId#,#solutionId#,#result#,#ojResult#)
 	</insert>
-	
+
 	<!-- find Result in some solution -->
-	<select id="getTestResultBySolutionId" resultClass="problemTestResult">
-		select 
-			problem_id as problemId,
-			test_id as testId,
-			solution_id as solutionId,
-			result as result,
-			oj_result as ojResult
-		from tbl_ploj_test_result
+	<select id="getTestResultsBySolutionId" resultClass="problemTestResult">
+		select
+		problem_id as problemId,
+		test_id as testId,
+		solution_id as
+		solutionId,
+		result as result,
+		oj_result as ojResult
+		from
+		tbl_ploj_test_result
 		where solution_id = #value#
 	</insert>
-	
-	
-	
+
+
+
 </sqlMap>

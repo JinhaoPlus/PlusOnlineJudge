@@ -33,18 +33,18 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
          super.setSqlMapClient(sqlMapClient);  
     }   
 	@Override
-	public List<Problem> getList() {
+	public List<Problem> getAllProblems() {
 		return getSqlMapClientTemplate().queryForList("getAllProblems",null);
 	}
 
 	@Override
-	public Problem getById(int id) {
+	public Problem getProblemById(int id) {
 		return (Problem) getSqlMapClientTemplate().queryForObject("getProblemById",id);
 	}
 	
 	@Override
-	public List<ProblemTest> getTestByProblemId(int problemId) {
-		return  (List<ProblemTest>) getSqlMapClientTemplate().queryForList("getTestByProblemId",problemId);
+	public List<ProblemTest> getTestsByProblemId(int problemId) {
+		return  (List<ProblemTest>) getSqlMapClientTemplate().queryForList("getTestsByProblemId",problemId);
 	}
 	@Override
 	public void insertTestResult(ProblemTestResult testResult) {
@@ -52,22 +52,32 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 		
 	}
 	@Override
-	public void insertSolution(ProblemSolution problemSolution) {
-		getSqlMapClientTemplate().insert("insertSolution", problemSolution);
+	public int insertSolution(ProblemSolution problemSolution) {
+		return (int) getSqlMapClientTemplate().insert("insertSolution", problemSolution);
 		
 	}
 	@Override
-	public List<ProblemSolution> getAllSolutions(int coderId) {
-		return  (List<ProblemSolution>) getSqlMapClientTemplate().queryForList("getAllSolutions",coderId);
+	public List<ProblemSolution> getAllSolutionsByCoderId(int coderId) {
+		return  (List<ProblemSolution>) getSqlMapClientTemplate().queryForList("getAllSolutionsByCoderId",coderId);
 	}
 	@Override
 	public ProblemSolution getSolutionById(int solutionId) {
 		return (ProblemSolution) getSqlMapClientTemplate().queryForObject("getSolutionById",solutionId);
 	}
 	@Override
+	public void updateSolution(ProblemSolution problemSolution) {
+		getSqlMapClientTemplate().update("updateSolution", problemSolution);
+		
+	}
+	@Override
 	public List<ProblemTestResult> getTestResultById(int solutionId) {
 		return  (List<ProblemTestResult>) getSqlMapClientTemplate().queryForList("getTestResultById",solutionId);
 	}
+	@Override
+	public List<ProblemSolution> getTestResultsBySolutionId(int solutionId) {
+		return  (List<ProblemSolution>) getSqlMapClientTemplate().queryForList("getTestResultsBySolutionId",solutionId);
+	}
+
 	
 	
 
