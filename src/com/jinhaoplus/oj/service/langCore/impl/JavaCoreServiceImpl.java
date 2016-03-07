@@ -84,7 +84,7 @@ public class JavaCoreServiceImpl implements LangCoreService {
 	public List<ProblemTestResult> runCode(int problemId, String path) {
 		List<ProblemTest> problemTests = problemsDao
 				.getTestByProblemId(problemId);
-		List<ProblemTestResult> results = new ArrayList<>();
+		List<ProblemTestResult> results = new ArrayList<ProblemTestResult>();
 		for (ProblemTest problemTest : problemTests) {
 			CommonMessage message = null;
 			ProcessBuilder processBuilder;

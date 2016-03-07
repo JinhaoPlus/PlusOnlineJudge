@@ -8,13 +8,13 @@ import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 
 public interface ProblemsDao {
-	public List<Problem> getList();
+	public List<Problem> getAllProblems();
 
-	public Problem getById(int id);
+	public Problem getProblemById(int id);
 	
-	public List<ProblemTest> getTestByProblemId(int problemId);
+	public List<ProblemTest> getTestsByProblemId(int problemId);
 	
-	public void insertTestResult(ProblemTestResult testResult);
+	public void insertSolution(ProblemTestResult testResult);
 	
 	public List<ProblemTestResult> getTestResultById(int solutionId);
 
