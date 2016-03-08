@@ -35,12 +35,6 @@ public class PyCoreServiceImpl implements LangCoreService {
 	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors .newCachedThreadPool();
 
 	@Override
-	public CommonMessage insertSolution(ProblemSolution problemSolution) {
-		problemsDao.insertSolution(problemSolution);
-		return null;
-	}
-	
-	@Override
 	//Interpreted Language doesn't need to be compiled : directly from source to be executable
 	public CommonMessage compileCode(int problemId,String path) {
 		String result="";
@@ -48,9 +42,9 @@ public class PyCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public List<ProblemTestResult> runCode(int problemId, String path) {
+	public List<ProblemTestResult> runCode(int problemId, int solutionId ,  String path) {
 		List<ProblemTest> problemTests = problemsDao
-				.getTestByProblemId(problemId);
+				.getTestsByProblemId(problemId);
 		List<ProblemTestResult> results = new ArrayList<ProblemTestResult>();
 		for (ProblemTest problemTest : problemTests) {
 			CommonMessage message = null;

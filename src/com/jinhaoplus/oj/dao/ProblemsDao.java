@@ -14,13 +14,17 @@ public interface ProblemsDao {
 	
 	public List<ProblemTest> getTestsByProblemId(int problemId);
 	
-	public void insertSolution(ProblemTestResult testResult);
+	public void insertTestResult(ProblemTestResult testResult);
 	
 	public List<ProblemTestResult> getTestResultById(int solutionId);
 
-	public void insertSolution(ProblemSolution problemSolution);
+	public int insertSolution(ProblemSolution problemSolution);
+	
+	public void updateSolution(ProblemSolution problemSolution);
 	
 	public List<ProblemSolution> getAllSolutionsByCoderId(int coderId);
 	
 	public ProblemSolution getSolutionById(int solutionId);
+	
+	public List<ProblemSolution> getTestResultsBySolutionId(int solutionId);
 }

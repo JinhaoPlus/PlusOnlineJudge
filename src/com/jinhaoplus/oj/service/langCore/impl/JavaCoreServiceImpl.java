@@ -35,13 +35,6 @@ public class JavaCoreServiceImpl implements LangCoreService {
 	
 	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors .newCachedThreadPool();
 
-	@Override
-	public CommonMessage insertSolution(ProblemSolution problemSolution) {
-		CommonMessage message = null;
-		problemsDao.insertSolution(problemSolution);
-		return null;
-	}
-
 	
 	@Override
 	public CommonMessage compileCode(int problemId, String path) {
@@ -81,9 +74,9 @@ public class JavaCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public List<ProblemTestResult> runCode(int problemId, String path) {
+	public List<ProblemTestResult> runCode(int problemId, int solutionId ,String path) {
 		List<ProblemTest> problemTests = problemsDao
-				.getTestByProblemId(problemId);
+				.getTestsByProblemId(problemId);
 		List<ProblemTestResult> results = new ArrayList<ProblemTestResult>();
 		for (ProblemTest problemTest : problemTests) {
 			CommonMessage message = null;
@@ -114,6 +107,7 @@ public class JavaCoreServiceImpl implements LangCoreService {
 							runResultInfo.get());
 					
 					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
+					testResult.setSolutionId(solutionId);
 					String OJResult = this.OJResult(problemTest,testResult);
 					testResult.setOjResult(OJResult);
 					problemsDao.insertTestResult(testResult);

@@ -12,11 +12,22 @@ import com.jinhaoplus.oj.domain.ProblemTestResult;
 @Service
 public interface ProblemsService {
 	public List<Problem> getAllProblems();
-	public Problem getById(int id);
-	public List<ProblemTest> getTestByProblemId(int problemId);
-	public List<ProblemTest> getDisplayTestByProblemId(int problemId);
-	public void insertTestResult(ProblemTestResult testResult);
-	public void insertSolution(ProblemSolution problemSolution);
-	public List<ProblemSolution> getAllSolutions(int coderId);
+	
+	public Problem getProblemById(int id);
+	
+	public List<ProblemTest> getTestsByProblemId(int problemId);
+	
+	public List<ProblemTest> getDisplayTestsByProblemId(int problemId);
+	
+	public int insertSolution(ProblemSolution problemSolution);
+	
+	public void updateSolution(ProblemSolution problemSolution);
+	
+	public List<ProblemSolution> getAllSolutionsByCoderId(int coderId);
+	
 	public ProblemSolution getSolutionById(int solutionId);
+	
+	public void insertTestResult(ProblemTestResult testResult);
+	
+	
 }

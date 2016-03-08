@@ -31,28 +31,28 @@ public class ProblemsServiceImpl implements ProblemsService{
 
 	@Override
 	public List<Problem> getAllProblems() {
-		return problemsDao.getList();
+		return problemsDao.getAllProblems();
 	}
 
 
 
 	@Override
-	public Problem getById(int id) {
-		return problemsDao.getById(id);
+	public Problem getProblemById(int id) {
+		return problemsDao.getProblemById(id);
 	}
 
 
 
 	@Override
-	public List<ProblemTest> getTestByProblemId(int problemId) {
-		return problemsDao.getTestByProblemId(problemId);
+	public List<ProblemTest> getTestsByProblemId(int problemId) {
+		return problemsDao.getTestsByProblemId(problemId);
 	}
 
 
 
 	@Override
-	public List<ProblemTest> getDisplayTestByProblemId(int problemId) {
-		List<ProblemTest> problemTests = problemsDao.getTestByProblemId(problemId);
+	public List<ProblemTest> getDisplayTestsByProblemId(int problemId) {
+		List<ProblemTest> problemTests = problemsDao.getTestsByProblemId(problemId);
 		List<ProblemTest> displayTests = new ArrayList<ProblemTest>();
 		if(problemTests.size()>=2){
 			displayTests.add(problemTests.get(0));
@@ -72,16 +72,22 @@ public class ProblemsServiceImpl implements ProblemsService{
 
 
 	@Override
-	public void insertSolution(ProblemSolution problemSolution) {
-		problemsDao.insertSolution(problemSolution);
+	public int insertSolution(ProblemSolution problemSolution) {
+		return problemsDao.insertSolution(problemSolution);
+		
+	}
+	
+	@Override
+	public void updateSolution(ProblemSolution problemSolution) {
+		problemsDao.updateSolution(problemSolution);
 		
 	}
 
 
 
 	@Override
-	public List<ProblemSolution> getAllSolutions(int coderId) {
-		return problemsDao.getAllSolutions(coderId);
+	public List<ProblemSolution> getAllSolutionsByCoderId(int coderId) {
+		return problemsDao.getAllSolutionsByCoderId(coderId);
 	}
 
 
