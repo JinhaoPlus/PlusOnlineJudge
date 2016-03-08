@@ -20,7 +20,7 @@ public interface ProblemsDao {
 
 	public void insertSolution(ProblemSolution problemSolution);
 	
-	public List<ProblemSolution> getAllSolutions(int coderId);
+	public List<ProblemSolution> getAllSolutionsByCoderId(int coderId);
 	
 	public ProblemSolution getSolutionById(int solutionId);
 }
