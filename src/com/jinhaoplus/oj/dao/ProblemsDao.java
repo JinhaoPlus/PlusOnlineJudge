@@ -15,8 +15,6 @@ public interface ProblemsDao {
 	public List<ProblemTest> getTestsByProblemId(int problemId);
 	
 	public void insertTestResult(ProblemTestResult testResult);
-	
-	public List<ProblemTestResult> getTestResultById(int solutionId);
 
 	public int insertSolution(ProblemSolution problemSolution);
 	
@@ -26,5 +24,5 @@ public interface ProblemsDao {
 	
 	public ProblemSolution getSolutionById(int solutionId);
 	
-	public List<ProblemSolution> getTestResultsBySolutionId(int solutionId);
+	public List<ProblemTestResult> getTestResultsBySolutionId(int solutionId);
 }

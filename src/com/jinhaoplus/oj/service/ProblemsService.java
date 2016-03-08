@@ -29,5 +29,5 @@ public interface ProblemsService {
 	
 	public void insertTestResult(ProblemTestResult testResult);
 	
-	
+	public List<ProblemTestResult> getTestResultsBySolutionId(int solutionId);
 }

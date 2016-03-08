@@ -23,10 +23,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `tbl_ploj_problems`;
 CREATE TABLE `tbl_ploj_problems` (
   `PROBLEM_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `PROBLEM_CATEGORY` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `PROBLEM_DIGEST` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `PROBLEM_CONTENT` varchar(1024) CHARACTER SET latin1 DEFAULT NULL,
-  `PROBLEM_LANGUAGE` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `PROBLEM_CATEGORY` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `PROBLEM_DIGEST` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `PROBLEM_CONTENT` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
+  `PROBLEM_LANGUAGE` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`PROBLEM_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
@@ -44,9 +44,9 @@ DROP TABLE IF EXISTS `tbl_ploj_solution`;
 CREATE TABLE `tbl_ploj_solution` (
   `solution_id` int(11) NOT NULL AUTO_INCREMENT,
   `problem_id` int(11) DEFAULT NULL,
-  `code_submit` varchar(10240) CHARACTER SET latin1 DEFAULT NULL,
-  `solution_coder_id` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `solution_language` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `code_submit` varchar(10240) CHARACTER SET utf8 DEFAULT NULL,
+  `solution_coder_id` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `solution_language` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `solution_submit_time` datetime DEFAULT NULL,
   `solution_oj_result` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`solution_id`)
@@ -67,8 +67,8 @@ CREATE TABLE `tbl_ploj_test_result` (
   `result_id` int(11) NOT NULL AUTO_INCREMENT,
   `problem_id` int(11) DEFAULT NULL,
   `test_id` int(11) DEFAULT NULL,
-  `result` varchar(1024) CHARACTER SET latin1 DEFAULT NULL,
-  `oj_result` varchar(1024) CHARACTER SET latin1 DEFAULT NULL,
+  `result` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
+  `oj_result` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
   `solution_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`result_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=utf8;
@@ -87,8 +87,8 @@ DROP TABLE IF EXISTS `tbl_ploj_tests`;
 CREATE TABLE `tbl_ploj_tests` (
   `TESTID` int(11) NOT NULL AUTO_INCREMENT,
   `TEST_PROBLEM_ID` int(11) DEFAULT NULL,
-  `TEST_INPUT` varchar(1024) CHARACTER SET latin1 DEFAULT NULL,
-  `TEST_OUTPUT` varchar(1024) CHARACTER SET latin1 DEFAULT NULL,
+  `TEST_INPUT` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
+  `TEST_OUTPUT` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`TESTID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 

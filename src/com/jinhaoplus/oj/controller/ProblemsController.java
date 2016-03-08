@@ -22,6 +22,7 @@ import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.CoreDispatcherService;
 import com.jinhaoplus.oj.service.ProblemsService;
+import com.jinhaoplus.oj.util.Source2FileService;
 
 @Controller
 @RequestMapping(value="/problems")
@@ -56,9 +57,12 @@ public class ProblemsController {
 	@RequestMapping(value="/submitCode")
 	@ResponseBody
 	public List<ProblemTestResult> submitCode(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
-		coreDispatcherService.dispatchCore(solution);
+		coreDispatcherService.dispatchSolution(solution);
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
-		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
+		//for Linux server and Mac
+		//String sourceWaitPath = request.getRealPath("")+"sourceWait/";
+		//for Windows Server
+		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
 		solution.setSolutionCoderId(userId);
 		solution.setCodeSubmitTime(new Date());
 		int solutionId = problemsService.insertSolution(solution);
@@ -73,20 +77,21 @@ public class ProblemsController {
 		}
 		solution.setFinalOJResult(finalOJResult);
 		problemsService.updateSolution(solution);
-		
 		return results;
 	}
 	
-	@RequestMapping(value="/getSolutionDetail")
-	@ResponseBody
-	public String getSolutionDetail(HttpServletRequest request,HttpServletResponse response){
-		String problemId = request.getParameter("problemId");
-		String solutionId = request.getParameter("solutionId");
+	@RequestMapping(value="/getSolutionDetail/{problemId}/{solutionId}")
+	public ModelAndView getSolutionDetail(HttpServletRequest request,HttpServletResponse response,@PathVariable("problemId") String problemId,@PathVariable("solutionId") String solutionId){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("solutionDetail");
 		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
-		problemsService.getSolutionById(solutionId)
-		
-		
-		return null;
+		modelAndView.addObject("chosenProblem", problem);
+		ProblemSolution solution = problemsService.getSolutionById(Integer.parseInt(solutionId));
+		solution = Source2FileService.sourceForACE(solution);
+		modelAndView.addObject("solution", solution);
+		List<ProblemTestResult> testResults = problemsService.getTestResultsBySolutionId(Integer.parseInt(solutionId));
+		modelAndView.addObject("testResults",testResults);
+		return modelAndView;
 	}
 	
 }

@@ -68,7 +68,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 
 
 	@Override
-	public void dispatchCore(ProblemSolution solution) {
+	public void dispatchSolution(ProblemSolution solution) {
 		String lang = solution.getSolutionLanguage();
 		if("java".equals(lang)){
 			langCoreService = javaCoreService;

@@ -69,6 +69,10 @@ public class ProblemTestResult {
 		this.message = message;
 	}
 	
+	public ProblemTestResult(){
+		super();
+	}
+	
 	public ProblemTestResult(int problemId, int testId, String result, String ojResult,
 			CommonMessage message) {
 		super();

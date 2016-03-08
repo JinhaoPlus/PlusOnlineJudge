@@ -6,6 +6,6 @@ import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 
 public interface CoreDispatcherService {
-	public void dispatchCore(ProblemSolution solution); 
+	public void dispatchSolution(ProblemSolution solution); 
 	public List<ProblemTestResult> workFlow(ProblemSolution solution,String path);
 }

@@ -53,7 +53,7 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 	}
 	@Override
 	public int insertSolution(ProblemSolution problemSolution) {
-		return (int) getSqlMapClientTemplate().insert("insertSolution", problemSolution);
+		return (Integer) getSqlMapClientTemplate().insert("insertSolution", problemSolution);
 		
 	}
 	@Override
@@ -70,12 +70,8 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 		
 	}
 	@Override
-	public List<ProblemTestResult> getTestResultById(int solutionId) {
-		return  (List<ProblemTestResult>) getSqlMapClientTemplate().queryForList("getTestResultById",solutionId);
-	}
-	@Override
-	public List<ProblemSolution> getTestResultsBySolutionId(int solutionId) {
-		return  (List<ProblemSolution>) getSqlMapClientTemplate().queryForList("getTestResultsBySolutionId",solutionId);
+	public List<ProblemTestResult> getTestResultsBySolutionId(int solutionId) {
+		return  (List<ProblemTestResult>) getSqlMapClientTemplate().queryForList("getTestResultsBySolutionId",solutionId);
 	}
 
 	

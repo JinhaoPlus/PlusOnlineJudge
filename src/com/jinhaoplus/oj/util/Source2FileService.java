@@ -29,7 +29,12 @@ public class Source2FileService {
 			fileWriter.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
-		
+		}
+	}
+	public static ProblemSolution sourceForACE(ProblemSolution solution) {
+		String source = solution.getCodeSubmit();
+		String modifySource = source.replaceAll("\r\n", "\\\\r\\\\n").replaceAll("\"", "\\\\\"");
+		solution.setCodeSubmit(modifySource);
+		return solution;
 	}
 }

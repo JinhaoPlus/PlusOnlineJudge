@@ -91,10 +91,14 @@ public class ProblemsServiceImpl implements ProblemsService{
 	}
 
 
-
 	@Override
 	public ProblemSolution getSolutionById(int solutionId) {
 		return problemsDao.getSolutionById(solutionId);
+	}
+	
+	@Override
+	public List<ProblemTestResult> getTestResultsBySolutionId(int solutionId){
+		return problemsDao.getTestResultsBySolutionId(solutionId);
 	}
 
 }

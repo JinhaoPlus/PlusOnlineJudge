@@ -57,7 +57,7 @@
 		(problem_id,code_submit,solution_coder_id,solution_language,solution_submit_time,solution_oj_result)
 		values
 		(#problemId#,#codeSubmit#,#solutionCoderId#,#solutionLanguage#,#codeSubmitTime#,#finalOJResult#)
-		<selectKey resultClass="int" type="post" keyProperty="solution_id">
+		<selectKey resultClass="int" type="post" keyProperty="solutionId">
 			select
 			LAST_INSERT_ID() as value
 		</selectKey>
@@ -114,17 +114,20 @@
 
 	<!-- find Result in some solution -->
 	<select id="getTestResultsBySolutionId" resultClass="problemTestResult">
-		select
-		problem_id as problemId,
-		test_id as testId,
-		solution_id as
-		solutionId,
-		result as result,
-		oj_result as ojResult
-		from
-		tbl_ploj_test_result
-		where solution_id = #value#
-	</insert>
+		SELECT
+			problem_id AS problemId,
+			test_id AS testId,
+			solution_id AS solutionId,
+			result AS result,
+			oj_result AS ojResult,
+			t2.TEST_INPUT AS testInput,
+			t2.TEST_OUTPUT AS testOutput
+		FROM
+			tbl_ploj_test_result t1,tbl_ploj_tests t2
+		WHERE
+			t1.test_id = t2.TESTID
+		and t1.solution_id = #value#
+	</select>
 
 
 

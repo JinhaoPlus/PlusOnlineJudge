@@ -22,9 +22,6 @@
 </head>
 <body>
 	<%@	include file="topnav.jsp"%>
-	<a href="mailto:rocking2013@hotmail.com">
-		<img src="${ctx }/res/help.png" class="img-responsive" height="60px" width="120px" id="help"/>
-	</a>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-11">
