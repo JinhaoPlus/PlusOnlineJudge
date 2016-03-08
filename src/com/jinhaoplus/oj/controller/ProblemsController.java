@@ -56,7 +56,9 @@ public class ProblemsController {
 	
 	@RequestMapping(value="/submitCode")
 	@ResponseBody
-	public List<ProblemTestResult> submitCode(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
+	public ModelAndView submitCode(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("solutionDetail");
 		coreDispatcherService.dispatchSolution(solution);
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
 		//for Linux server and Mac
@@ -68,16 +70,11 @@ public class ProblemsController {
 		int solutionId = problemsService.insertSolution(solution);
 		solution.setSolutionId(solutionId);
 		List<ProblemTestResult> results = coreDispatcherService.workFlow(solution,sourceWaitPath);
-		String finalOJResult = "AC";
-		for (ProblemTestResult problemTestResult : results) {
-			if(!"AC".equals(problemTestResult.getOjResult())){
-				finalOJResult = "WA";
-				break;
-			}
-		}
-		solution.setFinalOJResult(finalOJResult);
-		problemsService.updateSolution(solution);
-		return results;
+		modelAndView.addObject("testResults",results);
+		Problem problem = problemsService.getProblemById(solution.getProblemId());
+		modelAndView.addObject("chosenProblem", problem);
+		modelAndView.addObject("solution", solution);
+		return modelAndView;
 	}
 	
 	@RequestMapping(value="/getSolutionDetail/{problemId}/{solutionId}")

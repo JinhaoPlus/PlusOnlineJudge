@@ -70,7 +70,7 @@ public class JavaCoreServiceImpl implements LangCoreService {
 			e.printStackTrace();
 		}
 
-		return null;
+		return message;
 	}
 
 	@Override
@@ -118,6 +118,14 @@ public class JavaCoreServiceImpl implements LangCoreService {
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 							PropertiesUtil.getProperty("RUN_ERROR"), 
 							runErrorInfo.get());
+					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
+					testResult.setSolutionId(solutionId);
+					String OJResult = this.OJResult(problemTest,testResult);
+					testResult.setOjResult(OJResult);
+					problemsDao.insertTestResult(testResult);
+					testResult.setTestInput(problemTest.getProblemTestInput());
+					testResult.setTestOutput(problemTest.getProblemTestOutput());
+					results.add(testResult);
 				}
 			} catch (Exception e) {
 
@@ -143,7 +151,8 @@ public class JavaCoreServiceImpl implements LangCoreService {
 					fileOrDirName.lastIndexOf("."))
 					+ "/";
 			File dir = new File(path);
-			dir.mkdir();
+			if(!dir.exists())
+				dir.mkdir();
 			return path + "Test.java";
 		} catch (Exception e) {
 			e.printStackTrace();

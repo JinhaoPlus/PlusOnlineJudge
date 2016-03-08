@@ -2,14 +2,18 @@ package com.jinhaoplus.oj.service.impl;
 
 
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.CoreDispatcherService;
+import com.jinhaoplus.oj.service.ProblemsService;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
 import com.jinhaoplus.oj.service.langCore.impl.CCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.CppCoreServiceImpl;
@@ -17,17 +21,45 @@ import com.jinhaoplus.oj.service.langCore.impl.HaskellCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.JavaCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.PyCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.RubyCoreServiceImpl;
+import com.jinhaoplus.oj.util.PropertiesUtil;
 import com.jinhaoplus.oj.util.Source2FileService;
 
 @Service
 public class CoreDisptcherService implements CoreDispatcherService{
 
+//	COMPILE_SUCCESS_CODE = 200
+//			COMPILE_SUCCESS = compiled successfully
+//			COMPILE_ERROR_CODE = 500
+//			COMPILE_ERROR = error in compiling
+//
+//			#RUN MESSAGES#
+//
+//			RUN_SUCCESS_CODE = 200
+//			RUN_SUCCESS = run successfully
+//			RUN_ERROR_CODE = 500
+//			RUN_ERROR = error in running
+	private final String COMPILE_SUCCESS_CODE = PropertiesUtil.getProperty("COMPILE_SUCCESS_CODE");
+	private final String COMPILE_SUCCESS = PropertiesUtil.getProperty("COMPILE_SUCCESS");
+	private final String COMPILE_ERROR_CODE = PropertiesUtil.getProperty("COMPILE_ERROR_CODE");
+	private final String COMPILE_ERROR = PropertiesUtil.getProperty("COMPILE_ERROR");
+
+	private final String RUN_SUCCESS_CODE = PropertiesUtil.getProperty("RUN_SUCCESS_CODE");
+	private final String RUN_ERROR_CODE = PropertiesUtil.getProperty("RUN_ERROR_CODE");
+	
+	
 	private LangCoreService langCoreService = null;
 	
 	public void setLangCoreService(LangCoreService langCoreService) {
 		this.langCoreService = langCoreService;
 	}
 	
+	@Autowired
+	private ProblemsService problemsService;
+	
+	public void setProblemsService(ProblemsService problemsService) {
+		this.problemsService = problemsService;
+	}
+
 	@Autowired
 	private CCoreServiceImpl cCoreService;
 	
@@ -93,6 +125,10 @@ public class CoreDisptcherService implements CoreDispatcherService{
 
 	@Override
 	public List<ProblemTestResult> workFlow(ProblemSolution solution,String path) {
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdir();
+		}
 		//write Code to temp file
 		String fileOrDirName = path+Source2FileService.renameForTempSource(solution)+"."+solution.getSolutionLanguage();
 		//workflow source file
@@ -100,11 +136,26 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
 			
 			Source2FileService.persistentFile(solution, sourceFilePath);
-			langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
-			
-			List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),solution.getSolutionId() , sourceFilePath);
-			
-			return results;
+			CommonMessage message = langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
+			if(COMPILE_SUCCESS_CODE.equals(message.getCode())){
+				List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),solution.getSolutionId() , sourceFilePath);
+				String finalOJResult = "AC";
+				for (ProblemTestResult problemTestResult : results) {
+					if(!"AC".equals(problemTestResult.getOjResult())){
+						finalOJResult = "WA";
+						break;
+					}
+				}
+				solution.setFinalOJResult(finalOJResult);
+				problemsService.updateSolution(solution);
+				return results;
+			}else if(COMPILE_ERROR_CODE.equals(message.getCode())){
+				List<ProblemTestResult> results = new ArrayList<ProblemTestResult>();
+				ProblemTestResult problemTestResult = new ProblemTestResult();
+				problemTestResult.setMessage(message);
+				results.add(problemTestResult);
+				return results;
+			}
 		}
 		return null;
 	}

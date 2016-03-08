@@ -116,30 +116,6 @@
 		</div>
 
 	</div>
-	<div class="modal fade" id="resultDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-   		<div class="modal-dialog">
-	      <div class="modal-content">
-	         <div class="modal-header">
-	            <button type="button" class="close" 
-	               data-dismiss="modal" aria-hidden="true">
-	                  &times;
-	            </button>
-	            <h4 class="modal-title" id="myModalLabel">
-	               OJ Result Detail
-	            </h4>
-	         </div>
-	         <div class="modal-body">
-	            在这里添加一些文本
-	         </div>
-	         <div class="modal-footer">
-	            <button type="button" class="btn btn-default" 
-	               data-dismiss="modal">close
-	            </button>
-	         </div>
-	      </div><!-- /.modal-content -->
-		</div>
-	</div>
-
 
 	<script>
 		var editor = ace.edit("editor");
@@ -188,6 +164,14 @@
 				success : function(msg) {
 					var results = "";
 					var count = 0;
+					if(code != '200'){
+						results += "<tr class='warning'><td>"+(++count)+"</td>";
+						results += "<td>"+message+"</td></tr>";
+						results += "</tbody>";
+						results += "</table>";
+						$('#resultDiv').empty().append(results);
+						return;
+					}
 					results += "<table class='table table-hover table-striped col-md-2'>";
 					results += "<caption>OJ Results</caption>";
 					results += "<thead>";
@@ -203,8 +187,10 @@
 					results += "</thead>";
 					
 					results += "<tbody>";
-					
 					$.each(msg,function(index,item){
+						var code = item.message.code;
+						var message = item.message.message;
+						
 						var realTestInput = item.testInput;
 						var realTestOutput = item.testOutput;
 						var realResult = item.result;
@@ -214,7 +200,7 @@
 						var displayTestInput = realTestInput.length>=cutLength?realTestInput.substr(0,cutLength)+"...":realTestInput;
 						var displayTestOutput = realTestOutput.length>=cutLength?realTestOutput.substr(0,cutLength)+"...":realTestOutput;
 						var displayResult = realResult.length>=cutLength?realResult.substr(0,cutLength)+"...":realResult;
-						
+					
 						if(realOjResult == 'AC')
 							results += "<tr class='success'><td>"+(++count)+"</td>";
 						else if(realOjResult == 'CE')
@@ -229,7 +215,6 @@
 					});
 					results += "</tbody>";
 					results += "</table>";
-					
 					$('#resultDiv').empty().append(results);
 				}
 			});
