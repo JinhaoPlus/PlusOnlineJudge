@@ -22,6 +22,7 @@
 </head>
 <body>
 	<%@	include file="topnav.jsp"%>
+	<form action="${ctx }/problems/submitCode" method="post">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-11">
@@ -102,8 +103,7 @@
 					<span class="glyphicon glyphicon-refresh"></span>
 				</button>
 				<button id="submit" class="btn btn-primary btn-pad" type="submit"
-					data-original-title="Shortcut: Command + enter"
-					onclick="submitCode();">Submit Solution</button>
+					data-original-title="Shortcut: Command + enter">Submit Solution</button>
 				<button id="discuss" class="btn btn btn-success" type="button">
 					Go to Discuss !</button>
 			</div>
@@ -112,31 +112,51 @@
 			style="margin-bottom: 12px;">
 			<div id="editor"></div>
 		</pre>
+		<input id="problemId" name="problemId" value="${chosenProblem.problemId}" type="text"/>
+		<input id="codeToSubmit" name="codeSubmit"  type="text"/>
+		<input id="solutionLanguage" name="solutionLanguage" type="text"/>
 		<div id="resultDiv" class="row table-responsive">
 		</div>
 
 	</div>
-
+	</form>
+	
 	<script>
 		var editor = ace.edit("editor");
 		editor.setTheme("ace/theme/monokai");
 		editor.getSession().setMode("ace/mode/java");
+		editor.getSession().on("change", function(e){
+			$("#codeToSubmit").val(editor.getValue());
+		});
+		$("#solutionLanguage").val($('#lang option:selected').val());
 		function resetCode() {
 			editor.setValue("");
 		}
 		function changeLanguage() {
-			if ($('#lang option:selected').val() == 'java')
+			if ($('#lang option:selected').val() == 'java'){
 				editor.getSession().setMode("ace/mode/java");
-			else if ($('#lang option:selected').val() == 'c')
+				$("#solutionLanguage").val("java");
+			}
+			else if ($('#lang option:selected').val() == 'c'){
 				editor.getSession().setMode("ace/mode/c");
-			else if ($('#lang option:selected').val() == 'cpp')
+				$("#solutionLanguage").val("c");
+			}
+			else if ($('#lang option:selected').val() == 'cpp'){
 				editor.getSession().setMode("ace/mode/c");
-			else if ($('#lang option:selected').val() == 'ruby')
+				$("#solutionLanguage").val("cpp");
+			}
+			else if ($('#lang option:selected').val() == 'ruby'){
 				editor.getSession().setMode("ace/mode/ruby");
-			else if ($('#lang option:selected').val() == 'python')
+				$("#solutionLanguage").val("ruby");
+			}
+			else if ($('#lang option:selected').val() == 'python'){
 				editor.getSession().setMode("ace/mode/python");
-			else if ($('#lang option:selected').val() == 'haskell')
+				$("#solutionLanguage").val("python");
+			}
+			else if ($('#lang option:selected').val() == 'haskell'){
 				editor.getSession().setMode("ace/mode/haskell");
+				$("#solutionLanguage").val("haskell");
+			}
 		}
 		function changeTheme() {
 			if ($('#theme option:selected').val() == 'monokai')

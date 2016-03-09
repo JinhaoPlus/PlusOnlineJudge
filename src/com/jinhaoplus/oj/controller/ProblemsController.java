@@ -58,6 +58,10 @@ public class ProblemsController {
 	public ModelAndView submitCode(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("solutionDetail");
+		
+		Problem problem = problemsService.getProblemById(solution.getProblemId());
+		modelAndView.addObject("chosenProblem", problem);
+		
 		coreDispatcherService.dispatchSolution(solution);
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
 		//for Linux server and Mac
@@ -68,11 +72,14 @@ public class ProblemsController {
 		solution.setCodeSubmitTime(new Date());
 		int solutionId = problemsService.insertSolution(solution);
 		solution.setSolutionId(solutionId);
-		List<ProblemTestResult> results = coreDispatcherService.workFlow(solution,sourceWaitPath);
-		modelAndView.addObject("testResults",results);
-		Problem problem = problemsService.getProblemById(solution.getProblemId());
-		modelAndView.addObject("chosenProblem", problem);
+		
+		
+		List<ProblemTestResult> testResults = coreDispatcherService.workFlow(solution,sourceWaitPath);
+		modelAndView.addObject("testResults",testResults);
+		
+		solution = Source2FileService.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
+		
 		return modelAndView;
 	}
 	
@@ -80,13 +87,17 @@ public class ProblemsController {
 	public ModelAndView getSolutionDetail(HttpServletRequest request,HttpServletResponse response,@PathVariable("problemId") String problemId,@PathVariable("solutionId") String solutionId){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("solutionDetail");
+		
 		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
 		modelAndView.addObject("chosenProblem", problem);
+		
 		ProblemSolution solution = problemsService.getSolutionById(Integer.parseInt(solutionId));
 		solution = Source2FileService.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
+		
 		List<ProblemTestResult> testResults = problemsService.getTestResultsBySolutionId(Integer.parseInt(solutionId));
 		modelAndView.addObject("testResults",testResults);
+		
 		return modelAndView;
 	}
 	
