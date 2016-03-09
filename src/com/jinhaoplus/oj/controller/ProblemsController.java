@@ -1,6 +1,5 @@
 package com.jinhaoplus.oj.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -62,9 +61,9 @@ public class ProblemsController {
 		coreDispatcherService.dispatchSolution(solution);
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
 		//for Linux server and Mac
-		//String sourceWaitPath = request.getRealPath("")+"sourceWait/";
+		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
 		//for Windows Server
-		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
+//		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
 		solution.setSolutionCoderId(userId);
 		solution.setCodeSubmitTime(new Date());
 		int solutionId = problemsService.insertSolution(solution);
