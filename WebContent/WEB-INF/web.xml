@@ -48,7 +48,7 @@
 		</init-param>
 	    <init-param>
 			<param-name>wildCard</param-name>
-			<param-value>.woff;.ttf;.js;.css;.jpg;.JPG;.gif;.png;.PNG;.html;.xml;.swf;.cab;.xlsx;.pdf;.PDF;.doc;.DOC;.docx;.DOCX;.txt;.TXT;</param-value>
+			<param-value>.woff;.ttf;.js;.css;.jpg;.JPG;.gif;.png;.PNG;.swf;.cab;.xlsx;.pdf;.PDF;.doc;.DOC;.docx;.DOCX;.txt;.TXT;</param-value>
 		</init-param>
 		<init-param>
 			<param-name>toPage</param-name>

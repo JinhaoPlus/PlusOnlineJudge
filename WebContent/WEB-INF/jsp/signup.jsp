@@ -59,6 +59,11 @@
 						notEmpty : {
 							message : 'The password is required and can\'t be empty'
 						},
+						stringLength : {
+							min : 6,
+							max : 30,
+							message : 'The password must be more than 6 and less than 30 characters long'
+						},
 						identical : {
 							field : 'confirm_password',
 							message : 'The password and its confirm are not the same'

@@ -80,7 +80,7 @@
 						</strong></li>
 						<li class="list-group-item"><a style="white-space: normal;"
 							class="btn btn-success btn-md qa-ask-btn"
-							href="#>Post an Interview Question</a></li>
+							href="#">Post an Interview Question</a></li>
 					</ul>
 				</div>
 			</div>
