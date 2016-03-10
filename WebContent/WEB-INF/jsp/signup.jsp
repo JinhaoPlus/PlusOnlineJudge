@@ -37,6 +37,13 @@
 						}
 					}
 				},
+				bitcode : {
+					validators : {
+						notEmpty : {
+							message : 'PlusOJ supports BIT student Registering'
+						}
+					}
+				},
 				email : {
 					validators : {
 						notEmpty : {
@@ -95,6 +102,11 @@
 						class="form-control">
 				</div>
 				<div class="form-group">
+					<input id="bitcode" maxlength="12"
+						name="bitcode" placeholder="BIT Code" type="text"
+						class="form-control">
+				</div>
+				<div class="form-group">
 					<input id="email" name="email" placeholder="E-mail address"
 						type="email" class="form-control">
 				</div>
@@ -107,9 +119,12 @@
 						placeholder="Confirm Password" type="password"
 						class="form-control">
 				</div>
-				<button class="btn btn-primary" type="submit"
-					onclick="valid_submit();">Sign Up for PlusOJ</button>
-				<a href="${ctx }/accounts/tologin"  class="btn btn-info">login?</a>
+				<div class="form-group">
+					<button class="btn btn-primary" type="submit"
+						onclick="valid_submit();">Sign Up for PlusOJ</button>
+					<a href="${ctx }/accounts/tologin"  class="btn btn-info">login?</a>
+				</div>
+				<div class="form-group alert alert-warning">${signupInfo }</div>
 			</form>
 			
 		</div>

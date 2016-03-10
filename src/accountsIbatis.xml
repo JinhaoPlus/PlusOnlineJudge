@@ -2,24 +2,29 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap>
 	<typeAlias type="com.jinhaoplus.oj.domain.User" alias="user" />
-	<!-- 获得全查询列表 -->
+	
+	<select id="getCode" resultClass="String">
+		select code from tbl_ploj_bitcode_dic where code = #value#
+	</select>
+	
+	<!-- getAllUsers -->
 	<select id="getAllUsers" resultClass="user">
 		select * from tbl_ploj_user
 	</select>
 
-	<!-- 根据用户名获得用户对象 -->
+	<!-- getUsersByName -->
 	<select id="getUsersByName" resultClass="user">
 		select * from tbl_ploj_user where username=#value#
 	</select>
 
-	<!-- 根据id获得用户对象 -->
+	<!-- getUsersById -->
 	<select id="getUsersById" resultClass="user">
 		select * from tbl_ploj_user where userid=#value#
 	</select>
 
-	<!-- 新增用户对象 -->
+	<!-- insertUsers -->
 	<insert id="insertUsers" parameterClass="user">
-		insert into tbl_ploj_user (userid,username,email,password) values (#userid#,#username#,#email#,#password#)
+		insert into tbl_ploj_user (userid,username,bitcode,email,password) values (#userid#,#username#,#bitcode#,#email#,#password#)
 	</insert>
 
 	<!-- 删除用户对象 -->

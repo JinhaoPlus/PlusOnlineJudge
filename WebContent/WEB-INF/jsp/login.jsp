@@ -56,10 +56,14 @@
 					<input id="password" name="password" placeholder="Password"
 						type="password" class="form-control">
 				</div>
-				<button class="btn btn-primary" type="submit"
-					onclick="valid_submit();">Login PlusOJ</button>
-				<a class="btn btn-info" href="${ctx }/accounts/tosignup">sign up?</a>
+				<div class="form-group">
+					<button class="btn btn-primary" type="submit"
+						onclick="valid_submit();">Login PlusOJ</button>
+					<a class="btn btn-info" href="${ctx }/accounts/tosignup">sign up?</a>
+				</div>
+				<div class="form-group alert alert-warning">${loginInfo }</div>
 			</form>
+			
 		</div>
 	</div>
 </body>

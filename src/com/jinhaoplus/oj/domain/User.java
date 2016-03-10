@@ -3,6 +3,7 @@ package com.jinhaoplus.oj.domain;
 public class User {
 	private int userid;
 	private String username;
+	private String bitcode;
 	private String email;
 	private String password;
 	
@@ -18,6 +19,13 @@ public class User {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getBitcode() {
+		return bitcode;
+	}
+	public void setBitcode(String bitcode) {
+		this.bitcode = bitcode;
 	}
 	public String getEmail() {
 		return email;

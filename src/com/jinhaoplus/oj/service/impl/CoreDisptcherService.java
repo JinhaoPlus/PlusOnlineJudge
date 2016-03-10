@@ -27,17 +27,6 @@ import com.jinhaoplus.oj.util.Source2FileService;
 @Service
 public class CoreDisptcherService implements CoreDispatcherService{
 
-//	COMPILE_SUCCESS_CODE = 200
-//			COMPILE_SUCCESS = compiled successfully
-//			COMPILE_ERROR_CODE = 500
-//			COMPILE_ERROR = error in compiling
-//
-//			#RUN MESSAGES#
-//
-//			RUN_SUCCESS_CODE = 200
-//			RUN_SUCCESS = run successfully
-//			RUN_ERROR_CODE = 500
-//			RUN_ERROR = error in running
 	private final String COMPILE_SUCCESS_CODE = PropertiesUtil.getProperty("COMPILE_SUCCESS_CODE");
 	private final String COMPILE_SUCCESS = PropertiesUtil.getProperty("COMPILE_SUCCESS");
 	private final String COMPILE_ERROR_CODE = PropertiesUtil.getProperty("COMPILE_ERROR_CODE");

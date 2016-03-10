@@ -7,6 +7,8 @@ import com.jinhaoplus.oj.domain.User;
 public interface AccountsDao {
 
 	public List<User> getList();
+	
+	public String getBitCode(String bitCode);
 
 	public User getByName(String name);
 

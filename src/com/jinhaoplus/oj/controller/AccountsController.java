@@ -2,6 +2,7 @@ package com.jinhaoplus.oj.controller;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,20 +38,27 @@ public class AccountsController {
 	public ModelAndView signUp(HttpServletRequest request,HttpServletResponse response,User user) {
 		ModelAndView modelAndView = new ModelAndView();
 		CommonMessage message = accountsService.signUp(user);
-		
-		modelAndView.setViewName("signup-success");
-		modelAndView.addObject("some", "jinhaoluo");
+		if(!"203".equals(message.getCode())){
+			modelAndView.setViewName("signup");
+			modelAndView.addObject("signupInfo", message.getMessage());
+		}else{
+			modelAndView.setViewName("signup-success");
+		}
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/login")
-	public void login(HttpServletRequest request,HttpServletResponse response,User user) throws IOException {
+	public void login(HttpServletRequest request,HttpServletResponse response,User user) throws IOException, ServletException {
 		CommonMessage message = accountsService.login(user);
-		if(message.getCode().equals("200")){
-			user = accountsService.getUserByName(user.getUsername());
-			request.getSession().setAttribute("loginuser", user);
+		if(!"202".equals(message.getCode())){
+			request.setAttribute("loginInfo", message.getMessage());
+			request.getRequestDispatcher("/accounts/tologin").forward(request, response);
+			return;
 		}
+		user = accountsService.getUserByName(user.getUsername());
+		request.getSession().setAttribute("loginuser", user);
 		response.sendRedirect(request.getContextPath()+"/index");
+		
 	}
 	
 	@RequestMapping(value="/logout")
@@ -61,12 +69,10 @@ public class AccountsController {
 	
 	@RequestMapping(value="/tologin")
 	public ModelAndView toLogin(HttpServletRequest request,HttpServletResponse response,User user) {
-		CommonMessage message = new CommonMessage("200","To Login","");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		request.getSession().setAttribute("user", user);
-		modelAndView.addObject("some", "jinhaoluo");
-		modelAndView.addObject("message", message);
+		modelAndView.addObject("loginInfo", request.getAttribute("loginInfo"));
 		return modelAndView;
 	}
 	

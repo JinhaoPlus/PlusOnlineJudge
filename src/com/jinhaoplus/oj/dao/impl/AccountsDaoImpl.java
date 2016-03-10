@@ -65,4 +65,9 @@ public class AccountsDaoImpl extends SqlMapClientDaoSupport implements AccountsD
 		getSqlMapClientTemplate().update("updateUsers", user);
 	}
 
+	@Override
+	public String getBitCode(String bitCode) {
+		return (String) getSqlMapClientTemplate().queryForObject("getCode",bitCode);
+	}
+
 }
