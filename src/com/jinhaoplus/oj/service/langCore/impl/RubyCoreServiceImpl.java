@@ -37,8 +37,10 @@ public class RubyCoreServiceImpl implements LangCoreService {
 	
 	@Override
 	public CommonMessage compileCode(int problemId,String path) {
-		// TODO Auto-generated method stub
-		return null;
+		CommonMessage message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_SUCCESS_CODE"), 
+				PropertiesUtil.getProperty("COMPILE_SUCCESS"), 
+				"");
+		return message;
 	}
 
 	@Override
@@ -86,6 +88,14 @@ public class RubyCoreServiceImpl implements LangCoreService {
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 							PropertiesUtil.getProperty("RUN_ERROR"), 
 							runErrorInfo.get());
+					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
+					testResult.setSolutionId(solutionId);
+					String OJResult = this.OJResult(problemTest,testResult);
+					testResult.setOjResult(OJResult);
+					problemsDao.insertTestResult(testResult);
+					testResult.setTestInput(problemTest.getProblemTestInput());
+					testResult.setTestOutput(problemTest.getProblemTestOutput());
+					results.add(testResult);
 				}
 			} catch (Exception e) {
 

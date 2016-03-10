@@ -77,6 +77,11 @@ public class ProblemsController {
 		List<ProblemTestResult> testResults = coreDispatcherService.workFlow(solution,sourceWaitPath);
 		modelAndView.addObject("testResults",testResults);
 		
+		String compileResult = testResults.get(0).getMessage().getCode();
+		if("500".equals(compileResult))
+			solution.setFinalOJResult("CE");
+		modelAndView.addObject("compileResult", compileResult);
+		
 		solution = Source2FileService.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
 		

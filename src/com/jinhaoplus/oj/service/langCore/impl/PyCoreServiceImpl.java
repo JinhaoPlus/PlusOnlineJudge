@@ -37,8 +37,10 @@ public class PyCoreServiceImpl implements LangCoreService {
 	@Override
 	//Interpreted Language doesn't need to be compiled : directly from source to be executable
 	public CommonMessage compileCode(int problemId,String path) {
-		String result="";
-		return null;
+		CommonMessage message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_SUCCESS_CODE"), 
+				PropertiesUtil.getProperty("COMPILE_SUCCESS"), 
+				"");
+		return message;
 	}
 
 	@Override
@@ -85,6 +87,14 @@ public class PyCoreServiceImpl implements LangCoreService {
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 							PropertiesUtil.getProperty("RUN_ERROR"), 
 							runErrorInfo.get());
+					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
+					testResult.setSolutionId(solutionId);
+					String OJResult = this.OJResult(problemTest,testResult);
+					testResult.setOjResult(OJResult);
+					problemsDao.insertTestResult(testResult);
+					testResult.setTestInput(problemTest.getProblemTestInput());
+					testResult.setTestOutput(problemTest.getProblemTestOutput());
+					results.add(testResult);
 				}
 			} catch (Exception e) {
 

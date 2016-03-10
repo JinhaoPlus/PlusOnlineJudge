@@ -123,10 +123,17 @@
 	<script>
 		var editor = ace.edit("editor");
 		editor.setTheme("ace/theme/monokai");
-		editor.getSession().setMode("ace/mode/java");
+		var selLang = $('#lang option:selected').val();
+		editor.getSession().setMode("ace/mode/"+selLang);
 		editor.getSession().on("change", function(e){
 			$("#codeToSubmit").val(editor.getValue());
 		});
+		var javaPre = "/**\r\n * please import your package here\r\n */\r\n\r\npublic class Test\r\n{\r\n \r\n    /**\r\n     * please keep the class name here to avoid compiling error\r\n     */\r\n    public static void main(String[] args) \r\n    {\r\n        \r\n    }\r\n}";
+		var cPre = "/**\r\n     * please edit your code here\r\n     */\r\n\r\n";
+		var cppPre = "/**\r\n     * please edit your code here\r\n     */\r\n\r\n";
+		if(selLang == 'java'){
+			editor.setValue(javaPre);
+		}
 		$("#solutionLanguage").val($('#lang option:selected').val());
 		function resetCode() {
 			editor.setValue("");
@@ -135,14 +142,17 @@
 			if ($('#lang option:selected').val() == 'java'){
 				editor.getSession().setMode("ace/mode/java");
 				$("#solutionLanguage").val("java");
+				editor.setValue(javaPre);
 			}
 			else if ($('#lang option:selected').val() == 'c'){
 				editor.getSession().setMode("ace/mode/c");
 				$("#solutionLanguage").val("c");
+				editor.setValue(cPre);
 			}
 			else if ($('#lang option:selected').val() == 'cpp'){
 				editor.getSession().setMode("ace/mode/c");
 				$("#solutionLanguage").val("cpp");
+				editor.setValue(cppPre);
 			}
 			else if ($('#lang option:selected').val() == 'ruby'){
 				editor.getSession().setMode("ace/mode/ruby");
