@@ -83,6 +83,7 @@ public class JavaCoreServiceImpl implements LangCoreService {
 			ProcessBuilder processBuilder;
 			String javaDir = path.substring(0,path.lastIndexOf("/"));
 			processBuilder = new ProcessBuilder("java","Test");
+			System.out.println("-----pwd-----"+javaDir);
 			processBuilder.directory(new File(javaDir));
 			processBuilder.redirectErrorStream(true);
 
