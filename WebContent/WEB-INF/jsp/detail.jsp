@@ -114,13 +114,17 @@
 		</pre>
 		<div id="resultDiv" class="row table-responsive">
 		</div>
-
+		<input type="hidden" id="hiddenSource">
 	</div>
 
 	<script>
 		var editor = ace.edit("editor");
 		editor.setTheme("ace/theme/monokai");
 		editor.getSession().setMode("ace/mode/java");
+		editor.getSession().on('change', function(e) {
+			var codeToSubmit = editor.getValue();
+			$("#hiddenSource").val(codeToSubmit);
+		});
 		function resetCode() {
 			editor.setValue("");
 		}
