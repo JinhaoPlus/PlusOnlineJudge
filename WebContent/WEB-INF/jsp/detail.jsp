@@ -112,12 +112,11 @@
 			style="margin-bottom: 12px;">
 			<div id="editor"></div>
 		</pre>
-		<input id="problemId" name="problemId" value="${chosenProblem.problemId}" type="text"/>
-		<input id="codeToSubmit" name="codeSubmit"  type="text"/>
-		<input id="solutionLanguage" name="solutionLanguage" type="text"/>
-		<div id="resultDiv" class="row table-responsive">
+		<div>
+			<input id="problemId" name="problemId" value="${chosenProblem.problemId}" type="hidden"/>
+			<textarea id="codeToSubmit" name="codeSubmit" style="display:none"></textarea>
+			<input id="solutionLanguage" name="solutionLanguage" type="hidden"/>
 		</div>
-		<input type="hidden" id="hiddenSource">
 	</div>
 	</form>
 	
@@ -167,82 +166,6 @@
 				editor.setTheme("ace/theme/eclipse");
 			else if ($('#theme option:selected').val() == 'solarized')
 				editor.setTheme("ace/theme/solarized_dark");
-		}
-		function submitCode() {
-			var codeToSubmit = editor.getValue();
-			var problemId = ${chosenProblem.problemId};
-			var solutionLanguage = $('#lang option:selected').val();
-			$('#resultDiv').addClass('result-content');
-			$.ajax({
-				type : "POST",
-				url : "${ctx}/problems/submitCode",
-				data : {
-					codeSubmit : codeToSubmit,
-					problemId : problemId,
-					solutionLanguage : solutionLanguage
-				},
-				success : function(msg) {
-					var results = "";
-					var count = 0;
-					if(code != '200'){
-						results += "<tr class='warning'><td>"+(++count)+"</td>";
-						results += "<td>"+message+"</td></tr>";
-						results += "</tbody>";
-						results += "</table>";
-						$('#resultDiv').empty().append(results);
-						return;
-					}
-					results += "<table class='table table-hover table-striped col-md-2'>";
-					results += "<caption>OJ Results</caption>";
-					results += "<thead>";
-					results += "<tr>";
-					results += 		"<th>#</th>";
-					results += 		"<th>Judge</th>";
-					results += 		"<th>Input</th>";
-					results += 		"<th>Expected Output</th>";
-					results += 		"<th>OutPut</th>";
-					results += 		"<th>Details</th>";
-					results += "</tr>";
-					
-					results += "</thead>";
-					
-					results += "<tbody>";
-					$.each(msg,function(index,item){
-						var code = item.message.code;
-						var message = item.message.message;
-						
-						var realTestInput = item.testInput;
-						var realTestOutput = item.testOutput;
-						var realResult = item.result;
-						var realOjResult = item.ojResult;
-						
-						var cutLength = 30;
-						var displayTestInput = realTestInput.length>=cutLength?realTestInput.substr(0,cutLength)+"...":realTestInput;
-						var displayTestOutput = realTestOutput.length>=cutLength?realTestOutput.substr(0,cutLength)+"...":realTestOutput;
-						var displayResult = realResult.length>=cutLength?realResult.substr(0,cutLength)+"...":realResult;
-					
-						if(realOjResult == 'AC')
-							results += "<tr class='success'><td>"+(++count)+"</td>";
-						else if(realOjResult == 'CE')
-							results += "<tr class='warning'><td>"+(++count)+"</td>";
-						else if(realOjResult == 'WA')
-							results += "<tr class='danger'><td>"+(++count)+"</td>";
-						results += "<td>"+realOjResult+"</td>";
-						results += "<td>"+displayTestInput+"</td>";
-						results += "<td>"+displayTestOutput+"</td>";
-						results += "<td>"+displayResult+"</td>";
-						results += "<td><button type='button' class='btn btn-info' onclick='resultDetail();'>detail</button></td></tr>";
-					});
-					results += "</tbody>";
-					results += "</table>";
-					$('#resultDiv').empty().append(results);
-				}
-			});
-		}
-		function resultDetail(item){
-			alert(realOjResult+realTestInput+realTestOutput+realResult);
-			alert(item['testInput']);
-			$("#resultDetailModal").modal();
 		}
 	</script>
 </body>

@@ -39,33 +39,39 @@
 				</div>
 				<%int count = 0; %>
 				<div class="row result-content table-responsive">
-					<table class="table table-hover table-striped col-md-2">
+					<table class="table table-hover table-striped  col-md-12">
 						<caption>Optional OJ Tests</caption>
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Judge</th>
-								<th>Input</th>
-								<th>Expected Output</th>
-								<th>OutPut</th>
-								<th>Details</th>
+								<th width="20%">#</th>
+								<th width="80%">Content</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${testResults }" var="result">
-								<c:if test="${result.ojResult }=='AC'">
-								<tr class='success'>
-								</c:if>
-								<c:if test="${result.ojResult }!='AC'">
-								<tr class='danger'>
-								</c:if>
-									<td><%=++count %></td>
+								<c:if test="${result.ojResult == 'AC'}">
+								<tr class="success">
+									<td>Judge</td>
 									<td>${result.ojResult }</td>
+								</tr>
+								</c:if>
+								<c:if test="${result.ojResult != 'AC'}">
+								<tr class="danger">
+									<td>Judge</td>
+									<td>${result.ojResult }</td>
+								</tr>
+								</c:if>
+								<tr>
+									<td>Input</td>
 									<td>${result.testInput }</td>
+								</tr>
+								<tr>
+									<td>Expected Output</td>
 									<td>${result.testOutput }</td>
+								</tr>
+								<tr>
+									<td>Output</td>
 									<td>${result.result }</td>
-									<td><button type='button' class='btn btn-info' onclick='resultDetail();'>detail</button></td>
-									
 								</tr>
 							</c:forEach>
 						</tbody>
