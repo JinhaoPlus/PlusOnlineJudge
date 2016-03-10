@@ -92,22 +92,10 @@
 	
 	<script>
 		var editor = ace.edit("editor");
+		editor.setReadOnly(true);
 		editor.setTheme("ace/theme/monokai");
 		editor.getSession().setMode("ace/mode/java");
 		editor.setValue("${solution.codeSubmit}");
-		function resetCode() {
-			
-		}
-		function changeTheme() {
-			if ($('#theme option:selected').val() == 'monokai')
-				editor.setTheme("ace/theme/monokai");
-			else if ($('#theme option:selected').val() == 'xcode')
-				editor.setTheme("ace/theme/xcode");
-			else if ($('#theme option:selected').val() == 'eclipse')
-				editor.setTheme("ace/theme/eclipse");
-			else if ($('#theme option:selected').val() == 'solarized')
-				editor.setTheme("ace/theme/solarized_dark");
-		}
 	</script>
 </body>
 </html>

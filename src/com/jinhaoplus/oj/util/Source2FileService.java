@@ -33,7 +33,7 @@ public class Source2FileService {
 	}
 	public static ProblemSolution sourceForACE(ProblemSolution solution) {
 		String source = solution.getCodeSubmit();
-		String modifySource = source.replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n").replaceAll("\"", "\\\\\"");
+		String modifySource = source.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r").replaceAll("\"", "\\\\\"");
 		solution.setCodeSubmit(modifySource);
 		return solution;
 	}
