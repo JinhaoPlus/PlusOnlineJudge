@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -83,10 +84,22 @@ public class JavaCoreServiceImpl implements LangCoreService {
 			ProcessBuilder processBuilder;
 			String javaDir = path.substring(0,path.lastIndexOf("/")+1);
 			processBuilder = new ProcessBuilder("java","Test");
-			System.out.println("-----pwd-----"+javaDir);
+			
 			processBuilder.directory(new File(javaDir));
 			processBuilder.redirectErrorStream(true);
 
+			System.out.println("============================================");
+			List<String> commands = processBuilder.command();
+			for (String string : commands) {
+				System.out.println("command:"+string);
+			}
+			File file = processBuilder.directory();
+			System.out.println("dir:"+file.getAbsolutePath());
+			Map<String, String> maps = processBuilder.environment();
+			System.out.println("env:"+maps);
+			System.out.println("-----pwd-----"+javaDir);
+			System.out.println("=============================================");
+			
 			try {
 				Process runProcess = processBuilder.start();
 				final InputStream inputStream = runProcess.getInputStream();
