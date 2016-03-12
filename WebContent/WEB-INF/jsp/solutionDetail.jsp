@@ -118,5 +118,6 @@
 		editor.getSession().setMode("ace/mode/java");
 		editor.setValue("${solution.codeSubmit}");
 	</script>
+	<%@	include file="footer.jsp"%>
 </body>
 </html>

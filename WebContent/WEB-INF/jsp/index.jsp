@@ -34,7 +34,7 @@
 					</select>
 				</div>
 				<div id="problemListRow" class="row">
-					<table id="problemList" class="table table-striped table-centered">
+					<table id="problemList" class="table table-hover table-striped table-centered">
 						<thead>
 							<tr>
 								<th class="header-id">
@@ -87,5 +87,6 @@
 		</div>
 
 	</div>
+	<%@	include file="footer.jsp"%>
 </body>
 </html>

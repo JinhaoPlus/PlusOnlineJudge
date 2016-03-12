@@ -39,6 +39,18 @@ login page css sheet
 	font-size: 16px;
 }
 
+.answer-content {
+	margin-left: 20px;
+	margin-top: 20px;
+	margin-bottom: 5px;
+	line-height: 30px;
+	border-left: 3px;
+	padding-left: 20px;
+	padding-bottom: 2px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+}
+
 .result-content {
 	margin-left: 20px;
 	margin-top: 20px;
@@ -54,9 +66,22 @@ login page css sheet
 	font-size: 14px;
 }
 
-#help {
+
+#chat-link{
 	position: fixed;
-	bottom:20px;
-	left: 20px;
-	z-index: 1000;
+    left: 10px;
+    bottom: 10px;
+    padding: 5px 15px 10px 15px;
+    color: #FFA500;
+}
+
+#footer{
+	margin: 0 0 10px;
+	text-align: center;
+	display: block;
+	color: #FFA500;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
 }

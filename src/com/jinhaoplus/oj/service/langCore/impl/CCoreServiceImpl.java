@@ -15,7 +15,6 @@ import com.jinhaoplus.oj.common.ResultReadCallable;
 import com.jinhaoplus.oj.common.TestWriteCallable;
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
-import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;

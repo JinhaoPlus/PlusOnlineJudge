@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<a href="mailto:rocking2013@hotmail.com">
-	<img src="${ctx }/res/help.png" class="img-responsive" height="60px" width="120px" id="help"/>
-</a>
+
 <nav class="navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">

@@ -1,6 +1,5 @@
 package com.jinhaoplus.oj.unit;
 
-import com.jinhaoplus.oj.util.PropertiesUtil;
 import com.jinhaoplus.oj.util.SecurityUtils;
 
 public class UnitTest {

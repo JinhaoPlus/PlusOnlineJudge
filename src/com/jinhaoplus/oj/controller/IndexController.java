@@ -50,6 +50,13 @@ public class IndexController {
 		}
 	}
 	
+	@RequestMapping(value="/about")
+	public ModelAndView aboutPage(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("about");
+		return modelAndView;
+	}
+	
 	@RequestMapping(value="/mySubmissions")
 	@ResponseBody
 	public ModelAndView checkMySubs(HttpServletRequest request,HttpServletResponse response){

@@ -44,7 +44,7 @@
 	    
 	    <init-param>
 			<param-name>freePages</param-name>
-			<param-value>/accounts/tologin;/accounts/tosignup;/accounts/signup;/accounts/login</param-value>
+			<param-value>/about;/accounts/tologin;/accounts/forget-password;/accounts/tosignup;/accounts/signup;/accounts/login</param-value>
 		</init-param>
 	    <init-param>
 			<param-name>wildCard</param-name>

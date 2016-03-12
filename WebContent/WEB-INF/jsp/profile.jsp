@@ -74,11 +74,11 @@
 				<div class="form-group">
 					<input id="email" name="email" placeholder="E-mail address" readonly="readonly" value="${loginuser.email }"
 						type="email" class="form-control">
-				</div>
-				<div class="tempHide form-group" <c:if test="${show_toggle != 'yes' }">style="display:none"</c:if>>
+				</div>				<div class="tempHide form-group" <c:if test="${show_toggle != 'yes' }">style="display:none"</c:if>>
 					<input id="old_password" name="old_password" placeholder="Old Password"
 						type="password" class="form-control">
 				</div>
+
 				<div class="tempHide form-group" <c:if test="${show_toggle != 'yes' }">style="display:none"</c:if>>
 					<input id="new_password" name="new_password" placeholder="New Password"  value="${new_password }"
 						type="password" class="form-control">
@@ -98,5 +98,6 @@
 			</form>
 		</div>
 	</div>
+	<%@	include file="footer.jsp"%>
 </body>
 </html>

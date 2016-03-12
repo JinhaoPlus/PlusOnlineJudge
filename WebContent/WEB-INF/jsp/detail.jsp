@@ -178,5 +178,6 @@
 				editor.setTheme("ace/theme/solarized_dark");
 		}
 	</script>
+	<%@	include file="footer.jsp"%>
 </body>
 </html>
