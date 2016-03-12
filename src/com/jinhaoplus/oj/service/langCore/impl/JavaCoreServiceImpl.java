@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -17,7 +16,6 @@ import com.jinhaoplus.oj.common.ResultReadCallable;
 import com.jinhaoplus.oj.common.TestWriteCallable;
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
-import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
@@ -26,7 +24,7 @@ import com.jinhaoplus.oj.util.PropertiesUtil;
 
 @Service
 public class JavaCoreServiceImpl implements LangCoreService {
-
+	
 	@Autowired
 	private ProblemsDao problemsDao;
 
@@ -88,17 +86,6 @@ public class JavaCoreServiceImpl implements LangCoreService {
 			processBuilder.directory(new File(javaDir));
 			processBuilder.redirectErrorStream(true);
 
-			System.out.println("============================================");
-			List<String> commands = processBuilder.command();
-			for (String string : commands) {
-				System.out.println("command:"+string);
-			}
-			File file = processBuilder.directory();
-			System.out.println("dir:"+file.getAbsolutePath());
-			Map<String, String> maps = processBuilder.environment();
-			System.out.println("env:"+maps);
-			System.out.println("-----pwd-----"+javaDir);
-			System.out.println("=============================================");
 			
 			try {
 				Process runProcess = processBuilder.start();
@@ -116,10 +103,11 @@ public class JavaCoreServiceImpl implements LangCoreService {
 				runProcess.destroy();
 				
 				if(runProcess.exitValue()==0){
+					System.out.println("exitValue:"+runProcess.exitValue());
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_SUCCESS_CODE"), 
 							PropertiesUtil.getProperty("RUN_SUCCESS"), 
 							runResultInfo.get());
-					
+					System.out.println("message:"+message);
 					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
 					testResult.setSolutionId(solutionId);
 					String OJResult = this.OJResult(problemTest,testResult);
@@ -129,9 +117,11 @@ public class JavaCoreServiceImpl implements LangCoreService {
 					testResult.setTestOutput(problemTest.getProblemTestOutput());
 					results.add(testResult);
 				}else{
+					System.out.println("exitValue:"+runProcess.exitValue());
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 							PropertiesUtil.getProperty("RUN_ERROR"), 
 							runErrorInfo.get());
+					System.out.println("message:"+message);
 					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
 					testResult.setSolutionId(solutionId);
 					String OJResult = this.OJResult(problemTest,testResult);
