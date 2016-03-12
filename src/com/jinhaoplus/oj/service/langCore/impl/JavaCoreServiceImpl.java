@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -82,7 +83,8 @@ public class JavaCoreServiceImpl implements LangCoreService {
 			ProcessBuilder processBuilder;
 			String javaDir = path.substring(0,path.lastIndexOf("/"));
 			processBuilder = new ProcessBuilder("java","-cp",".","Test");
-			
+			Map<String, String> envMap = processBuilder.environment();
+			System.out.println("env:"+envMap);
 			processBuilder.directory(new File(javaDir));
 			System.out.println(processBuilder.directory().getAbsolutePath());
 			processBuilder.redirectErrorStream(true);
