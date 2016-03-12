@@ -81,14 +81,15 @@ public class JavaCoreServiceImpl implements LangCoreService {
 			CommonMessage message = null;
 			ProcessBuilder processBuilder;
 			String javaDir = path.substring(0,path.lastIndexOf("/")+1);
-			processBuilder = new ProcessBuilder("java","Test");
-			
+			processBuilder = new ProcessBuilder("java","-cp",".","Test");
+			System.out.println(processBuilder.directory().getAbsolutePath());
 			processBuilder.directory(new File(javaDir));
 			processBuilder.redirectErrorStream(true);
 
 			
 			try {
 				Process runProcess = processBuilder.start();
+				
 				final InputStream inputStream = runProcess.getInputStream();
 				final InputStream errorStream = runProcess.getErrorStream();
 				final OutputStream outputStream = runProcess.getOutputStream();
