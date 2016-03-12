@@ -76,6 +76,7 @@ public class PyCoreServiceImpl implements LangCoreService {
 							PropertiesUtil.getProperty("RUN_SUCCESS"), 
 							runResultInfo.get());
 					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
+					testResult.setSolutionId(solutionId);
 					String OJResult = this.OJResult(problemTest,testResult);
 					testResult.setOjResult(OJResult);
 					problemsDao.insertTestResult(testResult);
