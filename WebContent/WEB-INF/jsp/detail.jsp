@@ -164,7 +164,7 @@
 			}
 			else if ($('#lang option:selected').val() == 'haskell'){
 				editor.getSession().setMode("ace/mode/haskell");
-				$("#solutionLanguage").val("haskell");
+				$("#solutionLanguage").val("hs");
 			}
 		}
 		function changeTheme() {
