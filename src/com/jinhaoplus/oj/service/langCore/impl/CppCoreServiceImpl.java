@@ -71,7 +71,7 @@ public class CppCoreServiceImpl implements LangCoreService {
 			e.printStackTrace();
 		}
 
-		return null;
+		return message;
 	}
 
 	@Override
