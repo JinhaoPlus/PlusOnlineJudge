@@ -106,7 +106,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		else if ("py".equals(lang)) {
 			langCoreService = pyCoreService;
 		}
-		else if ("haskell".equals(lang)) {
+		else if ("hs".equals(lang)) {
 			langCoreService = haskellCoreService;
 		}
 	}
