@@ -16,8 +16,6 @@ public interface AccountsDao {
 
 	public void insert(User user);
 
-	public void delete(String id);
-
-	public void update(User user);
+	public void updateUserByName(User user);
 
 }

@@ -27,13 +27,8 @@
 		insert into tbl_ploj_user (userid,username,bitcode,email,password) values (#userid#,#username#,#bitcode#,#email#,#password#)
 	</insert>
 
-	<!-- 删除用户对象 -->
-	<delete id="deleteUsers">
-		delete from tbl_ploj_user where userid=#value#
-	</delete>
-
-	<!-- 更新用户对象 -->
-	<delete id="updateUsers" parameterClass="user">
-		update tbl_ploj_user set username=#username# where userid=#userid#
+	<!-- updateUserByName -->
+	<delete id="updateUserByName" parameterClass="user">
+		update tbl_ploj_user set password=#password# where username=#username#
 	</delete>
 </sqlMap>

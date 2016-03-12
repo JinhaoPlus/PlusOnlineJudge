@@ -126,6 +126,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			
 			Source2FileService.persistentFile(solution, sourceFilePath);
 			CommonMessage message = langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
+			System.out.println("[+]compileinfo+"+message);
 			if(COMPILE_SUCCESS_CODE.equals(message.getCode())){
 				List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),solution.getSolutionId() , sourceFilePath);
 				String finalOJResult = "AC";
@@ -139,6 +140,9 @@ public class CoreDisptcherService implements CoreDispatcherService{
 				problemsService.updateSolution(solution);
 				return results;
 			}else if(COMPILE_ERROR_CODE.equals(message.getCode())){
+				solution.setFinalOJResult("CE");
+				problemsService.updateSolution(solution);
+				
 				List<ProblemTestResult> results = new ArrayList<ProblemTestResult>();
 				ProblemTestResult problemTestResult = new ProblemTestResult();
 				problemTestResult.setMessage(message);

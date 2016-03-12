@@ -7,4 +7,5 @@ public interface AccountsService {
 	public CommonMessage signUp(User user);
 	public CommonMessage login(User user);
 	public User getUserByName(String name);
+	public void updateUser(User user);
 }

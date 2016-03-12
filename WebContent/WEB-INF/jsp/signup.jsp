@@ -98,21 +98,21 @@
 	<%@	include file="topnav.jsp"%>
 	<div class="container">
 		<div class="container">
-			<form class="form-signin" id="form-signin" action="/PlusOnlineJudge/accounts/signup/" method="post">
+			<form class="form-signin" id="form-signin" action="${ctx }/accounts/signup" method="post">
 				<h3 class="form-signin-heading">Sign Up</h3>
 				<hr>
 				<div class="form-group">
 					<input autofocus="autofocus" id="username" maxlength="30"
-						name="username" placeholder="Username" type="text"
+						name="username" placeholder="Username" type="text" 
 						class="form-control">
 				</div>
 				<div class="form-group">
 					<input id="bitcode" maxlength="12"
-						name="bitcode" placeholder="BIT Code" type="text"
+						name="bitcode" placeholder="BIT Code" type="text" 
 						class="form-control">
 				</div>
 				<div class="form-group">
-					<input id="email" name="email" placeholder="E-mail address"
+					<input id="email" name="email" placeholder="E-mail address" 
 						type="email" class="form-control">
 				</div>
 				<div class="form-group">

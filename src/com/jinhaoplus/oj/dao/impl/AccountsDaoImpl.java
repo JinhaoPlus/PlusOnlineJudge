@@ -54,15 +54,10 @@ public class AccountsDaoImpl extends SqlMapClientDaoSupport implements AccountsD
 		
 	}
 
-	@Override
-	public void delete(String id) {
-		getSqlMapClientTemplate().delete("deleteUsers", id);
-		
-	}
 
 	@Override
-	public void update(User user) {
-		getSqlMapClientTemplate().update("updateUsers", user);
+	public void updateUserByName(User user) {
+		getSqlMapClientTemplate().update("updateUserByName", user);
 	}
 
 	@Override

@@ -19,7 +19,7 @@
 			<ul class="nav navbar-nav">
 				<li id="problems"><a href="${ctx}/index"><span
 						class="glyphicon glyphicon-th"> Problems</span></a></li>
-				<li id="try"><a href="#"><span
+				<li id="try"><a href="${ctx}/try"><span
 						class="glyphicon glyphicon-edit"> Try!</span></a></li>
 				<li id="discuss"><a href="#"><span
 						class="glyphicon glyphicon-comment"> Discuss</span></a></li>
@@ -30,14 +30,12 @@
 						class="glyphicon glyphicon-user"> ${sessionScope.loginuser.username}</span> <span
 						class="caret"></span> </a>
 					<ul class="dropdown-menu">
-						<li><a href="/profile/">Profile</a></li>
+						<li><a href="${ctx}/accounts/profile"><span class="glyphicon glyphicon-eye-open"> Profile</span></a></li>
 						<li class="divider"></li>
 						<li><a href="${ctx}/mySubmissions"><span
 								class="glyphicon glyphicon-list"> Submissions</span></a></li>
 						<li><a href="/discuss/user/JinhaoLuo"><span
 								class="glyphicon glyphicon-comment"> My Discuss</span></a></li>
-						<li><a href="/accounts/password/change/"><span
-								class="glyphicon glyphicon-ok"> Change Password</span></a></li>
 						<li><a href="${ctx }/accounts/logout/"><span
 								class="glyphicon glyphicon-log-out"> Log out</span></a></li>
 					</ul>

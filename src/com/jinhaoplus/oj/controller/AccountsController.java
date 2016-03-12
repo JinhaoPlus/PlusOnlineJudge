@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.AccountsService;
+import com.jinhaoplus.oj.util.SecurityUtils;
 
 @Controller
 @RequestMapping(value="/accounts")
@@ -44,6 +45,35 @@ public class AccountsController {
 		}else{
 			modelAndView.setViewName("signup-success");
 		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/changePassword")
+	public ModelAndView changePassword(HttpServletRequest request,HttpServletResponse response,User user) {
+		ModelAndView modelAndView = new ModelAndView();
+		String oldPassword = request.getParameter("old_password");
+		String newPassword = request.getParameter("new_password");
+		user.setPassword(oldPassword);
+		CommonMessage message = accountsService.login(user);
+		if(!"202".equals(message.getCode())){
+			modelAndView.setViewName("profile");
+			modelAndView.addObject("show_toggle", "yes");
+			modelAndView.addObject("new_password", newPassword);
+			modelAndView.addObject("chgpsdInfo", "Old Password Invalid");
+		}else{
+			user.setPassword(SecurityUtils.AESEncrypt(newPassword));
+			accountsService.updateUser(user);
+			modelAndView.setViewName("signup-success");
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/profile")
+	public ModelAndView profile(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("profile");
+		User user = (User) request.getSession().getAttribute("loginuser");
+		modelAndView.addObject("loginuser", user);
 		return modelAndView;
 	}
 	

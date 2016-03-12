@@ -62,4 +62,9 @@ public class AccountsServiceImpl implements AccountsService{
 		return accountsDao.getByName(name);
 	}
 
+	@Override
+	public void updateUser(User user) {
+		accountsDao.updateUserByName(user);
+	}
+
 }

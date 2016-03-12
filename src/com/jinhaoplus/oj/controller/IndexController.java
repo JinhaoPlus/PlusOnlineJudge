@@ -1,6 +1,7 @@
 package com.jinhaoplus.oj.controller;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,17 @@ public class IndexController {
 		modelAndView.addObject("problemsList", problemsService.getAllProblems());
 		modelAndView.addObject("message", message);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/try")
+	public void tryOne(HttpServletRequest request,HttpServletResponse response) {
+		int problemNum = problemsService.getAllProblems().size();
+		int tryProblemId = new Random().nextInt(problemNum);
+		try {
+			request.getRequestDispatcher("/problems/"+tryProblemId).forward(request, response);;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(value="/mySubmissions")
