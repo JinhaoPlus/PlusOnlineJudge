@@ -80,7 +80,7 @@ public class JavaCoreServiceImpl implements LangCoreService {
 		for (ProblemTest problemTest : problemTests) {
 			CommonMessage message = null;
 			ProcessBuilder processBuilder;
-			String javaDir = path.substring(0,path.lastIndexOf("/")+1);
+			String javaDir = path.substring(0,path.lastIndexOf("/"));
 			processBuilder = new ProcessBuilder("java","-cp",".","Test");
 			
 			processBuilder.directory(new File(javaDir));
@@ -105,11 +105,9 @@ public class JavaCoreServiceImpl implements LangCoreService {
 				runProcess.destroy();
 				
 				if(runProcess.exitValue()==0){
-					System.out.println("exitValue:"+runProcess.exitValue());
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_SUCCESS_CODE"), 
 							PropertiesUtil.getProperty("RUN_SUCCESS"), 
 							runResultInfo.get());
-					System.out.println("message:"+message);
 					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
 					testResult.setSolutionId(solutionId);
 					String OJResult = this.OJResult(problemTest,testResult);
@@ -119,11 +117,9 @@ public class JavaCoreServiceImpl implements LangCoreService {
 					testResult.setTestOutput(problemTest.getProblemTestOutput());
 					results.add(testResult);
 				}else{
-					System.out.println("exitValue:"+runProcess.exitValue());
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 							PropertiesUtil.getProperty("RUN_ERROR"), 
 							runErrorInfo.get());
-					System.out.println("message:"+message);
 					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
 					testResult.setSolutionId(solutionId);
 					String OJResult = this.OJResult(problemTest,testResult);
