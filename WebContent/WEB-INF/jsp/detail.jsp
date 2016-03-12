@@ -83,7 +83,7 @@
 							<option value="rb">Python</option>
 						</c:if>
 						<c:if test="${language eq 'haskell' }">
-							<option value="haskell">Haskell</option>
+							<option value="hs">Haskell</option>
 						</c:if>
 						
 					</c:forEach>
