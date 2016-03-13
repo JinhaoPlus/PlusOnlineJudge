@@ -1,8 +1,6 @@
 package com.jinhaoplus.oj.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +29,9 @@ public class ProblemsServiceImpl implements ProblemsService{
 
 	@Override
 	public List<Problem> getAllProblems() {
-		return problemsDao.getAllProblems();
-	}
+		List<Problem> problems = problemsDao.getAllProblems();
+		return problems;
+	} 
 
 
 
@@ -41,6 +40,13 @@ public class ProblemsServiceImpl implements ProblemsService{
 		return problemsDao.getProblemById(id);
 	}
 
+	@Override
+	public void updateProblem(Problem problem,ProblemSolution solution) {
+		problem.setProblemSolveTimes(problem.getProblemSolveTimes()+1);
+		if("AC".equals(solution.getFinalOJResult()))
+			problem.setProblemAcTimes(problem.getProblemAcTimes()+1);
+		problemsDao.updateProblem(problem);
+	}
 
 
 	@Override
@@ -83,11 +89,27 @@ public class ProblemsServiceImpl implements ProblemsService{
 		
 	}
 
-
-
 	@Override
 	public List<ProblemSolution> getSolutions(ProblemSolution solution) {
 		return problemsDao.getSolutions(solution);
+	}
+	
+	@Override
+	public ProblemSolution getSpecSolution(int solutionId){
+		ProblemSolution paraSolution = new ProblemSolution();
+		paraSolution.setSolutionId(solutionId);
+		List<ProblemSolution> specSolutions = problemsDao.getSolutions(paraSolution);
+		if(specSolutions != null)
+			return specSolutions.get(0);
+		else
+			return null;
+	}
+	
+	@Override
+	public List<ProblemSolution> getMySolutions(int coderId){
+		ProblemSolution paraSolution = new ProblemSolution();
+		paraSolution.setSolutionCoderId(coderId);
+		return problemsDao.getSolutions(paraSolution);
 	}
 
 	@Override

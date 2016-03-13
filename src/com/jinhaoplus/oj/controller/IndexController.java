@@ -63,7 +63,7 @@ public class IndexController {
 		User user = (User) request.getSession().getAttribute("loginuser");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("my-submissions");
-		List<ProblemSolution> solutions = problemsService.getSolutions(new ProblemSolution());
+		List<ProblemSolution> solutions = problemsService.getMySolutions(user.getUserid());
 		modelAndView.addObject("submitTimes", solutions.size());
 		modelAndView.addObject("solutions", solutions);
 		return modelAndView;

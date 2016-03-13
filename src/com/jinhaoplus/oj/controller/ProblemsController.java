@@ -64,7 +64,7 @@ public class ProblemsController {
 		
 		coreDispatcherService.dispatchSolution(solution);
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
-		//for Linux server and Mac
+		//for Linux server and OS X Server
 		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
 		//for Windows Server
 //		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
@@ -84,7 +84,7 @@ public class ProblemsController {
 		
 		solution = Source2FileService.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
-		
+		problemsService.updateProblem(problem, solution);
 		return modelAndView;
 	}
 	
@@ -96,10 +96,7 @@ public class ProblemsController {
 		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
 		modelAndView.addObject("chosenProblem", problem);
 		
-		ProblemSolution paraSolution = new ProblemSolution();
-		paraSolution.setSolutionId(Integer.parseInt(solutionId));
-		List<ProblemSolution> solutions = problemsService.getSolutions(paraSolution);
-		ProblemSolution solution = solutions.get(0);
+		ProblemSolution solution = problemsService.getSpecSolution(Integer.parseInt(solutionId));
 		solution = Source2FileService.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
 		

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,11 +65,15 @@
 										${problem.problemDigest }
 										</a></td>
 									<td>${problem.problemLanguage }</td>
-									<td>0%</td>
+									<td class="orange">
+										<c:if test="${problem.problemSolveTimes != '0' }"> <fmt:formatNumber type="percent" value="${problem.problemAcTimes/problem.problemSolveTimes}"/></c:if> 
+										<c:if test="${problem.problemSolveTimes == '0' }"><fmt:formatNumber type="percent" value="0.00" /></c:if>
+									</td>
 
 								</tr>
 							</c:forEach>
 						</tbody>
+						
 					</table>
 				</div>
 			</div>

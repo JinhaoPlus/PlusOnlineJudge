@@ -11,12 +11,12 @@
 	<!-- Query all problems -->
 	<select id="getAllProblems" resultClass="problem">
 		select
-		problem_id as
-		problemId,
+		problem_id as problemId,
 		problem_digest as problemDigest,
-		problem_content as
-		problemContent,
-		problem_language as problemLanguage
+		problem_content as problemContent,
+		problem_language as problemLanguage,
+		problem_ac_times as problemAcTimes,
+		problem_solve_times as problemSolveTimes
 		from
 		tbl_ploj_problems
 	</select>
@@ -24,16 +24,25 @@
 	<!-- find problem by problemId -->
 	<select id="getProblemById" resultClass="problem">
 		select
-		problem_id as
-		problemId,
+		problem_id as problemId,
 		problem_digest as problemDigest,
-		problem_content as
-		problemContent,
-		problem_language as problemLanguage
+		problem_content as problemContent,
+		problem_language as problemLanguage,
+		problem_ac_times as problemAcTimes,
+		problem_solve_times as problemSolveTimes
 		from
 		tbl_ploj_problems
 		where problem_id=#value#
 	</select>
+	
+	<!-- update problem -->
+	<update id="updateProblem" parameterClass="problem">
+		update tbl_ploj_problems
+		set 
+		problem_solve_times = #problemSolveTimes#,
+		problem_ac_times = #problemAcTimes#
+		WHERE problem_id = #problemId#
+	</update>
 
 	<!-- About problem Tests -->
 	<!-- find test by problemId -->
@@ -70,7 +79,7 @@
 		WHERE solution_id = #solutionId#
 	</update>
 
-	<!-- Query all solutions -->
+	<!-- Query solutions -->
 	<select id="getSolutions" parameterClass="problemSolution" resultClass="problemSolution">
 		select
 		solution_id as solutionId,

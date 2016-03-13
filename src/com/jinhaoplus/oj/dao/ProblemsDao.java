@@ -12,6 +12,8 @@ public interface ProblemsDao {
 
 	public Problem getProblemById(int id);
 	
+	public void updateProblem(Problem problem);
+	
 	public List<ProblemTest> getTestsByProblemId(int problemId);
 	
 	public void insertTestResult(ProblemTestResult testResult);

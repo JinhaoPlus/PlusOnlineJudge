@@ -41,6 +41,11 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 	public Problem getProblemById(int id) {
 		return (Problem) getSqlMapClientTemplate().queryForObject("getProblemById",id);
 	}
+
+	@Override
+	public void updateProblem(Problem problem){
+		getSqlMapClientTemplate().update("updateProblem", problem);
+	}
 	
 	@Override
 	public List<ProblemTest> getTestsByProblemId(int problemId) {

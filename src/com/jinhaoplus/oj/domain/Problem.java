@@ -6,6 +6,8 @@ public class Problem{
 	private String problemCategory;
 	private String problemContent;
 	private String problemLanguage;
+	private Integer problemAcTimes;
+	private Integer problemSolveTimes;
 	
 	public Integer getProblemId() {
 		return problemId;
@@ -36,6 +38,19 @@ public class Problem{
 	}
 	public void setProblemLanguage(String problemLanguage) {
 		this.problemLanguage = problemLanguage;
+	}
+	
+	public Integer getProblemAcTimes() {
+		return problemAcTimes;
+	}
+	public void setProblemAcTimes(Integer problemAcTimes) {
+		this.problemAcTimes = problemAcTimes;
+	}
+	public Integer getProblemSolveTimes() {
+		return problemSolveTimes;
+	}
+	public void setProblemSolveTimes(Integer problemSolveTimes) {
+		this.problemSolveTimes = problemSolveTimes;
 	}
 	@Override
 	public String toString() {
