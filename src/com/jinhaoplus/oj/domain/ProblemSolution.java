@@ -3,31 +3,38 @@ package com.jinhaoplus.oj.domain;
 import java.util.Date;
 
 public class ProblemSolution {
-	private int solutionId;
-	private int problemId;
+	private Integer solutionId;
+	private Integer problemId;
 	private String codeSubmit;
-	private int solutionCoderId;
+	private Integer solutionCoderId;
 	private String solutionLanguage;
 	private Date codeSubmitTime;
 	private String finalOJResult;
 	
-	public int getSolutionId() {
+	
+
+	public Integer getSolutionId() {
 		return solutionId;
 	}
 
 
-	public void setSolutionId(int solutionId) {
+	public void setSolutionId(Integer solutionId) {
 		this.solutionId = solutionId;
 	}
 
 
-	public int getProblemId() {
+	public Integer getProblemId() {
 		return problemId;
 	}
 
 
-	public void setProblemId(int problemId) {
+	public void setProblemId(Integer problemId) {
 		this.problemId = problemId;
+	}
+
+
+	public void setSolutionCoderId(Integer solutionCoderId) {
+		this.solutionCoderId = solutionCoderId;
 	}
 
 
@@ -40,13 +47,11 @@ public class ProblemSolution {
 		this.codeSubmit = codeSubmit;
 	}
 
-	public int getSolutionCoderId() {
+	
+
+
+	public Integer getSolutionCoderId() {
 		return solutionCoderId;
-	}
-
-
-	public void setSolutionCoderId(int solutionCoderId) {
-		this.solutionCoderId = solutionCoderId;
 	}
 
 

@@ -33,7 +33,7 @@ public class IndexController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("index");
 		HttpSession session = request.getSession();
-		modelAndView.addObject("username", ((User)session.getAttribute("loginuser")).getUsername());
+		modelAndView.addObject("loginuser", ((User)session.getAttribute("loginuser")));
 		modelAndView.addObject("problemsList", problemsService.getAllProblems());
 		modelAndView.addObject("message", message);
 		return modelAndView;
@@ -63,7 +63,7 @@ public class IndexController {
 		User user = (User) request.getSession().getAttribute("loginuser");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("my-submissions");
-		List<ProblemSolution> solutions = problemsService.getAllSolutionsByCoderId(user.getUserid());
+		List<ProblemSolution> solutions = problemsService.getSolutions(new ProblemSolution());
 		modelAndView.addObject("submitTimes", solutions.size());
 		modelAndView.addObject("solutions", solutions);
 		return modelAndView;

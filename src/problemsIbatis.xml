@@ -70,36 +70,29 @@
 		WHERE solution_id = #solutionId#
 	</update>
 
-	<!-- Query one's all solutions -->
-	<select id="getAllSolutionsByCoderId" resultClass="problemSolution">
+	<!-- Query all solutions -->
+	<select id="getSolutions" parameterClass="problemSolution" resultClass="problemSolution">
 		select
 		solution_id as solutionId,
 		problem_id as problemId,
-		solution_coder_id as
-		solutionCoderId,
-		solution_language as solutionLanguage,
-		solution_submit_time as codeSubmitTime,
-		solution_oj_result as
-		finalOJResult
-		from tbl_ploj_solution
-		where solution_coder_id=#value#
-		order by solution_submit_time desc
-	</select>
-
-	<!-- find solution by id -->
-	<select id="getSolutionById" resultClass="problemSolution">
-		select
-		problem_id as
-		problemId,
 		code_submit as codeSubmit,
-		solution_coder_id as
-		solutionCoderId,
+		solution_coder_id as solutionCoderId,
 		solution_language as solutionLanguage,
 		solution_submit_time as codeSubmitTime,
-		solution_oj_result as
-		finalOJResult
+		solution_oj_result as finalOJResult
 		from tbl_ploj_solution
-		where solution_id=#value#
+		<dynamic prepend="where">  
+            <isNotEmpty prepend="and" property="solutionId">  
+                solution_id = #solutionId#
+            </isNotEmpty> 
+            <isNotEmpty prepend="and" property="solutionCoderId">  
+                solution_coder_id = #solutionCoderId#
+            </isNotEmpty> 
+            <isNotEmpty prepend="and" property="problemId">  
+               	problem_id = #problemId#
+            </isNotEmpty>  
+         </dynamic>
+         order by solution_submit_time desc 
 	</select>
 
 	<!-- About Test Results -->

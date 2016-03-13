@@ -16,8 +16,8 @@
 				<div class="row">
 					<div id="brief_stats" class="col-md-8">
 						<p>
-							Welcome, <a href="/profile/">${username }</a>! You have solved <strong>0
-								/ 1</strong> problems. (<a href="/session/">manage sessions</a>)
+							Welcome, <a href="${ctx }/profile">${loginuser.username }</a>! You have solved <strong>0
+								/ 1</strong> problems.
 						</p>
 					</div>
 					<input id="searchText" type="text" placeholder="Search Problems"
@@ -80,7 +80,7 @@
 						</strong></li>
 						<li class="list-group-item"><a style="white-space: normal;"
 							class="btn btn-success btn-md qa-ask-btn"
-							href="#">Post an Interview Question</a></li>
+							href="#">Post an Problem</a></li>
 					</ul>
 				</div>
 			</div>

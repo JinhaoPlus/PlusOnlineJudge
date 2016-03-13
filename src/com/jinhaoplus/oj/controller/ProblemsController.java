@@ -96,7 +96,10 @@ public class ProblemsController {
 		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
 		modelAndView.addObject("chosenProblem", problem);
 		
-		ProblemSolution solution = problemsService.getSolutionById(Integer.parseInt(solutionId));
+		ProblemSolution paraSolution = new ProblemSolution();
+		paraSolution.setSolutionId(Integer.parseInt(solutionId));
+		List<ProblemSolution> solutions = problemsService.getSolutions(paraSolution);
+		ProblemSolution solution = solutions.get(0);
 		solution = Source2FileService.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
 		

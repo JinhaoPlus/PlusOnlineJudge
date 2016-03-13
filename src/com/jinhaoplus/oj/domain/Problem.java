@@ -1,15 +1,16 @@
 package com.jinhaoplus.oj.domain;
 
 public class Problem{
-	private int problemId;
+	private Integer problemId;
 	private String problemDigest;
 	private String problemCategory;
 	private String problemContent;
 	private String problemLanguage;
-	public int getProblemId() {
+	
+	public Integer getProblemId() {
 		return problemId;
 	}
-	public void setProblemId(int problemId) {
+	public void setProblemId(Integer problemId) {
 		this.problemId = problemId;
 	}
 	public String getProblemDigest() {

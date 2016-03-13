@@ -23,10 +23,8 @@ public interface ProblemsService {
 	
 	public void updateSolution(ProblemSolution problemSolution);
 	
-	public List<ProblemSolution> getAllSolutionsByCoderId(int coderId);
-	
-	public ProblemSolution getSolutionById(int solutionId);
-	
+	public List<ProblemSolution> getSolutions(ProblemSolution solution);
+
 	public void insertTestResult(ProblemTestResult testResult);
 	
 	public List<ProblemTestResult> getTestResultsBySolutionId(int solutionId);

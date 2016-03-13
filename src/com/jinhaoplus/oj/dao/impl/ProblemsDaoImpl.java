@@ -57,13 +57,10 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 		
 	}
 	@Override
-	public List<ProblemSolution> getAllSolutionsByCoderId(int coderId) {
-		return  (List<ProblemSolution>) getSqlMapClientTemplate().queryForList("getAllSolutionsByCoderId",coderId);
+	public List<ProblemSolution> getSolutions(ProblemSolution solution) {
+		return  (List<ProblemSolution>) getSqlMapClientTemplate().queryForList("getSolutions",solution);
 	}
-	@Override
-	public ProblemSolution getSolutionById(int solutionId) {
-		return (ProblemSolution) getSqlMapClientTemplate().queryForObject("getSolutionById",solutionId);
-	}
+	
 	@Override
 	public void updateSolution(ProblemSolution problemSolution) {
 		getSqlMapClientTemplate().update("updateSolution", problemSolution);

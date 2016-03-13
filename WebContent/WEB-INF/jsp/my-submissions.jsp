@@ -29,7 +29,7 @@
 			<div class="row">
 				<div id="brief_stats" class="col-md-8">
 					<h2>
-						Hello, <a href="/profile/">${loginuser.username }</a>! You have
+						Hello, <a href="${ctx }/profile">${loginuser.username }</a>! You have
 						submitted <span class="orange">${submitTimes }</span> times!
 					</h2>
 					<p>And these are all of your submissions :</p>
