@@ -60,7 +60,6 @@ public class ProblemsController {
 		modelAndView.setViewName("solutionDetail");
 		
 		Problem problem = problemsService.getProblemById(solution.getProblemId());
-		modelAndView.addObject("chosenProblem", problem);
 		
 		coreDispatcherService.dispatchSolution(solution);
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
@@ -85,6 +84,9 @@ public class ProblemsController {
 		solution = Source2FileService.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
 		problemsService.updateProblem(problem, solution);
+		
+		problem = problemsService.getProblemById(solution.getProblemId());
+		modelAndView.addObject("chosenProblem", problem);
 		return modelAndView;
 	}
 	

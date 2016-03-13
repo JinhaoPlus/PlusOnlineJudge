@@ -32,16 +32,16 @@ public class IndexController {
 		CommonMessage message = new CommonMessage("200","To Login","");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("index");
-		HttpSession session = request.getSession();
-		modelAndView.addObject("loginuser", ((User)session.getAttribute("loginuser")));
-		modelAndView.addObject("problemsList", problemsService.getAllProblems());
+		User loginuser = (User) request.getSession().getAttribute("loginuser");
+		modelAndView.addObject("loginuser", loginuser);
+		modelAndView.addObject("problemsList", problemsService.getAllProblems(loginuser.getUserid()));
 		modelAndView.addObject("message", message);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/try")
 	public void tryOne(HttpServletRequest request,HttpServletResponse response) {
-		int problemNum = problemsService.getAllProblems().size();
+		int problemNum = problemsService.getAllProblems(0).size();
 		int tryProblemId = new Random().nextInt(problemNum);
 		try {
 			request.getRequestDispatcher("/problems/"+tryProblemId).forward(request, response);;

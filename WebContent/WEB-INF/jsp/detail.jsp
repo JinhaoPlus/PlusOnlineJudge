@@ -38,22 +38,23 @@
 				<div class="row question-content">
 					<div class="col-md-12">${chosenProblem.problemContent }</div>
 				</div>
-				<%int count = 0; %>
 				<div class="row result-content table-responsive">
 					<table class="table table-hover table-striped col-md-2">
 						<caption>Optional OJ Tests</caption>
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Input</th>
-								<th>OutPut</th>
+								<th>Content</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${displayTests }" var="test">
-								<tr>
-									<td><%=++count %></td>
-									<td>${test.problemTestInput }</td>
+								<tr class="warning">
+									<td>Input</td>
+									<td>${test.problemTestOutput }</td>
+								</tr>
+								<tr class="info">
+									<td>Output</td>
 									<td>${test.problemTestOutput }</td>
 								</tr>
 							</c:forEach>

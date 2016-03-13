@@ -11,7 +11,7 @@ import com.jinhaoplus.oj.domain.ProblemTestResult;
 
 @Service
 public interface ProblemsService {
-	public List<Problem> getAllProblems();
+	public List<Problem> getAllProblems(int coderId);
 	
 	public Problem getProblemById(int id);
 	

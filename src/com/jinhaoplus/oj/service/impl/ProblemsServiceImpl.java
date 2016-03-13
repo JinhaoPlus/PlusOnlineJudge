@@ -28,8 +28,10 @@ public class ProblemsServiceImpl implements ProblemsService{
 
 
 	@Override
-	public List<Problem> getAllProblems() {
+	public List<Problem> getAllProblems(int coderId) {
 		List<Problem> problems = problemsDao.getAllProblems();
+		if(coderId != 0)
+			problems = this.achieveSomePerProblemResult(problems,coderId);
 		return problems;
 	} 
 
@@ -45,6 +47,11 @@ public class ProblemsServiceImpl implements ProblemsService{
 		problem.setProblemSolveTimes(problem.getProblemSolveTimes()+1);
 		if("AC".equals(solution.getFinalOJResult()))
 			problem.setProblemAcTimes(problem.getProblemAcTimes()+1);
+		else if("CE".equals(solution.getFinalOJResult()))
+			problem.setProblemCeTimes(problem.getProblemCeTimes()+1);
+		else if ("WA".equals(solution.getFinalOJResult())) {
+			problem.setProblemWaTimes(problem.getProblemWaTimes()+1);
+		}
 		problemsDao.updateProblem(problem);
 	}
 
@@ -109,12 +116,42 @@ public class ProblemsServiceImpl implements ProblemsService{
 	public List<ProblemSolution> getMySolutions(int coderId){
 		ProblemSolution paraSolution = new ProblemSolution();
 		paraSolution.setSolutionCoderId(coderId);
-		return problemsDao.getSolutions(paraSolution);
+		return problemsDao.getSolutionsNoCode(paraSolution);
 	}
 
 	@Override
 	public List<ProblemTestResult> getTestResultsBySolutionId(int solutionId){
 		return problemsDao.getTestResultsBySolutionId(solutionId);
+	}
+	
+	
+	public List<Problem> achieveSomePerProblemResult(List<Problem> problems,int coderId){
+		for (Problem problem : problems) {
+			ProblemSolution paraSolution = new ProblemSolution();
+			paraSolution.setProblemId(problem.getProblemId());
+			paraSolution.setSolutionCoderId(coderId);
+			paraSolution.setFinalOJResult("AC");
+			List<ProblemSolution> solutions = problemsDao.getSolutionsNoCode(paraSolution);
+			if(solutions.size()>0){
+				problem.setSomeUserResult("AC");
+				continue;
+			}
+			paraSolution.setFinalOJResult("WA");
+			solutions = problemsDao.getSolutionsNoCode(paraSolution);
+			if(solutions.size()>0){
+				problem.setSomeUserResult("WA");
+				continue;
+			}
+			
+			paraSolution.setFinalOJResult("CE");
+			solutions = problemsDao.getSolutionsNoCode(paraSolution);
+			if(solutions.size()>0){
+				problem.setSomeUserResult("CE");
+				continue;
+			}
+			problem.setSomeUserResult("NEW");
+		}
+		return problems;
 	}
 
 }

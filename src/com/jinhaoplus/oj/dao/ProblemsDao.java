@@ -23,6 +23,8 @@ public interface ProblemsDao {
 	public void updateSolution(ProblemSolution problemSolution);
 	
 	public List<ProblemSolution> getSolutions(ProblemSolution solution);
+	
+	public List<ProblemSolution> getSolutionsNoCode(ProblemSolution solution);
 
 	public List<ProblemTestResult> getTestResultsBySolutionId(int solutionId);
 }

@@ -8,6 +8,10 @@
 <title>PlusOnlineJudge!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@	include file="include.jsp"%>
+<script type="text/javascript">
+$(function(){ 
+}); 
+</script>
 </head>
 <body>
 	<%@	include file="topnav.jsp"%>
@@ -59,15 +63,37 @@
 							<c:forEach items="${problemsList }" var="problem">
 								<tr>
 									<td>${problem.problemId }</td>
-									<td>ac</td>
+									<td>${problem.someUserResult }</td>
 									<td><a
 										href="${ctx }/problems/${problem.problemId }">
 										${problem.problemDigest }
 										</a></td>
 									<td>${problem.problemLanguage }</td>
-									<td class="orange">
-										<c:if test="${problem.problemSolveTimes != '0' }"> <fmt:formatNumber type="percent" value="${problem.problemAcTimes/problem.problemSolveTimes}"/></c:if> 
-										<c:if test="${problem.problemSolveTimes == '0' }"><fmt:formatNumber type="percent" value="0.00" /></c:if>
+									<td> 
+										<c:if test="${problem.problemSolveTimes == '0' }">
+											<div class="progress progress-striped">
+												<div class="progress-bar progress-bar-success" role="progressbar" 
+											      	aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 
+											      	style="0%;">
+											  	</div>
+											</div>
+										</c:if>
+										<c:if test="${problem.problemSolveTimes != '0' }">
+											<div class="progress progress-striped">
+												<div class="progress-bar progress-bar-success" role="progressbar" 
+											      	aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 
+											      	style="width: ${problem.problemAcTimes/problem.problemSolveTimes*100}%;">
+											  	</div>
+											   	<div class="progress-bar progress-bar-danger" role="progressbar" 
+											      	aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 	
+											      	style="width: ${problem.problemWaTimes/problem.problemSolveTimes*100}%;">
+											   	</div>
+											   	<div class="progress-bar progress-bar-warning" role="progressbar" 
+											      	aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 	
+											      	style="width: ${problem.problemCeTimes/problem.problemSolveTimes*100}%;">
+											   	</div>
+											</div>
+									   	</c:if>
 									</td>
 
 								</tr>

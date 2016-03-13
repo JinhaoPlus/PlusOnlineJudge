@@ -16,6 +16,8 @@
 		problem_content as problemContent,
 		problem_language as problemLanguage,
 		problem_ac_times as problemAcTimes,
+		problem_wa_times as problemWaTimes,
+		problem_ce_times as problemCeTimes,
 		problem_solve_times as problemSolveTimes
 		from
 		tbl_ploj_problems
@@ -29,6 +31,8 @@
 		problem_content as problemContent,
 		problem_language as problemLanguage,
 		problem_ac_times as problemAcTimes,
+		problem_wa_times as problemWaTimes,
+		problem_ce_times as problemCeTimes,
 		problem_solve_times as problemSolveTimes
 		from
 		tbl_ploj_problems
@@ -40,7 +44,9 @@
 		update tbl_ploj_problems
 		set 
 		problem_solve_times = #problemSolveTimes#,
-		problem_ac_times = #problemAcTimes#
+		problem_ac_times = #problemAcTimes#,
+		problem_wa_times = #problemWaTimes#,
+		problem_ce_times = #problemCeTimes#
 		WHERE problem_id = #problemId#
 	</update>
 
@@ -78,6 +84,33 @@
 		set solution_oj_result = #finalOJResult#
 		WHERE solution_id = #solutionId#
 	</update>
+
+	<!-- Query solutions -->
+	<select id="getSolutionsNoCode" parameterClass="problemSolution" resultClass="problemSolution">
+		select
+		solution_id as solutionId,
+		problem_id as problemId,
+		solution_coder_id as solutionCoderId,
+		solution_language as solutionLanguage,
+		solution_submit_time as codeSubmitTime,
+		solution_oj_result as finalOJResult
+		from tbl_ploj_solution
+		<dynamic prepend="where">  
+            <isNotEmpty prepend="and" property="solutionId">  
+                solution_id = #solutionId#
+            </isNotEmpty> 
+            <isNotEmpty prepend="and" property="solutionCoderId">  
+                solution_coder_id = #solutionCoderId#
+            </isNotEmpty> 
+            <isNotEmpty prepend="and" property="problemId">  
+               	problem_id = #problemId#
+            </isNotEmpty>  
+            <isNotEmpty prepend="and" property="finalOJResult">  
+               	solution_oj_result = #finalOJResult#
+            </isNotEmpty>  
+         </dynamic>
+         order by solution_submit_time desc 
+	</select>
 
 	<!-- Query solutions -->
 	<select id="getSolutions" parameterClass="problemSolution" resultClass="problemSolution">

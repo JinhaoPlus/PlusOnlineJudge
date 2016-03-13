@@ -26,6 +26,7 @@ public class ResultReadCallable implements Callable<String>{
 		} finally {
 			try {
 				inputStream.close();
+				bufferedReader.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

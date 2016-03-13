@@ -23,6 +23,7 @@ public class TestWriteCallable implements Callable<Object>{
 		} finally {
 			try {
 				outputStream.close();
+				bufferedWriter.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
