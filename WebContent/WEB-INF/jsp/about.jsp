@@ -19,7 +19,7 @@
 							Here is some information about <span class="orange">PlusOnlineJudge</span> !
 						</h1>
 						<h2>
-							Thanks for reading such :
+							Thanks for reading :
 						</h2>
 					</div>
 					<hr />
@@ -32,13 +32,13 @@
 					</div>
 					<div class="answer-content">
 						<p>PlusOnlineJudge is an online judgement system for coders !</p>
-						<p>As a coder , you can use the language the problem set to
+						<p>As a coder , you can use the languages settled by the problems to
 							program , and after your solve it you submit your solution to
-							PlusOJ to judge if it is satisfy the test results . You can see
+							PlusOJ to judge if it satisfies the test results . You can see
 							all of your submissions to track your activities on this platform
 							!</p>
-						<p>In a word , PlusOnlineJudge is for coders to practice and
-							tarck this progress !</p>
+						<p>In a word , PlusOnlineJudge is for coders to practice coding and
+							to tarck their progress !</p>
 						<br />
 					</div>
 				</div>
@@ -49,29 +49,29 @@
 					</div>
 					<div class="answer-content">
 					<p>Developing PlusOJ is my graduation project !</p>
-						<p>PlusOJ is a Java Web project , java and Spring framework
-							construct the main structure of it , Mysql offers the database
+						<p>PlusOJ is a Java Web project , Java and Spring framework
+							construct the main MVC structure , Mysql offers the database
 							support and iBatis offers the ORM support , jQuery Bootstrap gives
-							the page display framwork !</p>
+							the front-end display framework !</p>
 						<p>PlusOJ is an open-source project and it is hosted on GitHub
-							, and this is the address :</p>
+							, and here is the project link :</p>
 						<p>
-							<a href="https://github.com/JinhaoPlus/PlusOnlineJudge">https://github.com/JinhaoPlus/PlusOnlineJudge</a>
+							<a href="https://github.com/JinhaoPlus/PlusOnlineJudge">github.com/JinhaoPlus/PlusOnlineJudge</a>
 						</p>
 						<p>Welcome to fork PlusOJ to make it better ! And I will
-							develop it continuously to make it is more useful !</p>
+							develop it continuously to make it be more useful !</p>
 						<br />
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="question-content">
 						<p class="orange">Some Introduction about the
-							compilers and environment .</p>
+							compilers and the environments .</p>
 					</div>
 					<div class="answer-content">
 						<p>This part is to give an introduction of background
 							environment of PlusOJ , you can learn about the language platforms
-							for your codes and you may host a PlusOJ on your website too !</p>
+							for your coding and you may host a PlusOJ on your own website too !</p>
 						<table class="table table-hover table-striped">
 							<tbody>
 								<tr>
