@@ -5,7 +5,6 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jinhaoplus.oj.domain.CommonMessage;
+import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.ProblemsService;
@@ -34,7 +34,15 @@ public class IndexController {
 		modelAndView.setViewName("index");
 		User loginuser = (User) request.getSession().getAttribute("loginuser");
 		modelAndView.addObject("loginuser", loginuser);
-		modelAndView.addObject("problemsList", problemsService.getAllProblems(loginuser.getUserid()));
+		List<Problem> problemList = problemsService.getAllProblems(loginuser.getUserid());
+		modelAndView.addObject("problemsList", problemList);
+		int solvedNum = 0;
+		for (Problem problem : problemList) {
+			if("AC".equals(problem.getSomeUserResult()))
+				solvedNum++;
+		}
+		modelAndView.addObject("solvedNum", solvedNum);
+		modelAndView.addObject("problemsNum", problemList.size());
 		modelAndView.addObject("message", message);
 		return modelAndView;
 	}

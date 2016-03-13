@@ -17,16 +17,13 @@ $(function(){
 	<%@	include file="topnav.jsp"%>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-offset-1 col-md-8 blog-main">
+			<div class="col-md-offset-1 col-md-11">
 				<div class="row">
-					<div id="brief_stats" class="col-md-8">
-						<p>
-							Welcome, <a href="${ctx }/profile">${loginuser.username }</a>! You have solved <strong>0
-								/ 1</strong> problems.
-						</p>
+					<div id="brief_stats" class="col-md-12">
+						<h2>
+							Welcome, <a href="${ctx }/accounts/profile">${loginuser.username }</a> ! You have solved <strong>${solvedNum} / ${problemsNum} </strong> problems.
+						</h2>
 					</div>
-					<input id="searchText" type="text" placeholder="Search Problems"
-						class="col-md-4 pull-right search-query">
 				</div>
 				<div class="row col-md-4">
 					<select id="filterchosen" class="form-control"
@@ -101,18 +98,6 @@ $(function(){
 						</tbody>
 						
 					</table>
-				</div>
-			</div>
-			<div class="col-md-3 blog-sidebar">
-				<div class="row sidebar-module">
-					<ul class="col-md-offset-3 col-md-9 list-group">
-						<li class="list-group-item list-group-item-danger"><strong>
-								<span class="glyphicon glyphicon-heart"></span> <span>&nbsp;Contribute</span>
-						</strong></li>
-						<li class="list-group-item"><a style="white-space: normal;"
-							class="btn btn-success btn-md qa-ask-btn"
-							href="#">Post an Problem</a></li>
-					</ul>
 				</div>
 			</div>
 		</div>
