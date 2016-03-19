@@ -39,8 +39,8 @@ public class Source2FileService {
 		return solution;
 	}
 	public static ProblemTest beautyTestIO(ProblemTest problemTest){
-		String visableTestInput = problemTest.getProblemTestInput().replaceAll("\\\\n", "<br/>");
-		String visableTestOutput = problemTest.getProblemTestOutput().replaceAll("\\\\n", "<br/>");
+		String visableTestInput = problemTest.getProblemTestInput().replaceAll("\\\\n", "↵<br/>");
+		String visableTestOutput = problemTest.getProblemTestOutput().replaceAll("\\\\n", "↵<br/>");
 		problemTest.setProblemTestInput(visableTestInput);
 		problemTest.setProblemTestOutput(visableTestOutput);
 		return problemTest;
