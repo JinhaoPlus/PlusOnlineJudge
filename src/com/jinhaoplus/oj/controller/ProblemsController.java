@@ -47,7 +47,7 @@ public class ProblemsController {
 		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
 		modelAndView.addObject("chosenProblem", problem);
 		modelAndView.addObject("problemLanguages", Arrays.asList(problem.getProblemLanguage().split("&")));
-		List<ProblemTest> displayTests = problemsService.getDisplayTestsByProblemId(Integer.parseInt(problemId));
+		List<ProblemTest> displayTests = problemsService.getVisableTestsByProblemId(Integer.parseInt(problemId));
 		modelAndView.addObject("displayTests",displayTests);
 		return modelAndView;
 	}

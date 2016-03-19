@@ -12,6 +12,7 @@ import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.ProblemsService;
+import com.jinhaoplus.oj.util.Source2FileService;
 
 @Service
 public class ProblemsServiceImpl implements ProblemsService{
@@ -64,14 +65,12 @@ public class ProblemsServiceImpl implements ProblemsService{
 
 
 	@Override
-	public List<ProblemTest> getDisplayTestsByProblemId(int problemId) {
-		List<ProblemTest> problemTests = problemsDao.getTestsByProblemId(problemId);
-		List<ProblemTest> displayTests = new ArrayList<ProblemTest>();
-		if(problemTests.size()>=2){
-			displayTests.add(problemTests.get(0));
-			displayTests.add(problemTests.get(1));
+	public List<ProblemTest> getVisableTestsByProblemId(int problemId) {
+		List<ProblemTest> visableProblemTests = problemsDao.getVisableTestsByProblemId(problemId);
+		for (ProblemTest problemTest : visableProblemTests) {
+			Source2FileService.beautyTestIO(problemTest);
 		}
-		return displayTests;
+		return visableProblemTests;
 	}
 
 

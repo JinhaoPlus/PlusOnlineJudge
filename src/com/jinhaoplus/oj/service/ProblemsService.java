@@ -19,7 +19,7 @@ public interface ProblemsService {
 	
 	public List<ProblemTest> getTestsByProblemId(int problemId);
 	
-	public List<ProblemTest> getDisplayTestsByProblemId(int problemId);
+	public List<ProblemTest> getVisableTestsByProblemId(int problemId);
 	
 	public int insertSolution(ProblemSolution problemSolution);
 	

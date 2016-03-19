@@ -51,7 +51,7 @@
 	</update>
 
 	<!-- About problem Tests -->
-	<!-- find test by problemId -->
+	<!-- find tests by problemId -->
 	<select id="getTestsByProblemId" resultClass="problemTest">
 		select
 		testid as
@@ -62,6 +62,20 @@
 		test_output as problemTestOutput
 		from tbl_ploj_tests
 		where test_problem_id=#value#
+	</select>
+	
+	<!-- find display tests by problemId -->
+	<select id="getVisableTestsByProblemId" resultClass="problemTest">
+		select
+		testid as
+		problemTestId,
+		test_problem_id as problemId,
+		test_input as
+		problemTestInput,
+		test_output as problemTestOutput
+		from tbl_ploj_tests
+		where test_problem_id=#value#
+		and test_visable = '1'
 	</select>
 
 

@@ -45,7 +45,7 @@
 
 				<div class="col-md-12">
 					<div class="question-content">
-						<p class="orange">PlusOnlineJudge Devlopment ?</p>
+						<p class="orange">PlusOnlineJudge Development ?</p>
 					</div>
 					<div class="answer-content">
 					<p>Developing PlusOJ is my graduation project !</p>

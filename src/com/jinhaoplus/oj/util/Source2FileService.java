@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 import com.jinhaoplus.oj.domain.ProblemSolution;
+import com.jinhaoplus.oj.domain.ProblemTest;
 
 public class Source2FileService {
 	private Source2FileService(){
@@ -36,5 +37,12 @@ public class Source2FileService {
 		String modifySource = source.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r").replaceAll("\"", "\\\\\"");
 		solution.setCodeSubmit(modifySource);
 		return solution;
+	}
+	public static ProblemTest beautyTestIO(ProblemTest problemTest){
+		String visableTestInput = problemTest.getProblemTestInput().replaceAll("\\\\n", "<br/>");
+		String visableTestOutput = problemTest.getProblemTestOutput().replaceAll("\\\\n", "<br/>");
+		problemTest.setProblemTestInput(visableTestInput);
+		problemTest.setProblemTestOutput(visableTestOutput);
+		return problemTest;
 	}
 }

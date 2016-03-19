@@ -51,7 +51,7 @@
 							<c:forEach items="${displayTests }" var="test">
 								<tr class="warning">
 									<td>Input</td>
-									<td>${test.problemTestOutput }</td>
+									<td>${test.problemTestInput }</td>
 								</tr>
 								<tr class="info">
 									<td>Output</td>
