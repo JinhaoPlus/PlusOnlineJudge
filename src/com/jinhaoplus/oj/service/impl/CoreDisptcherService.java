@@ -21,8 +21,9 @@ import com.jinhaoplus.oj.service.langCore.impl.HaskellCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.JavaCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.PyCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.RubyCoreServiceImpl;
+import com.jinhaoplus.oj.util.DisplayRunUtils;
 import com.jinhaoplus.oj.util.PropertiesUtil;
-import com.jinhaoplus.oj.util.Source2FileService;
+import com.jinhaoplus.oj.util.Source2FileUtils;
 
 @Service
 public class CoreDisptcherService implements CoreDispatcherService{
@@ -119,21 +120,21 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			file.mkdir();
 		}
 		//write Code to temp file
-		String fileOrDirName = path+Source2FileService.renameForTempSource(solution)+"."+solution.getSolutionLanguage();
+		String fileOrDirName = path+Source2FileUtils.renameForTempSource(solution)+"."+solution.getSolutionLanguage();
 		//workflow source file
 		if(langCoreService!=null){
 			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
 			
-			Source2FileService.persistentFile(solution, sourceFilePath);
+			Source2FileUtils.persistentFile(solution, sourceFilePath);
 			CommonMessage message = langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
 			System.out.println("[+]compileinfo+"+message);
 			if(COMPILE_SUCCESS_CODE.equals(message.getCode())){
 				List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),solution.getSolutionId() , sourceFilePath);
 				String finalOJResult = "AC";
 				for (ProblemTestResult problemTestResult : results) {
+					DisplayRunUtils.displayResults(problemTestResult);
 					if(!"AC".equals(problemTestResult.getOjResult())){
 						finalOJResult = "WA";
-						break;
 					}
 				}
 				solution.setFinalOJResult(finalOJResult);

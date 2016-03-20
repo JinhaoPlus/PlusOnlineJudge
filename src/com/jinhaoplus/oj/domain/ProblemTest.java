@@ -5,6 +5,7 @@ public class ProblemTest {
 	private int problemId;
 	private String problemTestInput;
 	private String problemTestOutput;
+	private String problemTestVisable;
 	public int getProblemTestId() {
 		return problemTestId;
 	}
@@ -28,6 +29,12 @@ public class ProblemTest {
 	}
 	public void setProblemTestOutput(String problemTestOutput) {
 		this.problemTestOutput = problemTestOutput;
+	}
+	public String getProblemTestVisable() {
+		return problemTestVisable;
+	}
+	public void setProblemTestVisable(String problemTestVisable) {
+		this.problemTestVisable = problemTestVisable;
 	}
 	
 }

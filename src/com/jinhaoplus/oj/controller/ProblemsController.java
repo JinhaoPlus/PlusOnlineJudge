@@ -21,7 +21,7 @@ import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.CoreDispatcherService;
 import com.jinhaoplus.oj.service.ProblemsService;
-import com.jinhaoplus.oj.util.Source2FileService;
+import com.jinhaoplus.oj.util.DisplayRunUtils;
 
 @Controller
 @RequestMapping(value="/problems")
@@ -80,7 +80,7 @@ public class ProblemsController {
 			solution.setFinalOJResult("CE");
 		modelAndView.addObject("compileResult", compileResult);
 		
-		solution = Source2FileService.sourceForACE(solution);
+		solution = DisplayRunUtils.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
 		problemsService.updateProblem(problem, solution);
 		
@@ -98,7 +98,7 @@ public class ProblemsController {
 		modelAndView.addObject("chosenProblem", problem);
 		
 		ProblemSolution solution = problemsService.getSpecSolution(Integer.parseInt(solutionId));
-		solution = Source2FileService.sourceForACE(solution);
+		solution = DisplayRunUtils.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
 		
 		List<ProblemTestResult> testResults = problemsService.getTestResultsBySolutionId(Integer.parseInt(solutionId));

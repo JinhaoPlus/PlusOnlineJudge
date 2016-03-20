@@ -11,6 +11,7 @@ public class Problem{
 	private Integer problemCeTimes;
 	private Integer problemSolveTimes;
 	private String someUserResult;
+	private String problemVisable;
 	
 	public Integer getProblemId() {
 		return problemId;
@@ -74,6 +75,14 @@ public class Problem{
 	}
 	public void setSomeUserResult(String someUserResult) {
 		this.someUserResult = someUserResult;
+	}
+	
+	
+	public String getProblemVisable() {
+		return problemVisable;
+	}
+	public void setProblemVisable(String problemVisable) {
+		this.problemVisable = problemVisable;
 	}
 	@Override
 	public String toString() {

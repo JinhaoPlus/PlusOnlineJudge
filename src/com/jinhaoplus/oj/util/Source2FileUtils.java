@@ -5,9 +5,10 @@ import java.io.FileWriter;
 
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
+import com.jinhaoplus.oj.domain.ProblemTestResult;
 
-public class Source2FileService {
-	private Source2FileService(){
+public class Source2FileUtils {
+	private Source2FileUtils(){
 		
 	}
 	public static String renameForTempSource(ProblemSolution solution){
@@ -31,18 +32,5 @@ public class Source2FileService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	public static ProblemSolution sourceForACE(ProblemSolution solution) {
-		String source = solution.getCodeSubmit();
-		String modifySource = source.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r").replaceAll("\"", "\\\\\"");
-		solution.setCodeSubmit(modifySource);
-		return solution;
-	}
-	public static ProblemTest beautyTestIO(ProblemTest problemTest){
-		String visableTestInput = problemTest.getProblemTestInput().replaceAll("\\\\n", "↵<br/>");
-		String visableTestOutput = problemTest.getProblemTestOutput().replaceAll("\\\\n", "↵<br/>");
-		problemTest.setProblemTestInput(visableTestInput);
-		problemTest.setProblemTestOutput(visableTestOutput);
-		return problemTest;
 	}
 }
