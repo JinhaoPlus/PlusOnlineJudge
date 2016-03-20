@@ -52,6 +52,8 @@ public class IndexController {
 		int problemNum = problemsService.getAllProblems(0).size();
 		int tryProblemId = new Random().nextInt(problemNum);
 		try {
+			if(tryProblemId == 0)
+				tryProblemId = 1;
 			request.getRequestDispatcher("/problems/"+tryProblemId).forward(request, response);;
 		} catch (Exception e) {
 			e.printStackTrace();

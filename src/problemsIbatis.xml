@@ -21,6 +21,7 @@
 		problem_solve_times as problemSolveTimes
 		from
 		tbl_ploj_problems
+		where problem_available = '1'
 	</select>
 
 	<!-- find problem by problemId -->

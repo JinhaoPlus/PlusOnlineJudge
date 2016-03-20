@@ -140,9 +140,9 @@ public class ProblemsServiceImpl implements ProblemsService{
 		}
 		for (ProblemTestResult testResult : testResults) {
 			if(hiddenTestsIds.contains(testResult.getTestId())){
-				testResult.setTestInput("***HIDDEN INPUT***");
-				testResult.setTestOutput("***HIDDEN EXPECTED OUTPUT***");
-				testResult.setResult("***HIDDEN RESULT***");
+				testResult.setTestInput("---HIDDEN INPUT---");
+				testResult.setTestOutput("---HIDDEN EXPECTED OUTPUT---");
+				testResult.setResult("---HIDDEN RESULT---");
 			}
 		}
 	}
