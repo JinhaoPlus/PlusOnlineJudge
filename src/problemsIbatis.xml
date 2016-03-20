@@ -57,9 +57,9 @@
 		testid as
 		problemTestId,
 		test_problem_id as problemId,
-		test_input as
-		problemTestInput,
-		test_output as problemTestOutput
+		test_input as problemTestInput,
+		test_output as problemTestOutput,
+		test_visable as problemTestVisable
 		from tbl_ploj_tests
 		where test_problem_id=#value#
 	</select>
@@ -72,7 +72,8 @@
 		test_problem_id as problemId,
 		test_input as
 		problemTestInput,
-		test_output as problemTestOutput
+		test_output as problemTestOutput,
+		test_visable as problemTestVisable
 		from tbl_ploj_tests
 		where test_problem_id=#value#
 		and test_visable = '1'
@@ -164,13 +165,13 @@
 	<!-- find Result in some solution -->
 	<select id="getTestResultsBySolutionId" resultClass="problemTestResult">
 		SELECT
-			problem_id AS problemId,
-			test_id AS testId,
-			solution_id AS solutionId,
-			result AS result,
-			oj_result AS ojResult,
-			t2.TEST_INPUT AS testInput,
-			t2.TEST_OUTPUT AS testOutput
+			problem_id as problemid,
+			test_id as testid,
+			solution_id as solutionid,
+			result as result,
+			oj_result as ojresult,
+			t2.test_input as testinput,
+			t2.test_output as testoutput
 		FROM
 			tbl_ploj_test_result t1,tbl_ploj_tests t2
 		WHERE

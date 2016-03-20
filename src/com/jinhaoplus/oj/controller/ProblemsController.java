@@ -73,6 +73,7 @@ public class ProblemsController {
 		
 		
 		List<ProblemTestResult> testResults = coreDispatcherService.workFlow(solution,sourceWaitPath);
+		problemsService.visableTestResults(testResults);
 		modelAndView.addObject("testResults",testResults);
 		
 		String compileResult = testResults.get(0).getMessage().getCode();
@@ -102,6 +103,7 @@ public class ProblemsController {
 		modelAndView.addObject("solution", solution);
 		
 		List<ProblemTestResult> testResults = problemsService.getTestResultsBySolutionId(Integer.parseInt(solutionId));
+		problemsService.visableTestResults(testResults);
 		modelAndView.addObject("testResults",testResults);
 		
 		return modelAndView;

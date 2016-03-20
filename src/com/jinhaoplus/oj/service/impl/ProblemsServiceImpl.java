@@ -1,5 +1,6 @@
 package com.jinhaoplus.oj.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +127,25 @@ public class ProblemsServiceImpl implements ProblemsService{
 		return testResults;
 	}
 	
+	@Override
+	public void visableTestResults(List<ProblemTestResult> testResults){
+		int problemId = testResults.get(0).getProblemId();
+		List<ProblemTest> problemTests = problemsDao.getTestsByProblemId(problemId);
+		List<Integer> hiddenTestsIds = new  ArrayList<>();
+		for (ProblemTest problemTest : problemTests) {
+			if(problemTest.getProblemTestVisable()!=null && "0".equals(problemTest.getProblemTestVisable())){
+				int aId = problemTest.getProblemTestId();
+				hiddenTestsIds.add(aId);
+			}
+		}
+		for (ProblemTestResult testResult : testResults) {
+			if(hiddenTestsIds.contains(testResult.getTestId())){
+				testResult.setTestInput("***HIDDEN INPUT***");
+				testResult.setTestOutput("***HIDDEN EXPECTED OUTPUT***");
+				testResult.setResult("***HIDDEN RESULT***");
+			}
+		}
+	}
 	
 	public List<Problem> achieveSomePerProblemResult(List<Problem> problems,int coderId){
 		for (Problem problem : problems) {
@@ -155,5 +175,4 @@ public class ProblemsServiceImpl implements ProblemsService{
 		}
 		return problems;
 	}
-
 }

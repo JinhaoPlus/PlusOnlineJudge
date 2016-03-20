@@ -61,7 +61,6 @@ public class ProblemTestResult {
 	public void setOjResult(String ojResult) {
 		this.ojResult = ojResult;
 	}
-	
 	public CommonMessage getMessage() {
 		return message;
 	}
