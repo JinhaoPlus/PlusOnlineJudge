@@ -119,8 +119,11 @@ public class ProblemsServiceImpl implements ProblemsService{
 
 	@Override
 	public List<ProblemTestResult> getTestResultsBySolutionId(int solutionId){
-		
-		return problemsDao.getTestResultsBySolutionId(solutionId);
+		List<ProblemTestResult> testResults = problemsDao.getTestResultsBySolutionId(solutionId);
+		for (ProblemTestResult problemTestResult : testResults) {
+			DisplayRunUtils.displayResults(problemTestResult);
+		}
+		return testResults;
 	}
 	
 	

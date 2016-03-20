@@ -17,8 +17,8 @@ public class ResultReadCallable implements Callable<String>{
 		try {
 			String line = null;
 			while ((line = bufferedReader.readLine()) != null) {
-				if (line != null) {
-					stringBuffer.append(line);
+				if (!"".equals(line)) {
+					stringBuffer.append(line+"\n");
 				}
 			}
 		} catch (Exception e) {
