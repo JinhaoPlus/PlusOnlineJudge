@@ -101,13 +101,13 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		else if ("cpp".equals(lang)) {
 			langCoreService = cppCoreService;
 		}
-		else if ("rb".equals(lang)) {
+		else if ("ruby".equals(lang)) {
 			langCoreService = rubyCoreService;
 		}
-		else if ("py".equals(lang)) {
+		else if ("python".equals(lang)) {
 			langCoreService = pyCoreService;
 		}
-		else if ("hs".equals(lang)) {
+		else if ("haskell".equals(lang)) {
 			langCoreService = haskellCoreService;
 		}
 	}

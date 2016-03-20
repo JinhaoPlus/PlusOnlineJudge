@@ -78,13 +78,13 @@
 							<option value="java">Java</option>
 						</c:if>
 						<c:if test="${language eq 'python' }">
-							<option value="py">Python</option>
+							<option value="python">Python</option>
 						</c:if>
 						<c:if test="${language eq 'ruby' }">
-							<option value="rb">Python</option>
+							<option value="ruby">Ruby</option>
 						</c:if>
 						<c:if test="${language eq 'haskell' }">
-							<option value="hs">Haskell</option>
+							<option value="haskell">Haskell</option>
 						</c:if>
 						
 					</c:forEach>
@@ -125,15 +125,29 @@
 		var editor = ace.edit("editor");
 		editor.setTheme("ace/theme/monokai");
 		var selLang = $('#lang option:selected').val();
-		editor.getSession().setMode("ace/mode/"+selLang);
 		editor.getSession().on("change", function(e){
 			$("#codeToSubmit").val(editor.getValue());
 		});
 		var javaPre = "/**\r\n * please import your package here\r\n */\r\n\r\npublic class Test\r\n{\r\n \r\n    /**\r\n     * please keep the class name here to avoid compiling error\r\n     */\r\n    public static void main(String[] args) \r\n    {\r\n        \r\n    }\r\n}";
 		var cPre = "/**\r\n     * please edit your code here\r\n     */\r\n\r\n";
-		var cppPre = "/**\r\n     * please edit your code here\r\n     */\r\n\r\n";
+		var pyPre = "#please edit your code here";
+		var rbPre = "#please edit your code here";
+		var hsPre = "--please edit your code here";
 		if(selLang == 'java'){
+			editor.getSession().setMode("ace/mode/java");
 			editor.setValue(javaPre);
+		}else if(selLang == 'c' || selLang == 'cpp'){
+			editor.getSession().setMode("ace/mode/c_cpp");
+			editor.setValue(cPre);
+		}else if(selLang == 'ruby'){
+			editor.getSession().setMode("ace/mode/ruby");
+			editor.setValue(rbPre);
+		}else if(selLang == 'python'){
+			editor.getSession().setMode("ace/mode/python");
+			editor.setValue(pyPre);
+		}else if(selLang == 'haskell'){
+			editor.getSession().setMode("ace/mode/haskell");
+			editor.setValue(hsPre);
 		}
 		$("#solutionLanguage").val($('#lang option:selected').val());
 		function resetCode() {
@@ -146,26 +160,29 @@
 				editor.setValue(javaPre);
 			}
 			else if ($('#lang option:selected').val() == 'c'){
-				editor.getSession().setMode("ace/mode/c");
+				editor.getSession().setMode("ace/mode/c_cpp");
 				$("#solutionLanguage").val("c");
 				editor.setValue(cPre);
 			}
 			else if ($('#lang option:selected').val() == 'cpp'){
-				editor.getSession().setMode("ace/mode/c");
+				editor.getSession().setMode("ace/mode/c_cpp");
 				$("#solutionLanguage").val("cpp");
-				editor.setValue(cppPre);
+				editor.setValue(cPre);
 			}
 			else if ($('#lang option:selected').val() == 'ruby'){
 				editor.getSession().setMode("ace/mode/ruby");
-				$("#solutionLanguage").val("ruby");
+				$("#solutionLanguage").val("rb");
+				editor.setValue(rbPre);
 			}
 			else if ($('#lang option:selected').val() == 'python'){
 				editor.getSession().setMode("ace/mode/python");
-				$("#solutionLanguage").val("python");
+				$("#solutionLanguage").val("py");
+				editor.setValue(pyPre);
 			}
 			else if ($('#lang option:selected').val() == 'haskell'){
 				editor.getSession().setMode("ace/mode/haskell");
 				$("#solutionLanguage").val("hs");
+				editor.setValue(hsPre);
 			}
 		}
 		function changeTheme() {
