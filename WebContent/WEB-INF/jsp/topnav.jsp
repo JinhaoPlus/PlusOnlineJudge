@@ -19,8 +19,8 @@
 						class="glyphicon glyphicon-th"> Problems</span></a></li>
 				<li id="try"><a href="${ctx}/try"><span
 						class="glyphicon glyphicon-edit"> Try!</span></a></li>
-				<li id="discuss"><a href="#"><span
-						class="glyphicon glyphicon-comment"> Discuss</span></a></li>
+				<li id="discuss"><a href="${ctx }/cloud-runner"><span
+						class="glyphicon glyphicon-comment"> CodeRunner</span></a></li>
 			</ul>
 			<ul id="navBar-right" class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"

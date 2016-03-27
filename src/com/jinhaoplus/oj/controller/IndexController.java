@@ -1,8 +1,10 @@
 package com.jinhaoplus.oj.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -58,6 +60,13 @@ public class IndexController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping(value="/cloud-runner")
+	public ModelAndView cloudCompile(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("cloudRunner");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value="/about")
