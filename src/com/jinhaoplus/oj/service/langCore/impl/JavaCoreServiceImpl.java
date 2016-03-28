@@ -50,7 +50,13 @@ public class JavaCoreServiceImpl implements LangCoreService {
 		return results;
 	}
 
-	
+	@Override
+	public ProblemTestResult cloudRunCode(String path) {
+		String[] runCommands = {"java","-cp",".","Test"};
+		String runDir = path.substring(0, path.lastIndexOf("/"));
+		ProblemTestResult result = langCoreResolver.cloudRunCode(runDir, runCommands);
+		return result;
+	}
 
 	@Override
 	public String createTempSourceFile(String fileOrDirName) {

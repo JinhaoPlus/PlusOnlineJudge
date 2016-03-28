@@ -11,7 +11,8 @@ public interface LangCoreService {
 	public String createTempSourceFile(String fileOrDirName);
 	//Compile source Code
 	public CommonMessage compileCode(String path);
-	//Run compiled Code
+	//Run compiled Code for oj
 	public List<ProblemTestResult> ojRunCode(int problemId,int solutionId,String path);
-	
+	//Run compiled Code for cloudRunner
+	public ProblemTestResult cloudRunCode(String path);
 }

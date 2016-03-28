@@ -47,4 +47,10 @@ public class CppCoreServiceImpl implements LangCoreService {
 	public String createTempSourceFile(String fileOrDirName) {
 		return fileOrDirName;
 	}
+
+	@Override
+	public ProblemTestResult cloudRunCode(String path) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

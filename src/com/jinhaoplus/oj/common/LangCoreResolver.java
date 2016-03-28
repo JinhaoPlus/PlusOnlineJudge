@@ -124,6 +124,53 @@ public class LangCoreResolver {
 		return results;
 	}
 	
+	public ProblemTestResult cloudRunCode(String runDir,String[] runCommands){
+		CommonMessage message = null;
+		ProcessBuilder processBuilder;
+		processBuilder = new ProcessBuilder(runCommands);
+		processBuilder.directory(new File(runDir));
+		processBuilder.redirectErrorStream(true);
+		
+		try {
+			Process runProcess = processBuilder.start();
+			
+			final InputStream inputStream = runProcess.getInputStream();
+			final InputStream errorStream = runProcess.getErrorStream();
+			final OutputStream outputStream = runProcess.getOutputStream();
+
+			ResultReadCallable runResultThread = new ResultReadCallable(inputStream);
+			ResultReadCallable runErrorThread = new ResultReadCallable(errorStream);
+			//TestWriteCallable runTestWriteThread = new TestWriteCallable(outputStream, problemTest.getProblemTestInput());
+			Future<String> runErrorInfo = executor.submit(runErrorThread);
+			Future<String> runResultInfo = executor.submit(runResultThread);
+			//executor.submit(runTestWriteThread);
+			runProcess.waitFor();
+			runProcess.destroy();
+			
+			if(runProcess.exitValue()==0){
+				message = new CommonMessage(PropertiesUtil.getProperty("RUN_SUCCESS_CODE"), 
+						PropertiesUtil.getProperty("RUN_SUCCESS"), 
+						runResultInfo.get());
+				ProblemTestResult testResult = new ProblemTestResult();
+				testResult.setResult(runResultInfo.get());
+				testResult.setMessage(message);
+				return testResult;
+			}else{
+				message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
+						PropertiesUtil.getProperty("RUN_ERROR"), 
+						runErrorInfo.get());
+				ProblemTestResult testResult = new ProblemTestResult();
+				testResult.setResult(runResultInfo.get());
+				testResult.setMessage(message);
+				return testResult;
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
 		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
 			return "AC";

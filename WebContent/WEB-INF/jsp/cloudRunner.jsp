@@ -23,108 +23,100 @@
 		var editor1 = ace.edit("editor1");
 		editor1.setTheme("ace/theme/monokai");
 		editor1.getSession().setMode("ace/mode/java");
-		$('#addTab').click(function () {
-		  	var nextTab = $('#tabs li').size();
-		  	// create the tab
-		  	$('<li><a href="#tab'+nextTab+'" data-toggle="tab">File'+nextTab+'<span class="glyphicon glyphicon-remove close-control"></span></a></li>').appendTo('#tabs');
-		  	// create the tab content
-		  	var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row' style='margin-bottom: 12px;'>";
-		  	tab_pane += $('#settings_row').html();
-		  	tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
-		  	tab_pane += "<pre id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></pre></div>";
-		  	
-		  	$('<div class="tab-pane fade in active" id="tab'+nextTab+'">'+tab_pane+'</div>').appendTo('.tab-content');
-		  	var editorx = ace.edit('editor'+nextTab);
-		  	editorx.setTheme("ace/theme/monokai");
+		$('#addTab').click(function() {
+			var nextTab = $('#tabs li').size();
+			// create the tab
+			$('<li><a href="#tab'+nextTab+'" data-toggle="tab">File'+ nextTab+ '<span class="glyphicon glyphicon-remove close-control"></span></a></li>').appendTo('#tabs');
+			// create the tab content
+			var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row' style='margin-bottom: 12px;'>";
+			tab_pane += $('#settings_row').html();
+			tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
+			tab_pane += "<pre id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></pre></div>";
+
+			$('<div class="tab-pane fade in active" id="tab'+nextTab+'">'+ tab_pane + '</div>').appendTo('.tab-content');
+			var editorx = ace.edit('editor' + nextTab);
+			editorx.setTheme("ace/theme/monokai");
 			editorx.getSession().setMode("ace/mode/java");
-		  	$('#tabs a:last').tab('show');
+			$('#tabs a:last').tab('show');
 		});
-		$(document).on('change', '.lang-control', function(){
+		$(document).on('change', '.lang-control', function() {
 			var tabId = $(this).parent().parent().prev().val();
-			var editor = ace.edit("editor"+tabId);
+			var editor = ace.edit("editor" + tabId);
 			var selectedLang = $(this).val();
-			if (selectedLang == 'java'){
+			if (selectedLang == 'java') {
 				editor.getSession().setMode("ace/mode/java");
 				$("#solutionLanguage").val("java");
 				editor.setValue(javaPre);
-			}
-			else if (selectedLang == 'c'){
+			} else if (selectedLang == 'c') {
 				editor.getSession().setMode("ace/mode/c_cpp");
-				$("#solutionLanguage"+tabId).val("c");
+				$("#solutionLanguage" + tabId).val("c");
 				editor.setValue(cPre);
-			}
-			else if (selectedLang == 'cpp'){
+			} else if (selectedLang == 'cpp') {
 				editor.getSession().setMode("ace/mode/c_cpp");
-				$("#solutionLanguage"+tabId).val("cpp");
+				$("#solutionLanguage" + tabId).val("cpp");
 				editor.setValue(cPre);
-			}
-			else if (selectedLang == 'ruby'){
+			} else if (selectedLang == 'ruby') {
 				editor.getSession().setMode("ace/mode/ruby");
-				$("#solutionLanguage"+tabId).val("rb");
+				$("#solutionLanguage" + tabId).val("rb");
 				editor.setValue(rbPre);
-			}
-			else if (selectedLang == 'python'){
+			} else if (selectedLang == 'python') {
 				editor.getSession().setMode("ace/mode/python");
-				$("#solutionLanguage"+tabId).val("py");
+				$("#solutionLanguage" + tabId).val("py");
 				editor.setValue(pyPre);
-			}
-			else if (selectedLang == 'haskell'){
+			} else if (selectedLang == 'haskell') {
 				editor.getSession().setMode("ace/mode/haskell");
-				$("#solutionLanguage"+tabId).val("hs");
+				$("#solutionLanguage" + tabId).val("hs");
 				editor.setValue(hsPre);
-			}
-			else if (selectedLang == 'php'){
+			} else if (selectedLang == 'php') {
 				editor.getSession().setMode("ace/mode/php");
-				$("#solutionLanguage"+tabId).val("php");
-				
-			}
-			else if (selectedLang == 'go'){
+				$("#solutionLanguage" + tabId).val("php");
+
+			} else if (selectedLang == 'go') {
 				editor.getSession().setMode("ace/mode/golang");
-				$("#solutionLanguage"+tabId).val("go");
-				
-			}
-			else if (selectedLang == 'javascript'){
+				$("#solutionLanguage" + tabId).val("go");
+
+			} else if (selectedLang == 'javascript') {
 				editor.getSession().setMode("ace/mode/js");
-				$("#solutionLanguage"+tabId).val("javascript");
-				
-			}
-			else if (selectedLang == 'swift'){
+				$("#solutionLanguage" + tabId).val("javascript");
+
+			} else if (selectedLang == 'swift') {
 				editor.getSession().setMode("ace/mode/swift");
-				$("#solutionLanguage"+tabId).val("swift");
-				
+				$("#solutionLanguage" + tabId).val("swift");
+
 			}
 		});
-		$(document).on('click', '.close-control', function(){
+		$(document).on('click', '.close-control', function() {
+			$('#closeModal').modal();
 			$(this).parent().parent().remove();
 			var closing_tab_pane = $(this).parent().attr('href');
 			var tabId = $(closing_tab_pane).children().next().val();
-			var editor = ace.edit("editor"+tabId);
+			var editor = ace.edit("editor" + tabId);
 			editor.destroy();
 			$(closing_tab_pane).remove();
 			$('#tabs a:last').tab('show');
 		});
-		$(document).on('click', '.run-control', function(){
+		$(document).on('click', '.run-control', function() {
 			var tabId = $(this).parent().parent().prev().val();
-			var editor = ace.edit("editor"+tabId);
+			var editor = ace.edit("editor" + tabId);
 			$.ajax({
-				  type: 'POST',
-				  url: '${ctx}/problems/cloudRun',
-				  data: {
-					  codeSubmit:editor.getValue(),
-					  solutionLanguage:$('#solutionLanguage'+tabId).val()
-				  },
-				  success: function(data) {    
-			        if(data.msg =="true" ){    
-			        	
-			        }else{    
-			        	
-			        }    
-			     }
+				type : 'POST',
+				url : '${ctx}/problems/cloudRun',
+				data : {
+					codeSubmit : editor.getValue(),
+					solutionLanguage : $('#solutionLanguage' + tabId).val()
+				},
+				success : function(data) {
+					if (data.msg == "true") {
+
+					} else {
+
+					}
+				}
 			});
 		});
-		$(document).on('change', '.theme-control', function(){
+		$(document).on('change', '.theme-control', function() {
 			var tabId = $(this).parent().parent().prev().val();
-			var editor = ace.edit("editor"+tabId);
+			var editor = ace.edit("editor" + tabId);
 			var selectedTheme = $(this).val();
 			if (selectedTheme == 'monokai')
 				editor.setTheme("ace/theme/monokai");
@@ -135,9 +127,9 @@
 			else if (selectedTheme == 'solarized')
 				editor.setTheme("ace/theme/solarized_dark");
 		});
-		$(document).on('click', '.reset-control', function(){
+		$(document).on('click', '.reset-control', function() {
 			var tabId = $(this).parent().parent().prev().val();
-			var editor = ace.edit("editor"+tabId);
+			var editor = ace.edit("editor" + tabId);
 			editor.setValue("");
 		});
 	});
@@ -146,18 +138,16 @@
 <body>
 	<%@	include file="topnav.jsp"%>
 	<div class="container">
-		<div class="row"> 
+		<div class="row">
 			<div class="col-md-offset-1 col-md-10">
 				<ul id="tabs" class="nav nav-tabs">
 					<li><a id="addTab"> <span class="glyphicon glyphicon-plus"></a></li>
-					<li class="active">
-						<a href="#tab1" data-toggle="tab"> File1 </a>
-					</li>
+					<li class="active"><a href="#tab1" data-toggle="tab">
+							File1 </a></li>
 				</ul>
 				<div id="tabContents" class="tab-content">
 					<div class="tab-pane fade in active" id="tab1">
-						<br/>
-						<input id="tabId" type="hidden" value="1"/>
+						<br /> <input id="tabId" type="hidden" value="1" />
 						<div id="settings_row" class="row" style="margin-bottom: 12px;">
 							<div class="col-lg-2">
 								<select class="form-control lang-control" id="lang">
@@ -189,18 +179,35 @@
 									type="submit" data-original-title="Shortcut: Command + enter">run</button>
 							</div>
 						</div>
-						<input id="solutionLanguage1" name="solutionLanguage1" type="hidden" value="java"/>
+						<input id="solutionLanguage1" name="solutionLanguage1"
+							type="hidden" value="java" />
 						<pre id="embedded_ace_code" style="height: 400px;"
 							class="col-md-12" style="margin-bottom: 12px;">
 							<div id="editor1" class="editor"></div>
 						</pre>
-						
+						<div id="resultDiv" class="alert alert-info alert-dismissable">
+
+						</div>
 					</div>
-						
+
 				</div>
 			</div>
 		</div>
 	</div>
 	<%@	include file="footer.jsp"%>
+	<div class="modal fade" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h3>Sure to Close ?</h3>
+					<p>You will lose your file process !</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

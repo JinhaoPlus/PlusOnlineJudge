@@ -101,8 +101,8 @@ public class ProblemsController {
 //		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
 		solution.setSolutionCoderId(userId);
 		solution.setCodeSubmitTime(new Date());
-		coreDispatcherService.cloudRunWorkFlow(solution, sourceWaitPath);
-		return null;
+		ProblemTestResult testResult = coreDispatcherService.cloudRunWorkFlow(solution, sourceWaitPath);
+		return testResult;
 	}
 	
 	@RequestMapping(value="/getSolutionDetail/{problemId}/{solutionId}")

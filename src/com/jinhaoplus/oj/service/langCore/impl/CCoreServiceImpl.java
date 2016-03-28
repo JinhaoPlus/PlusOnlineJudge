@@ -46,6 +46,13 @@ public class CCoreServiceImpl implements LangCoreService {
 		return fileOrDirName;
 	}
 
+
+	@Override
+	public ProblemTestResult cloudRunCode(String path) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

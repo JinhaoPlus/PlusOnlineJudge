@@ -162,6 +162,22 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		if (!file.exists()) {
 			file.mkdir();
 		}
+		String fileOrDirName = path+Source2FileUtils.renameForTempSource(solution)+"."+solution.getSolutionLanguage();
+		if(langCoreService!=null){
+			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
+			
+			Source2FileUtils.persistentFile(solution, sourceFilePath);
+			CommonMessage message = langCoreService.compileCode(sourceFilePath);
+			System.out.println("[+]compileinfo+"+message);
+			if(COMPILE_SUCCESS_CODE.equals(message.getCode())){
+				ProblemTestResult result = langCoreService.cloudRunCode(sourceFilePath);
+				return result;
+			}else if(COMPILE_ERROR_CODE.equals(message.getCode())){
+				ProblemTestResult result = new ProblemTestResult();
+				result.setMessage(message);
+				return result;
+			}
+		}
 		return null;
 	}
 }
