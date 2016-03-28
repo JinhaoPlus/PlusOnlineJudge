@@ -26,7 +26,7 @@
 		$('#addTab').click(function () {
 		  	var nextTab = $('#tabs li').size();
 		  	// create the tab
-		  	$('<li><a href="#tab'+nextTab+'" data-toggle="tab">File'+nextTab+'</a></li>').appendTo('#tabs');
+		  	$('<li><a href="#tab'+nextTab+'" data-toggle="tab">File'+nextTab+'<span class="glyphicon glyphicon-remove close-control"></span></a></li>').appendTo('#tabs');
 		  	// create the tab content
 		  	var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row' style='margin-bottom: 12px;'>";
 		  	tab_pane += $('#settings_row').html();
@@ -72,6 +72,35 @@
 				$("#solutionLanguage").val("hs");
 				editor.setValue(hsPre);
 			}
+			else if (selectedLang == 'php'){
+				editor.getSession().setMode("ace/mode/php");
+				$("#solutionLanguage").val("php");
+				
+			}
+			else if (selectedLang == 'go'){
+				editor.getSession().setMode("ace/mode/golang");
+				$("#solutionLanguage").val("go");
+				
+			}
+			else if (selectedLang == 'javascript'){
+				editor.getSession().setMode("ace/mode/js");
+				$("#solutionLanguage").val("javascript");
+				
+			}
+			else if (selectedLang == 'swift'){
+				editor.getSession().setMode("ace/mode/swift");
+				$("#solutionLanguage").val("swift");
+				
+			}
+		});
+		$(document).on('click', '.close-control', function(){
+			$(this).parent().parent().remove();
+			var closing_tab_pane = $(this).parent().attr('href');
+			var tabId = $(closing_tab_pane).children().next().val();
+			var editor = ace.edit("editor"+tabId);
+			editor.destroy();
+			$(closing_tab_pane).remove();
+			$('#tabs a:last').tab('show');
 		});
 		$(document).on('change', '.theme-control', function(){
 			var tabId = $(this).parent().parent().prev().val();
@@ -100,17 +129,18 @@
 		<div class="row"> 
 			<div class="col-md-offset-1 col-md-10">
 				<ul id="tabs" class="nav nav-tabs">
-					<li><a id="addTab"> + </a></li>
-					<li class="active"><a href="#tab1" data-toggle="tab"> File1 </a></li>
+					<li><a id="addTab"> <span class="glyphicon glyphicon-plus"></a></li>
+					<li class="active">
+						<a href="#tab1" data-toggle="tab"> File1 </a>
+					</li>
 				</ul>
 				<div id="tabContents" class="tab-content">
 					<div class="tab-pane fade in active" id="tab1">
 						<br/>
-						<input type="hidden" value="1"/>
+						<input id="tabId" type="hidden" value="1"/>
 						<div id="settings_row" class="row" style="margin-bottom: 12px;">
 							<div class="col-lg-2">
-								<select class="form-control lang-control" id="lang"
-									onchange="changeLanguage();">
+								<select class="form-control lang-control" id="lang">
 									<option value="c">C</option>
 									<option value="cpp">C++</option>
 									<option value="java" selected="selected">Java</option>
@@ -150,40 +180,5 @@
 		</div>
 	</div>
 	<%@	include file="footer.jsp"%>
-	<script>
-		function changeLanguage() {
-			if ($('#lang option:selected').val() == 'java'){
-				editor.getSession().setMode("ace/mode/java");
-				$("#solutionLanguage").val("java");
-				editor.setValue(javaPre);
-			}
-			else if ($('#lang option:selected').val() == 'c'){
-				editor.getSession().setMode("ace/mode/c_cpp");
-				$("#solutionLanguage").val("c");
-				editor.setValue(cPre);
-			}
-			else if ($('#lang option:selected').val() == 'cpp'){
-				editor.getSession().setMode("ace/mode/c_cpp");
-				$("#solutionLanguage").val("cpp");
-				editor.setValue(cPre);
-			}
-			else if ($('#lang option:selected').val() == 'ruby'){
-				editor.getSession().setMode("ace/mode/ruby");
-				$("#solutionLanguage").val("rb");
-				editor.setValue(rbPre);
-			}
-			else if ($('#lang option:selected').val() == 'python'){
-				editor.getSession().setMode("ace/mode/python");
-				$("#solutionLanguage").val("py");
-				editor.setValue(pyPre);
-			}
-			else if ($('#lang option:selected').val() == 'haskell'){
-				editor.getSession().setMode("ace/mode/haskell");
-				$("#solutionLanguage").val("hs");
-				editor.setValue(hsPre);
-			}
-		}
-		
-	</script>
 </body>
 </html>
