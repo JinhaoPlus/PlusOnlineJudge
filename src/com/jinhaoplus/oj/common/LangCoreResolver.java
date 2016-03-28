@@ -121,5 +121,14 @@ public class LangCoreResolver {
 				e.printStackTrace();
 			}
 		}
+		return results;
+	}
+	
+	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
+		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
+			return "AC";
+		}else{
+			return "WA";
+		}
 	}
 }

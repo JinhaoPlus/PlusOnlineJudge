@@ -129,7 +129,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			CommonMessage message = langCoreService.compileCode(sourceFilePath);
 			System.out.println("[+]compileinfo+"+message);
 			if(COMPILE_SUCCESS_CODE.equals(message.getCode())){
-				List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),solution.getSolutionId() , sourceFilePath);
+				List<ProblemTestResult> results = langCoreService.ojRunCode(solution.getProblemId(),solution.getSolutionId() , sourceFilePath);
 				String finalOJResult = "AC";
 				for (ProblemTestResult problemTestResult : results) {
 					DisplayRunUtils.displayResults(problemTestResult);

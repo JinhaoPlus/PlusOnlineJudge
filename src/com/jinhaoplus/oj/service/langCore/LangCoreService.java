@@ -12,7 +12,6 @@ public interface LangCoreService {
 	//Compile source Code
 	public CommonMessage compileCode(String path);
 	//Run compiled Code
-	public List<ProblemTestResult> runCode(int problemId,int solutionId,String path);
-	//OJ Result of the Running
-	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult);
+	public List<ProblemTestResult> ojRunCode(int problemId,int solutionId,String path);
+	
 }

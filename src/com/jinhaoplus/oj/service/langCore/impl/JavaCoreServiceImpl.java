@@ -43,21 +43,14 @@ public class JavaCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public List<ProblemTestResult> runCode(int problemId, int solutionId ,String path) {
+	public List<ProblemTestResult> ojRunCode(int problemId, int solutionId ,String path) {
 		String[] commands = {"java","-cp",".","Test"};
 		String runDir = path.substring(0, path.lastIndexOf("/"));
 		List<ProblemTestResult> results = langCoreResolver.ojRunCode(problemId,solutionId,runDir,commands);
 		return results;
 	}
 
-	@Override
-	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
-		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
-			return "AC";
-		}else{
-			return "WA";
-		}
-	}
+	
 
 	@Override
 	public String createTempSourceFile(String fileOrDirName) {

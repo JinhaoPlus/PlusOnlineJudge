@@ -28,7 +28,6 @@ login page css sheet
 }
 
 .question-content {
-	margin-left: 20px;
 	margin-top: 20px;
 	margin-bottom: 5px;
 	line-height: 30px;
@@ -40,7 +39,6 @@ login page css sheet
 }
 
 .answer-content {
-	margin-left: 20px;
 	margin-top: 20px;
 	margin-bottom: 5px;
 	line-height: 30px;
@@ -52,7 +50,6 @@ login page css sheet
 }
 
 .result-content {
-	margin-left: 20px;
 	margin-top: 20px;
 	margin-bottom: 5px;
 	line-height: 30px;
