@@ -35,7 +35,7 @@ public class PyCoreServiceImpl implements LangCoreService {
 
 	@Override
 	//Interpreted Language doesn't need to be compiled : directly from source to be executable
-	public CommonMessage compileCode(int problemId,String path) {
+	public CommonMessage compileCode(String path) {
 		CommonMessage message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_SUCCESS_CODE"), 
 				PropertiesUtil.getProperty("COMPILE_SUCCESS"), 
 				"");

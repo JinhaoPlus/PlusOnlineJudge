@@ -35,7 +35,7 @@ public class RubyCoreServiceImpl implements LangCoreService {
 	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors .newCachedThreadPool();
 	
 	@Override
-	public CommonMessage compileCode(int problemId,String path) {
+	public CommonMessage compileCode(String path) {
 		CommonMessage message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_SUCCESS_CODE"), 
 				PropertiesUtil.getProperty("COMPILE_SUCCESS"), 
 				"");

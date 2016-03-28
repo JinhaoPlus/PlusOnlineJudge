@@ -114,7 +114,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 
 
 	@Override
-	public List<ProblemTestResult> workFlow(ProblemSolution solution,String path) {
+	public List<ProblemTestResult> ojWorkFlow(ProblemSolution solution,String path) {
 		File file = new File(path);
 		if (!file.exists()) {
 			file.mkdir();
@@ -126,7 +126,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			String sourceFilePath = langCoreService.createTempSourceFile(fileOrDirName);
 			
 			Source2FileUtils.persistentFile(solution, sourceFilePath);
-			CommonMessage message = langCoreService.compileCode(solution.getProblemId(),sourceFilePath);
+			CommonMessage message = langCoreService.compileCode(sourceFilePath);
 			System.out.println("[+]compileinfo+"+message);
 			if(COMPILE_SUCCESS_CODE.equals(message.getCode())){
 				List<ProblemTestResult> results = langCoreService.runCode(solution.getProblemId(),solution.getSolutionId() , sourceFilePath);
@@ -150,6 +150,17 @@ public class CoreDisptcherService implements CoreDispatcherService{
 				results.add(problemTestResult);
 				return results;
 			}
+		}
+		return null;
+	}
+
+
+	@Override
+	public ProblemTestResult cloudRunWorkFlow(ProblemSolution solution,
+			String path) {
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdir();
 		}
 		return null;
 	}

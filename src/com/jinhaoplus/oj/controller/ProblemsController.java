@@ -72,7 +72,7 @@ public class ProblemsController {
 		solution.setSolutionId(solutionId);
 		
 		
-		List<ProblemTestResult> testResults = coreDispatcherService.workFlow(solution,sourceWaitPath);
+		List<ProblemTestResult> testResults = coreDispatcherService.ojWorkFlow(solution,sourceWaitPath);
 		problemsService.visableTestResults(testResults);
 		modelAndView.addObject("testResults",testResults);
 		
@@ -93,7 +93,15 @@ public class ProblemsController {
 	@RequestMapping(value="/cloudRun")
 	@ResponseBody
 	public ProblemTestResult cloudRun(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
-		
+		coreDispatcherService.dispatchSolution(solution);
+		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
+		//for Linux server and OS X Server
+		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
+		//for Windows Server
+//		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
+		solution.setSolutionCoderId(userId);
+		solution.setCodeSubmitTime(new Date());
+		coreDispatcherService.cloudRunWorkFlow(solution, sourceWaitPath);
 		return null;
 	}
 	

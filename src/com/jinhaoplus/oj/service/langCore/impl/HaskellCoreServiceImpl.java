@@ -33,7 +33,7 @@ public class HaskellCoreServiceImpl implements LangCoreService {
 	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors .newCachedThreadPool();
 
 	@Override
-	public CommonMessage compileCode(int problemId,String path) {
+	public CommonMessage compileCode(String path) {
 		CommonMessage message = null;
 		ProcessBuilder processBuilder;
 

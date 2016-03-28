@@ -1,5 +1,6 @@
-package com.jinhaoplus.oj.service.langCore.impl;
+package com.jinhaoplus.oj.common;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -9,38 +10,28 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import com.jinhaoplus.oj.common.ResultReadCallable;
-import com.jinhaoplus.oj.common.TestWriteCallable;
 import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
-import com.jinhaoplus.oj.service.langCore.LangCoreService;
 import com.jinhaoplus.oj.util.PropertiesUtil;
 
-@Service
-public class CCoreServiceImpl implements LangCoreService {
-
+@Component
+public class LangCoreResolver {
 	@Autowired
 	private ProblemsDao problemsDao;
 
 	public void setProblemsDao(ProblemsDao problemsDao) {
 		this.problemsDao = problemsDao;
 	}
-	
-	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors .newCachedThreadPool();
-	
-	
-	@Override
-	public CommonMessage compileCode(String path) {
-
+	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+	public CommonMessage compileCode(String compileDir,String[] compileCommands){
 		CommonMessage message = null;
 		ProcessBuilder processBuilder;
-
-		String fileName = path.substring(0,path.lastIndexOf("."));
-		processBuilder = new ProcessBuilder("gcc","-o",fileName,path);
+		processBuilder = new ProcessBuilder(compileCommands);
+		processBuilder.directory(new File(compileDir));
 		processBuilder.redirectErrorStream(true);
 
 		try {
@@ -52,7 +43,6 @@ public class CCoreServiceImpl implements LangCoreService {
 			ResultReadCallable compileErrorThread = new ResultReadCallable(errorStream);
 			Future<String> compileErrorInfo = executor.submit(compileErrorThread);
 			Future<String> compileResultInfo = executor.submit(compileResultThread);
-
 			compileProcess.waitFor();
 			compileProcess.destroy();
 			
@@ -65,27 +55,29 @@ public class CCoreServiceImpl implements LangCoreService {
 						PropertiesUtil.getProperty("COMPILE_ERROR"), 
 						compileErrorInfo.get());
 			}
+			return message;
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
-
-		return message;
+		return null;
 	}
-
-	@Override
-	public List<ProblemTestResult> runCode(int problemId, int solutionId , String path) {
+	
+	public List<ProblemTestResult> ojRunCode(int problemId, int solutionId,String runDir,String[] runCommands){
 		List<ProblemTest> problemTests = problemsDao
 				.getTestsByProblemId(problemId);
 		List<ProblemTestResult> results = new ArrayList<ProblemTestResult>();
 		for (ProblemTest problemTest : problemTests) {
 			CommonMessage message = null;
 			ProcessBuilder processBuilder;
-			processBuilder = new ProcessBuilder(path.substring(0, path.lastIndexOf(".")));
+			processBuilder = new ProcessBuilder(runCommands);
+			processBuilder.directory(new File(runDir));
 			processBuilder.redirectErrorStream(true);
 
+			
 			try {
 				Process runProcess = processBuilder.start();
+				
 				final InputStream inputStream = runProcess.getInputStream();
 				final InputStream errorStream = runProcess.getErrorStream();
 				final OutputStream outputStream = runProcess.getOutputStream();
@@ -96,7 +88,6 @@ public class CCoreServiceImpl implements LangCoreService {
 				Future<String> runErrorInfo = executor.submit(runErrorThread);
 				Future<String> runResultInfo = executor.submit(runResultThread);
 				executor.submit(runTestWriteThread);
-				
 				runProcess.waitFor();
 				runProcess.destroy();
 				
@@ -130,23 +121,5 @@ public class CCoreServiceImpl implements LangCoreService {
 				e.printStackTrace();
 			}
 		}
-		return results;
 	}
-
-	@Override
-	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
-		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
-			return "AC";
-		}else{
-			return "WA";
-		}
-	}
-
-	@Override
-	public String createTempSourceFile(String fileOrDirName) {
-		return fileOrDirName;
-	}
-
-	
-	
 }

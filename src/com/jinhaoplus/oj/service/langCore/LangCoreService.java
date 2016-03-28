@@ -10,7 +10,7 @@ public interface LangCoreService {
 	//persist source to file to store
 	public String createTempSourceFile(String fileOrDirName);
 	//Compile source Code
-	public CommonMessage compileCode(int ProblemId,String path);
+	public CommonMessage compileCode(String path);
 	//Run compiled Code
 	public List<ProblemTestResult> runCode(int problemId,int solutionId,String path);
 	//OJ Result of the Running
