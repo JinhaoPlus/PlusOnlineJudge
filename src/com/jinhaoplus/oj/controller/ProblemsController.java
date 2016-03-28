@@ -90,6 +90,13 @@ public class ProblemsController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/cloudRun")
+	@ResponseBody
+	public ProblemTestResult cloudRun(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
+		
+		return null;
+	}
+	
 	@RequestMapping(value="/getSolutionDetail/{problemId}/{solutionId}")
 	public ModelAndView getSolutionDetail(HttpServletRequest request,HttpServletResponse response,@PathVariable("problemId") String problemId,@PathVariable("solutionId") String solutionId){
 		ModelAndView modelAndView = new ModelAndView();

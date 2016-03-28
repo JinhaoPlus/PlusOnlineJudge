@@ -30,11 +30,12 @@
 		  	// create the tab content
 		  	var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row' style='margin-bottom: 12px;'>";
 		  	tab_pane += $('#settings_row').html();
-		  	tab_pane += "</div><pre id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></pre></div>";
+		  	tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
+		  	tab_pane += "<pre id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></pre></div>";
 		  	
 		  	$('<div class="tab-pane fade in active" id="tab'+nextTab+'">'+tab_pane+'</div>').appendTo('.tab-content');
 		  	var editorx = ace.edit('editor'+nextTab);
-		  	editorx.setTheme("ace/theme/xcode");
+		  	editorx.setTheme("ace/theme/monokai");
 			editorx.getSession().setMode("ace/mode/java");
 		  	$('#tabs a:last').tab('show');
 		});
@@ -49,47 +50,47 @@
 			}
 			else if (selectedLang == 'c'){
 				editor.getSession().setMode("ace/mode/c_cpp");
-				$("#solutionLanguage").val("c");
+				$("#solutionLanguage"+tabId).val("c");
 				editor.setValue(cPre);
 			}
 			else if (selectedLang == 'cpp'){
 				editor.getSession().setMode("ace/mode/c_cpp");
-				$("#solutionLanguage").val("cpp");
+				$("#solutionLanguage"+tabId).val("cpp");
 				editor.setValue(cPre);
 			}
 			else if (selectedLang == 'ruby'){
 				editor.getSession().setMode("ace/mode/ruby");
-				$("#solutionLanguage").val("rb");
+				$("#solutionLanguage"+tabId).val("rb");
 				editor.setValue(rbPre);
 			}
 			else if (selectedLang == 'python'){
 				editor.getSession().setMode("ace/mode/python");
-				$("#solutionLanguage").val("py");
+				$("#solutionLanguage"+tabId).val("py");
 				editor.setValue(pyPre);
 			}
 			else if (selectedLang == 'haskell'){
 				editor.getSession().setMode("ace/mode/haskell");
-				$("#solutionLanguage").val("hs");
+				$("#solutionLanguage"+tabId).val("hs");
 				editor.setValue(hsPre);
 			}
 			else if (selectedLang == 'php'){
 				editor.getSession().setMode("ace/mode/php");
-				$("#solutionLanguage").val("php");
+				$("#solutionLanguage"+tabId).val("php");
 				
 			}
 			else if (selectedLang == 'go'){
 				editor.getSession().setMode("ace/mode/golang");
-				$("#solutionLanguage").val("go");
+				$("#solutionLanguage"+tabId).val("go");
 				
 			}
 			else if (selectedLang == 'javascript'){
 				editor.getSession().setMode("ace/mode/js");
-				$("#solutionLanguage").val("javascript");
+				$("#solutionLanguage"+tabId).val("javascript");
 				
 			}
 			else if (selectedLang == 'swift'){
 				editor.getSession().setMode("ace/mode/swift");
-				$("#solutionLanguage").val("swift");
+				$("#solutionLanguage"+tabId).val("swift");
 				
 			}
 		});
@@ -101,6 +102,25 @@
 			editor.destroy();
 			$(closing_tab_pane).remove();
 			$('#tabs a:last').tab('show');
+		});
+		$(document).on('click', '.run-control', function(){
+			var tabId = $(this).parent().parent().prev().val();
+			var editor = ace.edit("editor"+tabId);
+			$.ajax({
+				  type: 'POST',
+				  url: '${ctx}/problems/cloudRun',
+				  data: {
+					  codeSubmit:editor.getValue(),
+					  solutionLanguage:$('#solutionLanguage'+tabId).val()
+				  },
+				  success: function(data) {    
+			        if(data.msg =="true" ){    
+			        	
+			        }else{    
+			        	
+			        }    
+			     }
+			});
 		});
 		$(document).on('change', '.theme-control', function(){
 			var tabId = $(this).parent().parent().prev().val();
@@ -165,16 +185,18 @@
 								<button class="btn btn-default reset-control" type="button">
 									<span class="glyphicon glyphicon-refresh"></span>
 								</button>
-								<button id="run" class="btn btn-success btn-pad"
+								<button id="run" class="btn btn-success btn-pad run-control"
 									type="submit" data-original-title="Shortcut: Command + enter">run</button>
 							</div>
 						</div>
+						<input id="solutionLanguage1" name="solutionLanguage1" type="hidden" value="java"/>
 						<pre id="embedded_ace_code" style="height: 400px;"
 							class="col-md-12" style="margin-bottom: 12px;">
 							<div id="editor1" class="editor"></div>
 						</pre>
+						
 					</div>
-					
+						
 				</div>
 			</div>
 		</div>
