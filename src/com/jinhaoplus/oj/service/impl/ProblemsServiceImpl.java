@@ -131,7 +131,7 @@ public class ProblemsServiceImpl implements ProblemsService{
 	public void visableTestResults(List<ProblemTestResult> testResults){
 		int problemId = testResults.get(0).getProblemId();
 		List<ProblemTest> problemTests = problemsDao.getTestsByProblemId(problemId);
-		List<Integer> hiddenTestsIds = new  ArrayList<>();
+		List<Integer> hiddenTestsIds = new  ArrayList<Integer>();
 		for (ProblemTest problemTest : problemTests) {
 			if(problemTest.getProblemTestVisable()!=null && "0".equals(problemTest.getProblemTestVisable())){
 				int aId = problemTest.getProblemTestId();
