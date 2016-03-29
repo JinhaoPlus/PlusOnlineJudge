@@ -222,9 +222,14 @@
 	<div class="modal fade" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
+				 <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" 
+		               aria-hidden="true">×
+		            </button>
+		            <h3 class="modal-title" id="myModalLabel"><strong>Sure to Close ?</strong></h3>
+		         </div>
 				<div class="modal-body">
-					<h3>Sure to Close ?</h3>
-					<p>You will lose your file process !</p>
+					<p>You will lose the file process in this editor!</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
