@@ -86,15 +86,28 @@
 
 			}
 		});
+		
 		$(document).on('click', '.close-control', function() {
-			$('#closeModal').modal();
-			$(this).parent().parent().remove();
-			var closing_tab_pane = $(this).parent().attr('href');
+			$('#closeModal').data("tabToClose",$(this)).modal("show");
+			//$(this).parent().parent().remove();
+			//var closing_tab_pane = $(this).parent().attr('href');
+			//var tabId = $(closing_tab_pane).children().next().val();
+			//var editor = ace.edit("editor" + tabId);
+			//editor.destroy();
+			//$(closing_tab_pane).remove();
+			//$('#tabs a:last').tab('show');
+		});
+		
+		$(document).on('click', '#closeButton', function() {
+			var tabToClose = $('#closeModal').data("tabToClose");
+			tabToClose.parent().parent().remove();
+			var closing_tab_pane = tabToClose.parent().attr('href');
 			var tabId = $(closing_tab_pane).children().next().val();
 			var editor = ace.edit("editor" + tabId);
 			editor.destroy();
 			$(closing_tab_pane).remove();
 			$('#tabs a:last').tab('show');
+			 $('#closeModal').modal("hide");
 		});
 		$(document).on('click', '.run-control', function() {
 			$(this).html("<span class='glyphicon glyphicon-wrench'></span> running");
@@ -215,7 +228,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
+					<button id="closeButton" type="button" class="btn btn-danger">close</button>
 				</div>
 			</div>
 		</div>
