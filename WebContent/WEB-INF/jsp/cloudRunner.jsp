@@ -31,8 +31,9 @@
 			var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row' style='margin-bottom: 12px;'>";
 			tab_pane += $('#settings_row').html();
 			tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
-			tab_pane += "<pre id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></pre></div>";
-
+			tab_pane += "<div id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></div>";
+			tab_pane += "<div class='panel panel-primary' > <div id='cloud-result"+nextTab+"' class='panel-body'></div></div></div>";
+			
 			$('<div class="tab-pane fade in active" id="tab'+nextTab+'">'+ tab_pane + '</div>').appendTo('.tab-content');
 			var editorx = ace.edit('editor' + nextTab);
 			editorx.setTheme("ace/theme/monokai");
@@ -96,6 +97,8 @@
 			$('#tabs a:last').tab('show');
 		});
 		$(document).on('click', '.run-control', function() {
+			$(this).html("<span class='glyphicon glyphicon-wrench'></span> running");
+			var runButton = $(this);
 			var tabId = $(this).parent().parent().prev().val();
 			var editor = ace.edit("editor" + tabId);
 			$.ajax({
@@ -105,12 +108,16 @@
 					codeSubmit : editor.getValue(),
 					solutionLanguage : $('#solutionLanguage' + tabId).val()
 				},
-				success : function(data) {
-					if (data.msg == "true") {
-
+				success : function(result) {
+					$('#resultDiv'+tabId).show();
+					var runCode = result.message.code;
+					var code = result.message.code;
+					if (code == '201') {
+						$('#cloud-result'+tabId).html(result.result);
 					} else {
-
+						$('#cloud-result'+tabId).html(result.result);
 					}
+					runButton.html("<span class='glyphicon glyphicon-flash'></span> run");
 				}
 			});
 		});
@@ -147,7 +154,8 @@
 				</ul>
 				<div id="tabContents" class="tab-content">
 					<div class="tab-pane fade in active" id="tab1">
-						<br /> <input id="tabId" type="hidden" value="1" />
+						<br /> 
+						<input id="tabId" type="hidden" value="1" />
 						<div id="settings_row" class="row" style="margin-bottom: 12px;">
 							<div class="col-lg-2">
 								<select class="form-control lang-control" id="lang">
@@ -176,17 +184,20 @@
 									<span class="glyphicon glyphicon-refresh"></span>
 								</button>
 								<button id="run" class="btn btn-success btn-pad run-control"
-									type="submit" data-original-title="Shortcut: Command + enter">run</button>
+									type="submit" data-original-title="Shortcut: Command + enter"><span class="glyphicon glyphicon-flash"></span>run</button>
+								<button id="run" class="btn btn-primary btn-pad run-control"
+									type="submit"><span class="glyphicon glyphicon-save"></span>save</button>
 							</div>
 						</div>
 						<input id="solutionLanguage1" name="solutionLanguage1"
 							type="hidden" value="java" />
-						<pre id="embedded_ace_code" style="height: 400px;"
-							class="col-md-12" style="margin-bottom: 12px;">
+						<div id="embedded_ace_code" style="height: 400px;"
+							class="col-md-12">
 							<div id="editor1" class="editor"></div>
-						</pre>
-						<div id="resultDiv" class="alert alert-info alert-dismissable">
-
+						</div>
+						<div class="panel panel-primary" >
+						   <div id="cloud-result1" class="panel-body">
+						   </div>
 						</div>
 					</div>
 

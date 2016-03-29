@@ -136,14 +136,11 @@ public class LangCoreResolver {
 			
 			final InputStream inputStream = runProcess.getInputStream();
 			final InputStream errorStream = runProcess.getErrorStream();
-			final OutputStream outputStream = runProcess.getOutputStream();
 
 			ResultReadCallable runResultThread = new ResultReadCallable(inputStream);
 			ResultReadCallable runErrorThread = new ResultReadCallable(errorStream);
-			//TestWriteCallable runTestWriteThread = new TestWriteCallable(outputStream, problemTest.getProblemTestInput());
 			Future<String> runErrorInfo = executor.submit(runErrorThread);
 			Future<String> runResultInfo = executor.submit(runResultThread);
-			//executor.submit(runTestWriteThread);
 			runProcess.waitFor();
 			runProcess.destroy();
 			

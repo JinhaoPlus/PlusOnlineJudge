@@ -42,15 +42,19 @@ public class CppCoreServiceImpl implements LangCoreService {
 		return results;
 	}
 
+	@Override
+	public ProblemTestResult cloudRunCode(String path) {
+		String destFileName = path.substring(path.lastIndexOf("/")+1,path.lastIndexOf("."));
+		String[] runCommands = {"./"+destFileName};
+		String runDir = path.substring(0, path.lastIndexOf("/"));
+		ProblemTestResult result = langCoreResolver.cloudRunCode(runDir, runCommands);
+		return result;
+	}
 
 	@Override
 	public String createTempSourceFile(String fileOrDirName) {
 		return fileOrDirName;
 	}
 
-	@Override
-	public ProblemTestResult cloudRunCode(String path) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
