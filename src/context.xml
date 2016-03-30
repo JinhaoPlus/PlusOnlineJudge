@@ -55,7 +55,7 @@
 		</property>
 		<property name="url">
 		
-			<value>jdbc:mysql://120.27.34.7:3306/ShjOJ</value>
+			<value>jdbc:mysql://localhost:3306/ShjOJ</value>
 		
 		<!--
 			<value>jdbc:mysql://localhost:3306/shjoj</value>
