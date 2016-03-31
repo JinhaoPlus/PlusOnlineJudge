@@ -207,10 +207,8 @@
 								<button class="btn btn-default reset-control" type="button">
 									<span class="glyphicon glyphicon-refresh"></span>
 								</button>
-								<button id="run" class="btn btn-success btn-pad run-control"
-									type="submit" data-original-title="Shortcut: Command + enter"><span class="glyphicon glyphicon-flash"></span>run</button>
-								<button id="run" class="btn btn-primary btn-pad run-control"
-									type="submit"><span class="glyphicon glyphicon-save"></span>save</button>
+								<button id="run" class="btn btn-success btn-pad run-control" data-original-title="Shortcut: Command + enter"><span class="glyphicon glyphicon-flash"></span>run</button>
+								<button id="save" class="btn btn-primary btn-pad save-control"><span class="glyphicon glyphicon-save"></span>save</button>
 							</div>
 						</div>
 						<input id="solutionLanguage1" name="solutionLanguage1"
