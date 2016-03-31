@@ -115,6 +115,20 @@
 		var editor = ace.edit("editor");
 		editor.setReadOnly(true);
 		editor.setTheme("ace/theme/monokai");
+		var solutionLang = ${solution.solutionLanguage};
+		if(solutionLang == 'java'){
+			editor.getSession().setMode("ace/mode/java");
+		}else if(solutionLang == 'c'){
+			editor.getSession().setMode("ace/mode/c_cpp");
+		}else if(solutionLang == 'cpp'){
+			editor.getSession().setMode("ace/mode/c_cpp");
+		}else if(solutionLang == 'rb'){
+			editor.getSession().setMode("ace/mode/ruby");
+		}else if(solutionLang == 'py'){
+			editor.getSession().setMode("ace/mode/python");
+		}else if(solutionLang == 'hs'){
+			editor.getSession().setMode("ace/mode/haskell");
+		}
 		editor.getSession().setMode("ace/mode/java");
 		editor.setValue("${solution.codeSubmit}");
 	</script>
