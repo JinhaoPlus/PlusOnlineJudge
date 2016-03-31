@@ -189,10 +189,10 @@
 									<option value="python">Python</option>
 									<option value="ruby">Ruby</option>
 									<option value="haskell">Haskell</option>
-									<option value="php">Php</option>
 									<option value="go">Go</option>
+									<!-- <option value="php">Php</option>
 									<option value="javascript">Javascript</option>
-									<option value="swift">Swift</option>
+									<option value="swift">Swift</option> -->
 								</select>
 							</div>
 							<div class="col-lg-2">

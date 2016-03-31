@@ -96,9 +96,9 @@ public class ProblemsController {
 		coreDispatcherService.dispatchSolution(solution);
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
 		//for Linux server and OS X Server
-//		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
+		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
 		//for Windows Server
-		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
+//		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
 		solution.setSolutionCoderId(userId);
 		solution.setCodeSubmitTime(new Date());
 		ProblemTestResult testResult = coreDispatcherService.cloudRunWorkFlow(solution, sourceWaitPath);
