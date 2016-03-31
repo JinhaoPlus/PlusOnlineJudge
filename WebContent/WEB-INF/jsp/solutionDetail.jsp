@@ -115,7 +115,7 @@
 		var editor = ace.edit("editor");
 		editor.setReadOnly(true);
 		editor.setTheme("ace/theme/monokai");
-		var solutionLang = ${solution.solutionLanguage};
+		var solutionLang = "${solution.solutionLanguage}";
 		if(solutionLang == 'java'){
 			editor.getSession().setMode("ace/mode/java");
 		}else if(solutionLang == 'c'){
