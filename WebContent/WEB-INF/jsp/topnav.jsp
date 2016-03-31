@@ -32,8 +32,8 @@
 						<li class="divider"></li>
 						<li><a href="${ctx}/mySubmissions"><span
 								class="glyphicon glyphicon-list"> Submissions</span></a></li>
-						<li><a href="/discuss/user/JinhaoLuo"><span
-								class="glyphicon glyphicon-comment"> My Discuss</span></a></li>
+						<li><a href="#"><span
+								class="glyphicon glyphicon-comment"> Snippets</span></a></li>
 						<li><a href="${ctx }/accounts/logout/"><span
 								class="glyphicon glyphicon-log-out"> Log out</span></a></li>
 					</ul>

@@ -169,6 +169,8 @@ public class LangCoreResolver {
 	}
 	
 	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {
+		System.out.println("expected:"+problemTest.getProblemTestOutput());
+		System.out.println("real:"+testResult.getResult());
 		if(problemTest.getProblemTestOutput().equals(testResult.getResult())){
 			return "AC";
 		}else{

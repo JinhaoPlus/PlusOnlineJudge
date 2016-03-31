@@ -25,16 +25,7 @@ $(function(){
 						</h2>
 					</div>
 				</div>
-				<div class="row col-md-4">
-					<select id="filterchosen" class="form-control"
-						onchange="selecthandler(this.value);">
-						<option value="default" selected="selected">Choose one
-							filter</option>
-						<option value="solved">Solved Problems</option>
-						<option value="unsolved">Unsolved Problems</option>
-						<option value="attempt">Attempted Problems</option>
-					</select>
-				</div>
+				<hr/>
 				<div id="problemListRow" class="row">
 					<table id="problemList" class="table table-hover table-striped table-centered">
 						<thead>
@@ -52,7 +43,7 @@ $(function(){
 									<div>Language</div>
 								</th>
 								<th class="header-ac">
-									<div>Acceptance</div>
+									<div>Acceptance[AC|WA|CE]</div>
 								</th>
 							</tr>
 						</thead>

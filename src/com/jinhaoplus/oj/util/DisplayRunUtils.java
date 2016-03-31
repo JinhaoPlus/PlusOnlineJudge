@@ -17,15 +17,15 @@ public class DisplayRunUtils {
 	}
 	
 	public static ProblemTest displayTests(ProblemTest problemTest){
-		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "↵<br/>"));
-		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "↵<br/>"));
+		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
 		return problemTest;
 	}
 	
 	public static ProblemTestResult displayResults(ProblemTestResult testResult){
-		testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "↵<br/>"));
-		testResult.setTestOutput(testResult.getTestOutput().replaceAll("\\n", "↵<br/>"));
-		testResult.setResult(testResult.getResult().replaceAll("\\n", "↵<br/>"));
+		testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
+		testResult.setTestOutput(testResult.getTestOutput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
+		testResult.setResult(testResult.getResult().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
 		return testResult;
 	}
 }

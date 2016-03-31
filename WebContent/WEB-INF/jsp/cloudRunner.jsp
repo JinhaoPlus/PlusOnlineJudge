@@ -26,9 +26,9 @@
 		var javaPre = "/**\r\n * please import your package here\r\n */\r\n\r\npublic class Test\r\n{\r\n \r\n    /**\r\n     * please keep the class name here to avoid compiling error\r\n     */\r\n    public static void main(String[] args) \r\n    {\r\n        \r\n    }\r\n}\r\n";
 		var cPre = "/**\r\n * please edit your code here\r\n */\r\n\r\n #include <stdio.h>\r\n\r\n int main(int argc, char const *argv[])\r\n {\r\n 	/* code */\r\n 	return 0;\r\n }\r\n";
 		var cppPre = "/**\r\n * please edit your code here\r\n */\r\n\r\n#include <iostream>\r\nusing namespace std;\r\nint main(int argc, char const *argv[])\r\n{\r\n	/* code */\r\n	return 0;\r\n}\r\n";
-		var pyPre = "#please edit your code here";
-		var rbPre = "#please edit your code here";
-		var hsPre = "--please edit your code here";
+		var pyPre = "#please edit your code here\r\n";
+		var rbPre = "#please edit your code here\r\n";
+		var hsPre = "--please edit your code here\r\n";
 		var phpPre = "";
 		var goPre = "/**\r\n * please edit your code here\r\n */\r\n\r\npackage main\r\n \r\nimport \"fmt\"\r\n \r\nfunc main() {\r\n    /* code */\r\n}\r\n";
 		var jsPre = "";
