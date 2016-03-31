@@ -77,13 +77,13 @@
 						<c:if test="${language eq 'java' }">
 							<option value="java">Java</option>
 						</c:if>
-						<c:if test="${language eq 'python' }">
+						<c:if test="${language eq 'py' }">
 							<option value="python">Python</option>
 						</c:if>
-						<c:if test="${language eq 'ruby' }">
+						<c:if test="${language eq 'rb' }">
 							<option value="ruby">Ruby</option>
 						</c:if>
-						<c:if test="${language eq 'haskell' }">
+						<c:if test="${language eq 'hs' }">
 							<option value="haskell">Haskell</option>
 						</c:if>
 						
@@ -137,16 +137,19 @@
 		if(selLang == 'java'){
 			editor.getSession().setMode("ace/mode/java");
 			editor.setValue(javaPre);
-		}else if(selLang == 'c' || selLang == 'cpp'){
+		}else if(selLang == 'c'){
 			editor.getSession().setMode("ace/mode/c_cpp");
 			editor.setValue(cPre);
-		}else if(selLang == 'ruby'){
+		}else if(selLang == 'cpp'){
+			editor.getSession().setMode("ace/mode/c_cpp");
+			editor.setValue(cppPre);
+		}else if(selLang == 'rb'){
 			editor.getSession().setMode("ace/mode/ruby");
 			editor.setValue(rbPre);
-		}else if(selLang == 'python'){
+		}else if(selLang == 'py'){
 			editor.getSession().setMode("ace/mode/python");
 			editor.setValue(pyPre);
-		}else if(selLang == 'haskell'){
+		}else if(selLang == 'hs'){
 			editor.getSession().setMode("ace/mode/haskell");
 			editor.setValue(hsPre);
 		}
@@ -170,17 +173,17 @@
 				$("#solutionLanguage").val("cpp");
 				editor.setValue(cppPre);
 			}
-			else if ($('#lang option:selected').val() == 'ruby'){
+			else if ($('#lang option:selected').val() == 'rb'){
 				editor.getSession().setMode("ace/mode/ruby");
 				$("#solutionLanguage").val("rb");
 				editor.setValue(rbPre);
 			}
-			else if ($('#lang option:selected').val() == 'python'){
+			else if ($('#lang option:selected').val() == 'py'){
 				editor.getSession().setMode("ace/mode/python");
 				$("#solutionLanguage").val("py");
 				editor.setValue(pyPre);
 			}
-			else if ($('#lang option:selected').val() == 'haskell'){
+			else if ($('#lang option:selected').val() == 'hs'){
 				editor.getSession().setMode("ace/mode/haskell");
 				$("#solutionLanguage").val("hs");
 				editor.setValue(hsPre);

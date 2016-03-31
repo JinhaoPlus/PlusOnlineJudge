@@ -67,15 +67,15 @@
 				editor.getSession().setMode("ace/mode/c_cpp");
 				$("#solutionLanguage" + tabId).val("cpp");
 				editor.setValue(cppPre);
-			} else if (selectedLang == 'ruby') {
+			} else if (selectedLang == 'rb') {
 				editor.getSession().setMode("ace/mode/ruby");
 				$("#solutionLanguage" + tabId).val("rb");
 				editor.setValue(rbPre);
-			} else if (selectedLang == 'python') {
+			} else if (selectedLang == 'py') {
 				editor.getSession().setMode("ace/mode/python");
 				$("#solutionLanguage" + tabId).val("py");
 				editor.setValue(pyPre);
-			} else if (selectedLang == 'haskell') {
+			} else if (selectedLang == 'hs') {
 				editor.getSession().setMode("ace/mode/haskell");
 				$("#solutionLanguage" + tabId).val("hs");
 				editor.setValue(hsPre);
@@ -186,9 +186,9 @@
 									<option value="c">C</option>
 									<option value="cpp">C++</option>
 									<option value="java" selected="selected">Java</option>
-									<option value="python">Python</option>
-									<option value="ruby">Ruby</option>
-									<option value="haskell">Haskell</option>
+									<option value="py">Python</option>
+									<option value="rb">Ruby</option>
+									<option value="hs">Haskell</option>
 									<option value="go">Go</option>
 									<!-- <option value="php">Php</option>
 									<option value="javascript">Javascript</option>

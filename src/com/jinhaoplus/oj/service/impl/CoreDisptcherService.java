@@ -17,6 +17,7 @@ import com.jinhaoplus.oj.service.ProblemsService;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
 import com.jinhaoplus.oj.service.langCore.impl.CCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.CppCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.GoCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.HaskellCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.JavaCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.PyCoreServiceImpl;
@@ -87,6 +88,12 @@ public class CoreDisptcherService implements CoreDispatcherService{
 	public void setHaskellCoreService(HaskellCoreServiceImpl haskellCoreService) {
 		this.haskellCoreService = haskellCoreService;
 	}
+	
+	@Autowired
+	private GoCoreServiceImpl goCoreServiceImpl;
+	public void setGoCoreServiceImpl(GoCoreServiceImpl goCoreServiceImpl) {
+		this.goCoreServiceImpl = goCoreServiceImpl;
+	}
 
 
 	@Override
@@ -101,14 +108,17 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		else if ("cpp".equals(lang)) {
 			langCoreService = cppCoreService;
 		}
-		else if ("ruby".equals(lang)) {
+		else if ("rb".equals(lang)) {
 			langCoreService = rubyCoreService;
 		}
-		else if ("python".equals(lang)) {
+		else if ("py".equals(lang)) {
 			langCoreService = pyCoreService;
 		}
-		else if ("haskell".equals(lang)) {
+		else if ("hs".equals(lang)) {
 			langCoreService = haskellCoreService;
+		}
+		else if ("go".equals(lang)) {
+			langCoreService = goCoreServiceImpl;
 		}
 	}
 
