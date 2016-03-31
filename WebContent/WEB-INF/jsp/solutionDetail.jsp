@@ -129,7 +129,6 @@
 		}else if(solutionLang == 'hs'){
 			editor.getSession().setMode("ace/mode/haskell");
 		}
-		editor.getSession().setMode("ace/mode/java");
 		editor.setValue("${solution.codeSubmit}");
 	</script>
 	<%@	include file="footer.jsp"%>
