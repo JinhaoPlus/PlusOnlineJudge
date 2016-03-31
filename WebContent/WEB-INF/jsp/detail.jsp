@@ -77,13 +77,13 @@
 						<c:if test="${language eq 'java' }">
 							<option value="java">Java</option>
 						</c:if>
-						<c:if test="${language eq 'py' }">
+						<c:if test="${language eq 'python' }">
 							<option value="py">Python</option>
 						</c:if>
-						<c:if test="${language eq 'rb' }">
+						<c:if test="${language eq 'ruby' }">
 							<option value="rb">Ruby</option>
 						</c:if>
-						<c:if test="${language eq 'hs' }">
+						<c:if test="${language eq 'haskell' }">
 							<option value="hs">Haskell</option>
 						</c:if>
 						
