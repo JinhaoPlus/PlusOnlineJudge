@@ -26,6 +26,7 @@
 			solution_coder_id
 		ORDER BY
 			acNumber DESC
+		LIMIT 0,15
 	</select>
 	
 	

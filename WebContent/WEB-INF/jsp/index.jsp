@@ -17,12 +17,15 @@ $(function(){
 	<%@	include file="topnav.jsp"%>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-offset-1 col-md-11">
+			<div class="col-md-9">
 				<div class="row">
 					<div id="brief_stats" class="col-md-12">
 						<h2>
-							Welcome, <a href="${ctx }/accounts/profile">${loginuser.username }</a> ! You have solved <strong>${solvedNum} / ${problemsNum} </strong> problems.
+							Welcome, <a href="${ctx }/accounts/profile">${loginuser.username }</a> ! 
 						</h2>
+						<h3>
+							You have solved <strong>${solvedNum} / ${problemsNum} </strong> problems.
+						</h3>						
 					</div>
 				</div>
 				<hr/>
@@ -87,8 +90,38 @@ $(function(){
 								</tr>
 							</c:forEach>
 						</tbody>
-						
 					</table>
+				</div>
+			</div>
+			<br/><br/><br/>
+			<div class="col-md-3 blog-sidebar">
+				<div id="row brief_stats" class="col-md-12">
+					<div class="panel panel-success">
+					   <div class="panel-heading">Top Coders 15</div>
+					   <table class="table">
+					   <thead>
+							<tr>
+								<th class="header-id">
+									<div>#</div>
+								</th>
+								<th class="header-name">
+									<div>CoderName</div>
+								</th>
+								<th class="header-ac">
+									<div>ACs</div>
+								</th>
+							</tr>
+						</thead>
+						<%int id = 1; %>
+						<c:forEach items="${dataAnalyseBeans }" var="analyseBean">
+						    <tr>
+						    	<td><%=id++ %></td>
+						    	<td class="orange">${analyseBean.userName}</td>
+						    	<td>${analyseBean.acNumber}</td>
+						    </tr>
+					    </c:forEach>
+					   </table>
+					</div>
 				</div>
 			</div>
 		</div>
