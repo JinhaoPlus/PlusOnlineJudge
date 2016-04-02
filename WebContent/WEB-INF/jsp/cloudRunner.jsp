@@ -48,8 +48,9 @@
 							var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row col-md-12' style='margin-bottom: 12px;'>";
 							tab_pane += $('#settings_row').html();
 							tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
-							tab_pane += "<div class='col-md-8'><div id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></div></div>";
-							tab_pane += "<div class='col-md-4'><div class='panel panel-primary' style='height: 400px;'> <div class='panel-heading'><h3 class='panel-title'>Output Console #"+nextTab+"</h3></div><div id='cloud-result"+nextTab+"' class='panel-body' data-spy='scroll'";
+							tab_pane += "<div class='col-md-8'><div id='embedded_ace_code' style='height: 450px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></div></div>";
+							tab_pane += "<div class='col-md-4'><div class='input-group col-md-12'><span class='input-group-addon'><span class='glyphicon glyphicon-console'></span></span><input id='std"+nextTab+"' type='text' class='form-control' placeholder='stdin : hit key ENTER to input'></div>";
+							tab_pane += "<br/><div class='panel panel-primary' style='height: 400px;'> <div class='panel-heading'><h3 class='panel-title'>Output Console #"+nextTab+"</h3></div><div id='cloud-result"+nextTab+"' class='panel-body' data-spy='scroll'";
 							tab_pane += "style='height: 350px; overflow: auto; position: relative;'></div></div></div></div>";
 
 							$(
@@ -233,12 +234,17 @@
 						<input id="solutionLanguage1" name="solutionLanguage1"
 							type="hidden" value="java" />
 						<div class="col-md-8">
-							<div id="embedded_ace_code" style="height: 400px;"
+							<div id="embedded_ace_code" style="height: 450px;"
 								class="col-md-12">
 								<div id="editor1" class="editor"></div>
 							</div>
 						</div>
 						<div class="col-md-4">
+							<div class="input-group col-md-12">
+					        	<span class="input-group-addon"><span class="glyphicon glyphicon-console"></span></span>
+					        	<input id="std1" type="text" class="form-control" placeholder="stdin : hit key ENTER to input">
+					    	</div>
+					    	<br/>
 							<div class="panel panel-primary" style="height: 400px;">
 								<div class="panel-heading">
 									<h3 class="panel-title">Output Console #1</h3>
