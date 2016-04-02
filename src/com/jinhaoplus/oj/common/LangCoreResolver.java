@@ -53,7 +53,7 @@ public class LangCoreResolver {
 			}else{
 				message = new CommonMessage(PropertiesUtil.getProperty("COMPILE_ERROR_CODE"), 
 						PropertiesUtil.getProperty("COMPILE_ERROR"), 
-						compileErrorInfo.get());
+						compileResultInfo.get());
 			}
 			return message;
 		} catch (Exception e) {
@@ -106,7 +106,7 @@ public class LangCoreResolver {
 				}else{
 					message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 							PropertiesUtil.getProperty("RUN_ERROR"), 
-							runErrorInfo.get());
+							runResultInfo.get());
 					ProblemTestResult testResult = new ProblemTestResult(problemId, problemTest.getProblemTestId(), runResultInfo.get(), "", message);
 					testResult.setSolutionId(solutionId);
 					String OJResult = this.OJResult(problemTest,testResult);
@@ -130,13 +130,12 @@ public class LangCoreResolver {
 		processBuilder = new ProcessBuilder(runCommands);
 		processBuilder.directory(new File(runDir));
 		processBuilder.redirectErrorStream(true);
-		
 		try {
 			Process runProcess = processBuilder.start();
 			
 			final InputStream inputStream = runProcess.getInputStream();
 			final InputStream errorStream = runProcess.getErrorStream();
-
+			final OutputStream outputStream = runProcess.getOutputStream();
 			ResultReadCallable runResultThread = new ResultReadCallable(inputStream);
 			ResultReadCallable runErrorThread = new ResultReadCallable(errorStream);
 			Future<String> runErrorInfo = executor.submit(runErrorThread);
@@ -155,7 +154,7 @@ public class LangCoreResolver {
 			}else{
 				message = new CommonMessage(PropertiesUtil.getProperty("RUN_ERROR_CODE"), 
 						PropertiesUtil.getProperty("RUN_ERROR"), 
-						runErrorInfo.get());
+						runResultInfo.get());
 				ProblemTestResult testResult = new ProblemTestResult();
 				testResult.setResult(runResultInfo.get());
 				testResult.setMessage(message);

@@ -50,7 +50,7 @@
 							tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
 							tab_pane += "<div class='col-md-8'><div id='embedded_ace_code' style='height: 450px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></div></div>";
 							tab_pane += "<div class='col-md-4'><div class='input-group col-md-12'><span class='input-group-addon'><span class='glyphicon glyphicon-console'></span></span><input id='std"+nextTab+"' type='text' class='form-control' placeholder='stdin : hit key ENTER to input'></div>";
-							tab_pane += "<br/><div class='panel panel-primary' style='height: 400px;'> <div class='panel-heading'><h3 class='panel-title'>Output Console #"+nextTab+"</h3></div><div id='cloud-result"+nextTab+"' class='panel-body' data-spy='scroll'";
+							tab_pane += "<br/><div id='console"+nextTab+"' class='panel panel-primary' style='height: 400px;'> <div class='panel-heading'><h3 class='panel-title'>Output Console #"+nextTab+"</h3></div><div id='cloud-result"+nextTab+"' class='panel-body' data-spy='scroll'";
 							tab_pane += "style='height: 350px; overflow: auto; position: relative;'></div></div></div></div>";
 
 							$(
@@ -150,11 +150,11 @@
 											var runCode = result.message.code;
 											var code = result.message.code;
 											if (code == '201') {
-												$('#cloud-result' + tabId)
-														.html(result.result);
-											} else {
-												$('#cloud-result' + tabId)
-														.html(result.result);
+												$('#console'+tabId).attr("class","panel panel-success");
+												$('#cloud-result' + tabId).html(result.result);
+											} else if(code == '500') {
+												$('#console'+tabId).attr("class","panel panel-danger");
+												$('#cloud-result' + tabId).html("<p><strong>"+result.message.message+"</strong></p><p>"+result.message.details+"</p>");
 											}
 											runButton
 													.html("<span class='glyphicon glyphicon-flash'></span> run");
@@ -245,7 +245,7 @@
 					        	<input id="std1" type="text" class="form-control" placeholder="stdin : hit key ENTER to input">
 					    	</div>
 					    	<br/>
-							<div class="panel panel-primary" style="height: 400px;">
+							<div id="console1" class="panel panel-primary" style="height: 400px;">
 								<div class="panel-heading">
 									<h3 class="panel-title">Output Console #1</h3>
 								</div>

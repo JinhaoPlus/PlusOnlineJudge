@@ -23,8 +23,10 @@ public class DisplayRunUtils {
 	}
 	
 	public static ProblemTestResult displayResults(ProblemTestResult testResult){
-		testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
-		testResult.setTestOutput(testResult.getTestOutput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
+		if(testResult.getTestInput()!=null)
+			testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
+		if(testResult.getTestOutput()!=null)
+			testResult.setTestOutput(testResult.getTestOutput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
 		testResult.setResult(testResult.getResult().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
 		return testResult;
 	}

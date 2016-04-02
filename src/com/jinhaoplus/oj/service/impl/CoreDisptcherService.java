@@ -181,6 +181,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			System.out.println("[+]compileinfo+"+message);
 			if(COMPILE_SUCCESS_CODE.equals(message.getCode())){
 				ProblemTestResult result = langCoreService.cloudRunCode(sourceFilePath);
+				DisplayRunUtils.displayResults(result);
 				return result;
 			}else if(COMPILE_ERROR_CODE.equals(message.getCode())){
 				ProblemTestResult result = new ProblemTestResult();

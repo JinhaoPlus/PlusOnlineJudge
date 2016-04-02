@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
@@ -76,10 +77,12 @@ public class ProblemsController {
 		problemsService.visableTestResults(testResults);
 		modelAndView.addObject("testResults",testResults);
 		
-		String compileResult = testResults.get(0).getMessage().getCode();
-		if("500".equals(compileResult))
+		CommonMessage compileMessage = testResults.get(0).getMessage();
+		String compileResultCode = compileMessage.getCode();
+		modelAndView.addObject("compileMessage", compileMessage);
+		if("500".equals(compileResultCode))
 			solution.setFinalOJResult("CE");
-		modelAndView.addObject("compileResult", compileResult);
+		modelAndView.addObject("compileResult", compileResultCode);
 		
 		solution = DisplayRunUtils.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
