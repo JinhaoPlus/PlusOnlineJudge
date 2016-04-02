@@ -34,23 +34,33 @@
 		var jsPre = "";
 		var swiftPre = "";
 		editor1.setValue(javaPre);
-		$('#addTab').click(function() {
-			var nextTab = $('#tabs li').size();
-			// create the tab
-			$('<li><a href="#tab'+nextTab+'" data-toggle="tab">File'+ nextTab+ '<span class="glyphicon glyphicon-remove close-control"></span></a></li>').appendTo('#tabs');
-			// create the tab content
-			var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row' style='margin-bottom: 12px;'>";
-			tab_pane += $('#settings_row').html();
-			tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
-			tab_pane += "<div id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></div>";
-			tab_pane += "<div class='panel panel-primary' > <div id='cloud-result"+nextTab+"' class='panel-body'></div></div></div>";
-			
-			$('<div class="tab-pane fade in active" id="tab'+nextTab+'">'+ tab_pane + '</div>').appendTo('.tab-content');
-			var editorx = ace.edit('editor' + nextTab);
-			editorx.setTheme("ace/theme/monokai");
-			editorx.getSession().setMode("ace/mode/java");
-			$('#tabs a:last').tab('show');
-		});
+		$('#addTab')
+				.click(
+						function() {
+							var nextTab = $('#tabs li').size();
+							// create the tab
+							$(
+									'<li><a href="#tab'+nextTab+'" data-toggle="tab">File'
+											+ nextTab
+											+ '<span class="glyphicon glyphicon-remove close-control"></span></a></li>')
+									.appendTo('#tabs');
+							// create the tab content
+							var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row col-md-12' style='margin-bottom: 12px;'>";
+							tab_pane += $('#settings_row').html();
+							tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
+							tab_pane += "<div class='col-md-8'><div id='embedded_ace_code' style='height: 400px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></div></div>";
+							tab_pane += "<div class='col-md-4'><div class='panel panel-primary' style='height: 400px;'> <div class='panel-heading'><h3 class='panel-title'>Output Console #"+nextTab+"</h3></div><div id='cloud-result"+nextTab+"' class='panel-body' data-spy='scroll'";
+							tab_pane += "style='height: 350px; overflow: auto; position: relative;'></div></div></div></div>";
+
+							$(
+									'<div class="tab-pane fade in active" id="tab'+nextTab+'">'
+											+ tab_pane + '</div>').appendTo(
+									'.tab-content');
+							var editorx = ace.edit('editor' + nextTab);
+							editorx.setTheme("ace/theme/monokai");
+							editorx.getSession().setMode("ace/mode/java");
+							$('#tabs a:last').tab('show');
+						});
 		$(document).on('change', '.lang-control', function() {
 			var tabId = $(this).parent().parent().prev().val();
 			var editor = ace.edit("editor" + tabId);
@@ -97,18 +107,11 @@
 				editor.setValue(swiftPre);
 			}
 		});
-		
+
 		$(document).on('click', '.close-control', function() {
-			$('#closeModal').data("tabToClose",$(this)).modal("show");
-			//$(this).parent().parent().remove();
-			//var closing_tab_pane = $(this).parent().attr('href');
-			//var tabId = $(closing_tab_pane).children().next().val();
-			//var editor = ace.edit("editor" + tabId);
-			//editor.destroy();
-			//$(closing_tab_pane).remove();
-			//$('#tabs a:last').tab('show');
+			$('#closeModal').data("tabToClose", $(this)).modal("show");
 		});
-		
+
 		$(document).on('click', '#closeButton', function() {
 			var tabToClose = $('#closeModal').data("tabToClose");
 			tabToClose.parent().parent().remove();
@@ -118,33 +121,45 @@
 			editor.destroy();
 			$(closing_tab_pane).remove();
 			$('#tabs a:last').tab('show');
-			 $('#closeModal').modal("hide");
+			$('#closeModal').modal("hide");
 		});
-		$(document).on('click', '.run-control', function() {
-			$(this).html("<span class='glyphicon glyphicon-wrench'></span> running");
-			var runButton = $(this);
-			var tabId = $(this).parent().parent().prev().val();
-			var editor = ace.edit("editor" + tabId);
-			$.ajax({
-				type : 'POST',
-				url : '${ctx}/problems/cloudRun',
-				data : {
-					codeSubmit : editor.getValue(),
-					solutionLanguage : $('#solutionLanguage' + tabId).val()
-				},
-				success : function(result) {
-					$('#resultDiv'+tabId).show();
-					var runCode = result.message.code;
-					var code = result.message.code;
-					if (code == '201') {
-						$('#cloud-result'+tabId).html(result.result);
-					} else {
-						$('#cloud-result'+tabId).html(result.result);
-					}
-					runButton.html("<span class='glyphicon glyphicon-flash'></span> run");
-				}
-			});
-		});
+		$(document)
+				.on(
+						'click',
+						'.run-control',
+						function() {
+							$(this)
+									.html(
+											"<span class='glyphicon glyphicon-wrench'></span> running");
+							var runButton = $(this);
+							var tabId = $(this).parent().parent().prev().val();
+							var editor = ace.edit("editor" + tabId);
+							$
+									.ajax({
+										type : 'POST',
+										url : '${ctx}/problems/cloudRun',
+										data : {
+											codeSubmit : editor.getValue(),
+											solutionLanguage : $(
+													'#solutionLanguage' + tabId)
+													.val()
+										},
+										success : function(result) {
+											$('#resultDiv' + tabId).show();
+											var runCode = result.message.code;
+											var code = result.message.code;
+											if (code == '201') {
+												$('#cloud-result' + tabId)
+														.html(result.result);
+											} else {
+												$('#cloud-result' + tabId)
+														.html(result.result);
+											}
+											runButton
+													.html("<span class='glyphicon glyphicon-flash'></span> run");
+										}
+									});
+						});
 		$(document).on('change', '.theme-control', function() {
 			var tabId = $(this).parent().parent().prev().val();
 			var editor = ace.edit("editor" + tabId);
@@ -170,17 +185,16 @@
 	<%@	include file="topnav.jsp"%>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-offset-1 col-md-10">
+			<div class="col-md-12">
 				<ul id="tabs" class="nav nav-tabs">
-					<li><a id="addTab"> <span class="glyphicon glyphicon-plus"></a></li>
+					<li><a id="addTab"> <span class="glyphicon glyphicon-plus"></span></a></li>
 					<li class="active"><a href="#tab1" data-toggle="tab">
 							File1 </a></li>
 				</ul>
 				<div id="tabContents" class="tab-content">
-					<div class="tab-pane fade in active" id="tab1">
-						<br /> 
-						<input id="tabId" type="hidden" value="1" />
-						<div id="settings_row" class="row" style="margin-bottom: 12px;">
+					<div class="row tab-pane fade in active" id="tab1">
+						<br /> <input id="tabId" type="hidden" value="1" />
+						<div id="settings_row" class="row col-md-12" style="margin-bottom: 12px;">
 							<div class="col-lg-2">
 								<select class="form-control lang-control" id="lang">
 									<option value="c">C</option>
@@ -207,19 +221,32 @@
 								<button class="btn btn-default reset-control" type="button">
 									<span class="glyphicon glyphicon-refresh"></span>
 								</button>
-								<button id="run" class="btn btn-success btn-pad run-control" data-original-title="Shortcut: Command + enter"><span class="glyphicon glyphicon-flash"></span>run</button>
-								<button id="save" class="btn btn-primary btn-pad save-control"><span class="glyphicon glyphicon-save"></span>save</button>
+								<button id="run" class="btn btn-success btn-pad run-control"
+									data-original-title="Shortcut: Command + enter">
+									<span class="glyphicon glyphicon-flash"></span>run
+								</button>
+								<button id="save" class="btn btn-primary btn-pad save-control">
+									<span class="glyphicon glyphicon-save"></span>save
+								</button>
 							</div>
 						</div>
 						<input id="solutionLanguage1" name="solutionLanguage1"
 							type="hidden" value="java" />
-						<div id="embedded_ace_code" style="height: 400px;"
-							class="col-md-12">
-							<div id="editor1" class="editor"></div>
+						<div class="col-md-8">
+							<div id="embedded_ace_code" style="height: 400px;"
+								class="col-md-12">
+								<div id="editor1" class="editor"></div>
+							</div>
 						</div>
-						<div class="panel panel-primary" >
-						   <div id="cloud-result1" class="panel-body">
-						   </div>
+						<div class="col-md-4">
+							<div class="panel panel-primary" style="height: 400px;">
+								<div class="panel-heading">
+									<h3 class="panel-title">Output Console #1</h3>
+								</div>
+								<div id="cloud-result1" class="panel-body" data-spy="scroll"
+									style="height: 350px; overflow: auto; position: relative;">
+								</div>
+							</div>
 						</div>
 					</div>
 
@@ -228,15 +255,17 @@
 		</div>
 	</div>
 	<%@	include file="footer.jsp"%>
-	<div class="modal fade" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="closeModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				 <div class="modal-header">
-		            <button type="button" class="close" data-dismiss="modal" 
-		               aria-hidden="true">×
-		            </button>
-		            <h3 class="modal-title" id="myModalLabel"><strong>Sure to Close ?</strong></h3>
-		         </div>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3 class="modal-title" id="myModalLabel">
+						<strong>Sure to Close ?</strong>
+					</h3>
+				</div>
 				<div class="modal-body">
 					<p>You will lose the file process in this editor!</p>
 				</div>
