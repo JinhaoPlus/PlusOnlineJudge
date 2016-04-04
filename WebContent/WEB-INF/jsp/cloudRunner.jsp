@@ -116,6 +116,27 @@
 			$('#tabs a:last').tab('show');
 			$('#closeModal').modal("hide");
 		});
+		$(document).on('click','.save-control',function() {
+			$('#saveModal').data("tabIdToSave", $(this).parent().parent().prev().val()).modal("show");
+		});
+		$(document).on('click', '#saveButton', function() {
+			$(this).val('saving');
+			var tabIdToSave = $('#saveModal').data("tabIdToSave");
+			var editor = ace.edit("editor" + tabIdToSave);
+			$.ajax({
+				type : 'POST',
+				url : '${ctx}/save-snippet',
+				data : {
+					codeSnippit : editor.getValue(),
+					snippetDescription : $('#snippetDiscription').val()
+				},
+				success : function(result) {
+					
+				}
+			});
+			$(this).val('saved');
+			$('#saveModal').modal("hide");
+		});
 		$(document).on('click','.run-control',function() {
 			$(this).html("<span class='glyphicon glyphicon-wrench'></span> running");
 			var runButton = $(this);
@@ -299,6 +320,40 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
 					<button id="closeButton" type="button" class="btn btn-danger">close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3 class="modal-title" id="myModalLabel">
+						<strong>Save Code to PlusOJ Snippets</strong>
+					</h3>
+				</div>
+				<div class="modal-body">
+					<p>You will save your code to PlusOJ Snippets and you can find them easily then !</p>
+					<div class="input-group">
+				    	<span class="input-group-addon"><span class="glyphicon glyphicon-exclamation-sign"></span></span>
+				    	<input id="snippetDiscription" type="text" class="form-control" placeholder="Code Desciption Here">
+				   	</div>
+				   	<br/>
+				   	<div class="input-group">
+				    	<span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
+				    	<input type="text" class="form-control" placeholder="Tag">
+				    	<span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
+				    	<input type="text" class="form-control" placeholder="Tag">
+				    	<span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
+				    	<input type="text" class="form-control" placeholder="Tag">
+				   	</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+					<button id="saveButton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>save</button>
 				</div>
 			</div>
 		</div>

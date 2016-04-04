@@ -1,5 +1,6 @@
 package com.jinhaoplus.oj.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jinhaoplus.oj.domain.CodeSnippet;
 import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.DataAnalyseBean;
 import com.jinhaoplus.oj.domain.Problem;
@@ -77,6 +79,13 @@ public class IndexController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("cloudRunner");
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/save-snippet")
+	public void saveSnippet(HttpServletRequest request,HttpServletResponse response,CodeSnippet codeSnippet) {
+		System.out.println(codeSnippet);
+		codeSnippet.setSnippetSavedDate(new Date());
+		
 	}
 	
 	@RequestMapping(value="/about")
