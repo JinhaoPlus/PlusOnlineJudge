@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 
 import com.jinhaoplus.oj.domain.ProblemSolution;
-import com.jinhaoplus.oj.domain.ProblemTest;
-import com.jinhaoplus.oj.domain.ProblemTestResult;
 
 public class Source2FileUtils {
 	private Source2FileUtils(){

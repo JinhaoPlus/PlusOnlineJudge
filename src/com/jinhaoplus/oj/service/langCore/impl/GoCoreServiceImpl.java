@@ -38,11 +38,11 @@ public class GoCoreServiceImpl implements LangCoreService {
 	}
 	
 	@Override
-	public ProblemTestResult cloudRunCode(String path) {
+	public ProblemTestResult cloudRunCode(String path,String cloudRunnerSyncCode) {
 		String destFileName = path.substring(path.lastIndexOf("/")+1, path.length());
 		String[] runCommands = {"go","run",destFileName};
 		String runDir = path.substring(0, path.lastIndexOf("/"));
-		ProblemTestResult result = langCoreResolver.cloudRunCode(runDir, runCommands);
+		ProblemTestResult result = langCoreResolver.cloudRunCode(runDir, runCommands,cloudRunnerSyncCode);
 		return result;
 	}
 	
@@ -51,4 +51,8 @@ public class GoCoreServiceImpl implements LangCoreService {
 		return fileOrDirName;
 	}
 
+	@Override
+	public void cloudRunInput(String typedInput, String cloudRunnerSyncCode) {
+		langCoreResolver.cloudRunInput(typedInput, cloudRunnerSyncCode);
+	}
 }

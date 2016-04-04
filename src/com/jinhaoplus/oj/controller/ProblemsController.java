@@ -93,20 +93,43 @@ public class ProblemsController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/cloudRunSync")
+	@ResponseBody
+	public String cloudRunSyncCode(HttpServletRequest request,HttpServletResponse response){
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("cloudRunSync");
+		buffer.append(((User)request.getSession().getAttribute("loginuser")).getUserid());
+		buffer.append(System.currentTimeMillis());
+		String cloudRunnerSyncCode = buffer.toString();
+		return cloudRunnerSyncCode;
+	}
+	
+	
 	@RequestMapping(value="/cloudRun")
 	@ResponseBody
 	public ProblemTestResult cloudRun(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
 		coreDispatcherService.dispatchSolution(solution);
+		
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
+		String cloudRunSyncCode = request.getParameter("cloudRunnerSyncCode");
 		//for Linux server and OS X Server
 		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
 		//for Windows Server
 //		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
 		solution.setSolutionCoderId(userId);
 		solution.setCodeSubmitTime(new Date());
-		ProblemTestResult testResult = coreDispatcherService.cloudRunWorkFlow(solution, sourceWaitPath);
+		ProblemTestResult testResult = coreDispatcherService.cloudRunWorkFlow(solution, sourceWaitPath,cloudRunSyncCode);
 		return testResult;
 	}
+	
+	@RequestMapping(value="/cloudRunEnterInput")
+	@ResponseBody
+	public void cloudRunEnterInput(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
+		String typedInput = request.getParameter("typedInput");
+		String cloudRunnerSyncCode = request.getParameter("cloudRunnerSyncCode");
+		coreDispatcherService.cloudRunInput(typedInput, cloudRunnerSyncCode);
+	}
+	
 	
 	@RequestMapping(value="/getSolutionDetail/{problemId}/{solutionId}")
 	public ModelAndView getSolutionDetail(HttpServletRequest request,HttpServletResponse response,@PathVariable("problemId") String problemId,@PathVariable("solutionId") String solutionId){

@@ -101,35 +101,37 @@
 			<form class="form-signin" id="form-signin" action="${ctx }/accounts/signup" method="post">
 				<h3 class="form-signin-heading">Sign Up</h3>
 				<hr>
-				<div class="form-group">
+				<div class="row form-group">
 					<input autofocus="autofocus" id="username" maxlength="30"
 						name="username" placeholder="Username" type="text" 
 						class="form-control">
 				</div>
-				<div class="form-group">
+				<div class="row form-group">
 					<input id="bitcode" maxlength="12"
 						name="bitcode" placeholder="BIT Code" type="text" 
 						class="form-control">
 				</div>
-				<div class="form-group">
+				<div class="row form-group">
 					<input id="email" name="email" placeholder="E-mail address" 
 						type="email" class="form-control">
 				</div>
-				<div class="form-group">
+				<div class="row form-group">
 					<input id="password" name="password" placeholder="Password"
 						type="password" class="form-control">
 				</div>
-				<div class="form-group">
+				<div class="row form-group">
 					<input id="confirm_password" name="confirm_password"
 						placeholder="Confirm Password" type="password"
 						class="form-control">
 				</div>
-				<div class="form-group">
-					<button class="btn btn-primary" type="submit"
+				<div class="row form-group">
+					<button class="col-md-7 btn btn-primary" type="submit"
 						onclick="valid_submit();">Sign Up for PlusOJ</button>
-					<a href="${ctx }/accounts/tologin"  class="btn btn-info">login?</a>
+					<a href="${ctx }/accounts/tologin" style="text-align:right;" class="col-md-offset-1 col-md-4">login?</a>
 				</div>
-				<div class="form-group alert alert-warning">${signupInfo }</div>
+				<c:if test="${signupInfo != null}">
+					<div class="form-group alert alert-warning">${signupInfo }</div>
+				</c:if>
 			</form>
 			
 		</div>

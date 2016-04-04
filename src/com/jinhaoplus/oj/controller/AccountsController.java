@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jinhaoplus.oj.common.SessionManager;
 import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.AccountsService;
@@ -26,7 +27,12 @@ public class AccountsController {
 		this.accountsService = accountsService;
 	}
 	
-	
+	@Autowired
+	private SessionManager sessionManager;
+	public void setSessionManager(SessionManager sessionManager) {
+		this.sessionManager = sessionManager;
+	}
+
 	@RequestMapping(value="/tosignup")
 	public ModelAndView toSignUp(HttpServletRequest request,HttpServletResponse response,User user) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -87,6 +93,7 @@ public class AccountsController {
 		}
 		user = accountsService.getUserByName(user.getUsername());
 		request.getSession().setAttribute("loginuser", user);
+		sessionManager.setSession(request.getSession());
 		response.sendRedirect(request.getContextPath()+"/index");
 		
 	}

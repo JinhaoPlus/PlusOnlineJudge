@@ -166,8 +166,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 
 
 	@Override
-	public ProblemTestResult cloudRunWorkFlow(ProblemSolution solution,
-			String path) {
+	public ProblemTestResult cloudRunWorkFlow(ProblemSolution solution,String path,String cloudRunnerSyncCode) {
 		File file = new File(path);
 		if (!file.exists()) {
 			file.mkdir();
@@ -180,7 +179,7 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			CommonMessage message = langCoreService.compileCode(sourceFilePath);
 			System.out.println("[+]compileinfo+"+message);
 			if(COMPILE_SUCCESS_CODE.equals(message.getCode())){
-				ProblemTestResult result = langCoreService.cloudRunCode(sourceFilePath);
+				ProblemTestResult result = langCoreService.cloudRunCode(sourceFilePath,cloudRunnerSyncCode);
 				DisplayRunUtils.displayResults(result);
 				return result;
 			}else if(COMPILE_ERROR_CODE.equals(message.getCode())){
@@ -190,5 +189,11 @@ public class CoreDisptcherService implements CoreDispatcherService{
 			}
 		}
 		return null;
+	}
+
+
+	@Override
+	public void cloudRunInput(String typedInput, String cloudRunSyncCode) {
+		langCoreService.cloudRunInput(typedInput, cloudRunSyncCode);
 	}
 }

@@ -26,7 +26,16 @@ public class LangCoreResolver {
 	public void setProblemsDao(ProblemsDao problemsDao) {
 		this.problemsDao = problemsDao;
 	}
+	
+	@Autowired
+	private SessionManager sessionManager;
+	public void setSessionManager(SessionManager sessionManager) {
+		this.sessionManager = sessionManager;
+	}
+
 	private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+	
+	
 	public CommonMessage compileCode(String compileDir,String[] compileCommands){
 		CommonMessage message = null;
 		ProcessBuilder processBuilder;
@@ -124,7 +133,7 @@ public class LangCoreResolver {
 		return results;
 	}
 	
-	public ProblemTestResult cloudRunCode(String runDir,String[] runCommands){
+	public ProblemTestResult cloudRunCode(String runDir,String[] runCommands,String cloudRunnnerSyncCode){
 		CommonMessage message = null;
 		ProcessBuilder processBuilder;
 		processBuilder = new ProcessBuilder(runCommands);
@@ -132,10 +141,11 @@ public class LangCoreResolver {
 		processBuilder.redirectErrorStream(true);
 		try {
 			Process runProcess = processBuilder.start();
-			
+			sessionManager.syncedProcessToSession(cloudRunnnerSyncCode,runProcess);
+			System.out.println("***"+sessionManager);
 			final InputStream inputStream = runProcess.getInputStream();
 			final InputStream errorStream = runProcess.getErrorStream();
-			final OutputStream outputStream = runProcess.getOutputStream();
+			
 			ResultReadCallable runResultThread = new ResultReadCallable(inputStream);
 			ResultReadCallable runErrorThread = new ResultReadCallable(errorStream);
 			Future<String> runErrorInfo = executor.submit(runErrorThread);
@@ -165,6 +175,13 @@ public class LangCoreResolver {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void cloudRunInput(String typedInput, String cloudRunnerSyncCode) {
+		Process runProcess = (Process) sessionManager.getSession().getAttribute(cloudRunnerSyncCode);
+		OutputStream outputStream = runProcess.getOutputStream();
+		TestWriteCallable inputWriteThread = new TestWriteCallable(outputStream, typedInput);
+		executor.submit(inputWriteThread);
 	}
 	
 	public String OJResult(ProblemTest problemTest,ProblemTestResult testResult) {

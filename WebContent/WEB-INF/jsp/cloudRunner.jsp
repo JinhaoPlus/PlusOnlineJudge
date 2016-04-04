@@ -34,34 +34,26 @@
 		var jsPre = "";
 		var swiftPre = "";
 		editor1.setValue(javaPre);
-		$('#addTab')
-				.click(
-						function() {
-							var nextTab = $('#tabs li').size();
-							// create the tab
-							$(
-									'<li><a href="#tab'+nextTab+'" data-toggle="tab">File'
-											+ nextTab
-											+ '<span class="glyphicon glyphicon-remove close-control"></span></a></li>')
-									.appendTo('#tabs');
-							// create the tab content
-							var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row col-md-12' style='margin-bottom: 12px;'>";
-							tab_pane += $('#settings_row').html();
-							tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
-							tab_pane += "<div class='col-md-8'><div id='embedded_ace_code' style='height: 450px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></div></div>";
-							tab_pane += "<div class='col-md-4'><div class='input-group col-md-12'><span class='input-group-addon'><span class='glyphicon glyphicon-console'></span></span><input id='std"+nextTab+"' type='text' class='form-control' placeholder='stdin : hit key ENTER to input'></div>";
-							tab_pane += "<br/><div id='console"+nextTab+"' class='panel panel-primary' style='height: 400px;'> <div class='panel-heading'><h3 class='panel-title'>Output Console #"+nextTab+"</h3></div><div id='cloud-result"+nextTab+"' class='panel-body' data-spy='scroll'";
-							tab_pane += "style='height: 350px; overflow: auto; position: relative;'></div></div></div></div>";
+		$('#addTab').click(function() {
+			var nextTab = $('#tabs li').size();
+			// create the tab
+			$('<li><a href="#tab'+nextTab+'" data-toggle="tab">File'+ nextTab+ '<span class="glyphicon glyphicon-remove close-control"></span></a></li>').appendTo('#tabs');
+			// create the tab content
+			var tab_pane = "<br/><input type='hidden' value='"+nextTab+"'/><div id='settings_row' class='row col-md-12' style='margin-bottom: 12px;'>";
+			tab_pane += $('#settings_row').html();
+			tab_pane += "</div><input id='solutionLanguage"+nextTab+"' name='solutionLanguage"+nextTab+"' type='hidden' value='java'/>";
+			tab_pane += "<div class='col-md-8'><div id='embedded_ace_code' style='height: 450px;' class='col-md-12' style='margin-bottom: 12px;'><div class='editor' id='editor"+nextTab+"'></div></div></div>";
+			tab_pane += "<div class='col-md-4'><div class='input-group col-md-12'><span class='input-group-addon'><span class='glyphicon glyphicon-console'></span></span><input id='cloudRunnerSyncCode"+nextTab+"' type='hidden'/><input id='consoleId' type='hidden' value='"+nextTab+"' /><input id='std"+nextTab+"' type='text' readonly='readonly' class='form-control std-control' placeholder='stdin : hit key ENTER to input'></div>";
+			tab_pane += "<br/><div id='console"+nextTab+"' class='panel panel-primary' style='height: 400px;'> <div class='panel-heading'><h3 id='consoleTitle"+nextTab+"' class='panel-title'>Output Console #"+nextTab+"</h3></div><div id='cloud-result"+nextTab+"' class='panel-body' data-spy='scroll'";
+			tab_pane += "style='height: 350px; overflow: auto; position: relative;'></div></div></div></div>";
 
-							$(
-									'<div class="tab-pane fade in active" id="tab'+nextTab+'">'
-											+ tab_pane + '</div>').appendTo(
-									'.tab-content');
-							var editorx = ace.edit('editor' + nextTab);
-							editorx.setTheme("ace/theme/monokai");
-							editorx.getSession().setMode("ace/mode/java");
-							$('#tabs a:last').tab('show');
-						});
+			$('<div class="row tab-pane fade in active" id="tab'+nextTab+'">'+ tab_pane + '</div>').appendTo('.tab-content');
+			var editorx = ace.edit('editor' + nextTab);
+			editorx.setTheme("ace/theme/monokai");
+			editorx.getSession().setMode("ace/mode/java");
+			editorx.setValue(javaPre);
+			$('#tabs a:last').tab('show');
+		});
 		$(document).on('change', '.lang-control', function() {
 			var tabId = $(this).parent().parent().prev().val();
 			var editor = ace.edit("editor" + tabId);
@@ -124,43 +116,69 @@
 			$('#tabs a:last').tab('show');
 			$('#closeModal').modal("hide");
 		});
-		$(document)
-				.on(
-						'click',
-						'.run-control',
-						function() {
-							$(this)
-									.html(
-											"<span class='glyphicon glyphicon-wrench'></span> running");
-							var runButton = $(this);
-							var tabId = $(this).parent().parent().prev().val();
-							var editor = ace.edit("editor" + tabId);
-							$
-									.ajax({
-										type : 'POST',
-										url : '${ctx}/problems/cloudRun',
-										data : {
-											codeSubmit : editor.getValue(),
-											solutionLanguage : $(
-													'#solutionLanguage' + tabId)
-													.val()
-										},
-										success : function(result) {
-											$('#resultDiv' + tabId).show();
-											var runCode = result.message.code;
-											var code = result.message.code;
-											if (code == '201') {
-												$('#console'+tabId).attr("class","panel panel-success");
-												$('#cloud-result' + tabId).html(result.result);
-											} else if(code == '500') {
-												$('#console'+tabId).attr("class","panel panel-danger");
-												$('#cloud-result' + tabId).html("<p><strong>"+result.message.message+"</strong></p><p>"+result.message.details+"</p>");
-											}
-											runButton
-													.html("<span class='glyphicon glyphicon-flash'></span> run");
-										}
-									});
-						});
+		$(document).on('click','.run-control',function() {
+			$(this).html("<span class='glyphicon glyphicon-wrench'></span> running");
+			var runButton = $(this);
+			var tabId = $(this).parent().parent().prev().val();
+			var editor = ace.edit("editor" + tabId);
+			var cloudRunnerSyncCode;
+			$('#std'+tabId).removeAttr("readonly");
+			$('#cloud-result' + tabId).html("");
+			$('#console'+tabId).attr("class","panel panel-info");
+			$('#consoleTitle'+tabId).html("Output Console #"+tabId+" [:running]");
+			$.ajax({
+				type : 'POST',
+				url : '${ctx}/problems/cloudRunSync',
+				success : function(result) {
+					$('#cloudRunnerSyncCode'+tabId).val(result);
+					$.ajax({
+						type : 'POST',
+						url : '${ctx}/problems/cloudRun',
+						data : {
+							cloudRunnerSyncCode : result,
+							codeSubmit : editor.getValue(),
+							solutionLanguage : $(
+									'#solutionLanguage' + tabId)
+									.val()
+						},
+						success : function(result) {
+							var runCode = result.message.code;
+							var code = result.message.code;
+							if (code == '201') {
+								$('#console'+tabId).attr("class","panel panel-success");
+								$('#cloud-result' + tabId).append(result.result);
+							} else if(code == '500') {
+								$('#console'+tabId).attr("class","panel panel-danger");
+								$('#cloud-result' + tabId).html("<p><strong>"+result.message.message+"</strong></p><p>"+result.message.details+"</p>");
+							}
+							$('#consoleTitle'+tabId).html("Output Console #"+tabId+" [:terminated]");
+							runButton.html("<span class='glyphicon glyphicon-flash'></span> run");
+							$('#std'+tabId).attr("readonly","readonly");
+						}
+					});
+				}
+			});
+			
+		});
+		$(document).on('keyup', '.std-control', function(e) {
+			if(e.keyCode == 13){
+				var consoleId = $(this).prev().val();
+				var typedInput = $(this).val();
+				$(this).val('');
+				$('#cloud-result'+consoleId).append('<strong>'+'>_&nbsp'+typedInput+'↵'+'</strong>'+'<br/>');
+				$.ajax({
+					type : 'POST',
+					url : '${ctx}/problems/cloudRunEnterInput',
+					data : {
+						typedInput : typedInput,
+						cloudRunnerSyncCode : $('#cloudRunnerSyncCode'+consoleId).val()
+					},
+					success : function(result) {
+						
+					}
+				});
+			}
+		});
 		$(document).on('change', '.theme-control', function() {
 			var tabId = $(this).parent().parent().prev().val();
 			var editor = ace.edit("editor" + tabId);
@@ -194,7 +212,8 @@
 				</ul>
 				<div id="tabContents" class="tab-content">
 					<div class="row tab-pane fade in active" id="tab1">
-						<br /> <input id="tabId" type="hidden" value="1" />
+						<br /> 
+						<input id="tabId" type="hidden" value="1" />
 						<div id="settings_row" class="row col-md-12" style="margin-bottom: 12px;">
 							<div class="col-lg-2">
 								<select class="form-control lang-control" id="lang">
@@ -242,12 +261,14 @@
 						<div class="col-md-4">
 							<div class="input-group col-md-12">
 					        	<span class="input-group-addon"><span class="glyphicon glyphicon-console"></span></span>
-					        	<input id="std1" type="text" class="form-control" placeholder="stdin : hit key ENTER to input">
+					        	<input id="cloudRunnerSyncCode1" type="hidden"/>
+					        	<input id="consoleId" type="hidden" value="1" />
+					        	<input id="std1" type="text" readonly="readonly" class="form-control std-control" placeholder="stdin : hit key ENTER to input">
 					    	</div>
 					    	<br/>
 							<div id="console1" class="panel panel-primary" style="height: 400px;">
 								<div class="panel-heading">
-									<h3 class="panel-title">Output Console #1</h3>
+									<h3 id="consoleTitle1" class="panel-title">Output Console #1</h3>
 								</div>
 								<div id="cloud-result1" class="panel-body" data-spy="scroll"
 									style="height: 350px; overflow: auto; position: relative;">
