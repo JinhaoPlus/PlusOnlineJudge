@@ -47,23 +47,25 @@
 				action="${ctx }/accounts/login" method="post">
 				<h3 class="form-signin-heading">Login</h3>
 				<hr>
-				<div class="form-group">
+				<div class="row form-group">
 					<input autofocus="autofocus" id="username" maxlength="30"
 						name="username" placeholder="Username" type="text"
 						class="form-control">
 				</div>
-				<div class="form-group">
+				<div class="row form-group">
 					<input id="password" name="password" placeholder="Password"
 						type="password" class="form-control">
 				</div>
-				<div class="form-group">
-					<button class="btn btn-primary" type="submit"
+				<div class="row form-group">
+					<button class="col-md-7 btn btn-primary" type="submit"
 						onclick="valid_submit();">Login PlusOJ</button>
-					<a class="btn btn-info" href="${ctx }/accounts/tosignup">sign up?</a>
+					<a style="text-align:right;" class="col-md-offset-1 col-md-4" href="${ctx }/accounts/tosignup">sign up?</a>
 	
 				</div>
 				
-				<div class="form-group alert alert-warning">${loginInfo }</div>
+				<c:if test="${loginInfo != null}">
+					<div class="row form-group alert alert-warning">${loginInfo }</div>
+				</c:if>
 			</form>
 			
 		</div>

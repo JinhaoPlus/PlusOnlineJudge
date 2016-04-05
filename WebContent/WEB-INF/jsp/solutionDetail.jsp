@@ -55,7 +55,10 @@
 							<c:if test="${compileResult == '500' }">
 								<tr class="warning">
 									<td>Result</td>
-									<td>Compiling Error</td>
+									<td>
+										<p>${compileMessage.message}</p>
+										<p>${compileMessage.details}</p>
+									</td>
 								</tr>
 							</c:if>
 							<c:if test="${compileResult != '500' }">

@@ -1,26 +1,15 @@
 package com.jinhaoplus.oj.service.langCore.impl;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jinhaoplus.oj.common.LangCoreResolver;
-import com.jinhaoplus.oj.common.ResultReadCallable;
-import com.jinhaoplus.oj.common.TestWriteCallable;
-import com.jinhaoplus.oj.dao.ProblemsDao;
 import com.jinhaoplus.oj.domain.CommonMessage;
-import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
 import com.jinhaoplus.oj.service.langCore.LangCoreService;
-import com.jinhaoplus.oj.util.PropertiesUtil;
 
 
 @Service
@@ -51,10 +40,10 @@ public class JavaCoreServiceImpl implements LangCoreService {
 	}
 
 	@Override
-	public ProblemTestResult cloudRunCode(String path) {
+	public ProblemTestResult cloudRunCode(String path,String cloudRunnerSyncCode) {
 		String[] runCommands = {"java","-cp",".","Test"};
 		String runDir = path.substring(0, path.lastIndexOf("/"));
-		ProblemTestResult result = langCoreResolver.cloudRunCode(runDir, runCommands);
+		ProblemTestResult result = langCoreResolver.cloudRunCode(runDir, runCommands,cloudRunnerSyncCode);
 		return result;
 	}
 
@@ -72,6 +61,11 @@ public class JavaCoreServiceImpl implements LangCoreService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public void cloudRunInput(String typedInput, String cloudRunnerSyncCode) {
+		langCoreResolver.cloudRunInput(typedInput, cloudRunnerSyncCode);
 	}
 
 	

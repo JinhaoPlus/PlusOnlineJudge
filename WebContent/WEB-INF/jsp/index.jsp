@@ -17,12 +17,19 @@ $(function(){
 	<%@	include file="topnav.jsp"%>
 	<div class="container">
 		<div class="row">
+<<<<<<< HEAD
 			<div class="col-md-8">
+=======
+			<div class="col-md-9">
+>>>>>>> 64789ad1a028c537192741c21ae452ae3a774aa2
 				<div class="row">
 					<div id="brief_stats" class="col-md-12">
 						<h2>
-							Welcome, <a href="${ctx }/accounts/profile">${loginuser.username }</a> ! You have solved <strong>${solvedNum} / ${problemsNum} </strong> problems.
+							Welcome, <a href="${ctx }/accounts/profile">${loginuser.username }</a> ! 
 						</h2>
+						<h3>
+							You have solved <strong>${solvedNum} / ${problemsNum} </strong> problems.
+						</h3>						
 					</div>
 				</div>
 				<hr/>
@@ -87,10 +94,10 @@ $(function(){
 								</tr>
 							</c:forEach>
 						</tbody>
-						
 					</table>
 				</div>
 			</div>
+<<<<<<< HEAD
 			<div class="col-md-4">
 				<div class="row sidebar-module">
 					<ul class="col-md-offset-3 col-md-9 list-group">
@@ -113,6 +120,37 @@ $(function(){
 							class="btn btn-success btn-md qa-ask-btn"
 							href="#">Post an Interview Question</a></li>
 					</ul>
+=======
+			<br/><br/><br/>
+			<div class="col-md-3 blog-sidebar">
+				<div id="row brief_stats" class="col-md-12">
+					<div class="panel panel-success">
+					   <div class="panel-heading">Top Coders 15</div>
+					   <table class="table">
+					   <thead>
+							<tr>
+								<th class="header-id">
+									<div>#</div>
+								</th>
+								<th class="header-name">
+									<div>CoderName</div>
+								</th>
+								<th class="header-ac">
+									<div>ACs</div>
+								</th>
+							</tr>
+						</thead>
+						<%int id = 1; %>
+						<c:forEach items="${dataAnalyseBeans }" var="analyseBean">
+						    <tr>
+						    	<td><%=id++ %></td>
+						    	<td class="orange">${analyseBean.userName}</td>
+						    	<td>${analyseBean.acNumber}</td>
+						    </tr>
+					    </c:forEach>
+					   </table>
+					</div>
+>>>>>>> 64789ad1a028c537192741c21ae452ae3a774aa2
 				</div>
 			</div>
 		</div>

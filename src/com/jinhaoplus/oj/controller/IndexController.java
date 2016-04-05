@@ -1,10 +1,9 @@
 package com.jinhaoplus.oj.controller;
 
-import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jinhaoplus.oj.domain.CodeSnippet;
 import com.jinhaoplus.oj.domain.CommonMessage;
+import com.jinhaoplus.oj.domain.DataAnalyseBean;
 import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.User;
+import com.jinhaoplus.oj.service.DataAnalyseService;
 import com.jinhaoplus.oj.service.ProblemsService;
 
 @Controller
@@ -27,6 +29,13 @@ public class IndexController {
 	
 	public void setProblemsService(ProblemsService problemsService) {
 		this.problemsService = problemsService;
+	}
+
+	@Autowired
+	private DataAnalyseService dataAnalyseService;
+	
+	public void setDataAnalyseService(DataAnalyseService dataAnalyseService) {
+		this.dataAnalyseService = dataAnalyseService;
 	}
 
 	@RequestMapping(value="/index")
@@ -46,6 +55,9 @@ public class IndexController {
 		modelAndView.addObject("solvedNum", solvedNum);
 		modelAndView.addObject("problemsNum", problemList.size());
 		modelAndView.addObject("message", message);
+		
+		List<DataAnalyseBean> dataAnalyseBeans = dataAnalyseService.getTopCodersData();
+		modelAndView.addObject("dataAnalyseBeans", dataAnalyseBeans);
 		return modelAndView;
 	}
 	
@@ -67,6 +79,13 @@ public class IndexController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("cloudRunner");
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/save-snippet")
+	public void saveSnippet(HttpServletRequest request,HttpServletResponse response,CodeSnippet codeSnippet) {
+		System.out.println(codeSnippet);
+		codeSnippet.setSnippetSavedDate(new Date());
+		
 	}
 	
 	@RequestMapping(value="/about")

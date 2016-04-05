@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jinhaoplus.oj.domain.CommonMessage;
 import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
@@ -76,10 +77,12 @@ public class ProblemsController {
 		problemsService.visableTestResults(testResults);
 		modelAndView.addObject("testResults",testResults);
 		
-		String compileResult = testResults.get(0).getMessage().getCode();
-		if("500".equals(compileResult))
+		CommonMessage compileMessage = testResults.get(0).getMessage();
+		String compileResultCode = compileMessage.getCode();
+		modelAndView.addObject("compileMessage", compileMessage);
+		if("500".equals(compileResultCode))
 			solution.setFinalOJResult("CE");
-		modelAndView.addObject("compileResult", compileResult);
+		modelAndView.addObject("compileResult", compileResultCode);
 		
 		solution = DisplayRunUtils.sourceForACE(solution);
 		modelAndView.addObject("solution", solution);
@@ -90,20 +93,43 @@ public class ProblemsController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/cloudRunSync")
+	@ResponseBody
+	public String cloudRunSyncCode(HttpServletRequest request,HttpServletResponse response){
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("cloudRunSync");
+		buffer.append(((User)request.getSession().getAttribute("loginuser")).getUserid());
+		buffer.append(System.currentTimeMillis());
+		String cloudRunnerSyncCode = buffer.toString();
+		return cloudRunnerSyncCode;
+	}
+	
+	
 	@RequestMapping(value="/cloudRun")
 	@ResponseBody
 	public ProblemTestResult cloudRun(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
 		coreDispatcherService.dispatchSolution(solution);
+		
 		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
+		String cloudRunSyncCode = request.getParameter("cloudRunnerSyncCode");
 		//for Linux server and OS X Server
 		String sourceWaitPath = request.getRealPath("")+"sourceWait/";
 		//for Windows Server
 //		String sourceWaitPath = request.getRealPath("")+"/sourceWait/";
 		solution.setSolutionCoderId(userId);
 		solution.setCodeSubmitTime(new Date());
-		ProblemTestResult testResult = coreDispatcherService.cloudRunWorkFlow(solution, sourceWaitPath);
+		ProblemTestResult testResult = coreDispatcherService.cloudRunWorkFlow(solution, sourceWaitPath,cloudRunSyncCode);
 		return testResult;
 	}
+	
+	@RequestMapping(value="/cloudRunEnterInput")
+	@ResponseBody
+	public void cloudRunEnterInput(HttpServletRequest request,HttpServletResponse response,ProblemSolution solution){
+		String typedInput = request.getParameter("typedInput");
+		String cloudRunnerSyncCode = request.getParameter("cloudRunnerSyncCode");
+		coreDispatcherService.cloudRunInput(typedInput, cloudRunnerSyncCode);
+	}
+	
 	
 	@RequestMapping(value="/getSolutionDetail/{problemId}/{solutionId}")
 	public ModelAndView getSolutionDetail(HttpServletRequest request,HttpServletResponse response,@PathVariable("problemId") String problemId,@PathVariable("solutionId") String solutionId){

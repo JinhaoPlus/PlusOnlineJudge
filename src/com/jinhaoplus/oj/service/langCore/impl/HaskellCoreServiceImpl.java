@@ -40,11 +40,11 @@ public class HaskellCoreServiceImpl implements LangCoreService {
 	}
 	
 	@Override
-	public ProblemTestResult cloudRunCode(String path) {
+	public ProblemTestResult cloudRunCode(String path,String cloudRunnerSyncCode) {
 		String destFileName = path.substring(path.lastIndexOf("/")+1,path.lastIndexOf("."));
 		String[] runCommands = {"./"+destFileName};
 		String runDir = path.substring(0, path.lastIndexOf("/"));
-		ProblemTestResult result = langCoreResolver.cloudRunCode(runDir, runCommands);
+		ProblemTestResult result = langCoreResolver.cloudRunCode(runDir, runCommands,cloudRunnerSyncCode);
 		return result;
 	}
 	
@@ -53,5 +53,11 @@ public class HaskellCoreServiceImpl implements LangCoreService {
 		return fileOrDirName;
 	}
 
+	@Override
+	public void cloudRunInput(String typedInput, String cloudRunnerSyncCode) {
+		langCoreResolver.cloudRunInput(typedInput, cloudRunnerSyncCode);
+	}
+	
+	
 	
 }
