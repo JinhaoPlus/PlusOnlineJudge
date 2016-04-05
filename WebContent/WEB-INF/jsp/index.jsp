@@ -17,7 +17,7 @@ $(function(){
 	<%@	include file="topnav.jsp"%>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-offset-1 col-md-11">
+			<div class="col-md-8">
 				<div class="row">
 					<div id="brief_stats" class="col-md-12">
 						<h2>
@@ -89,6 +89,30 @@ $(function(){
 						</tbody>
 						
 					</table>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="row sidebar-module">
+					<ul class="col-md-offset-3 col-md-9 list-group">
+						<li class="list-group-item list-group-item-danger"><strong>
+								<span class="glyphicon glyphicon-heart"></span> <span>&nbsp;Contribute</span>
+						</strong></li>
+						<li class="list-group-item"><a style="white-space: normal;"
+							class="btn btn-success btn-md qa-ask-btn"
+							href="#">Post an Interview Question</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="row sidebar-module">
+					<ul class="col-md-offset-3 col-md-9 list-group">
+						<li class="list-group-item list-group-item-danger"><strong>
+								<span class="glyphicon glyphicon-heart"></span> <span>&nbsp;Contribute</span>
+						</strong></li>
+						<li class="list-group-item"><a style="white-space: normal;"
+							class="btn btn-success btn-md qa-ask-btn"
+							href="#">Post an Interview Question</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
