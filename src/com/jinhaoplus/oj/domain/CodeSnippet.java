@@ -1,14 +1,14 @@
 package com.jinhaoplus.oj.domain;
 
-import java.util.Arrays;
 import java.util.Date;
 
 public class CodeSnippet {
 	private int codeSnippetsId;
 	private String codeSnippit;
 	private String snippetDescription;
-	private String[] snippetTags;
 	private Date snippetSavedDate;
+	private int coderId;
+	private String pubpri;
 	public Date getSnippetSavedDate() {
 		return snippetSavedDate;
 	}
@@ -33,17 +33,17 @@ public class CodeSnippet {
 	public void setSnippetDescription(String snippetDescription) {
 		this.snippetDescription = snippetDescription;
 	}
-	public String[] getSnippetTags() {
-		return snippetTags;
-	}
-	public void setSnippetTags(String[] snippetTags) {
-		this.snippetTags = snippetTags;
-	}
-	@Override
-	public String toString() {
-		return "CodeSnippet [codeSnippetsId=" + codeSnippetsId + ", codeSnippit=" + codeSnippit
-				+ ", snippetDescription=" + snippetDescription + ", snippetTags=" + Arrays.toString(snippetTags)
-				+ ", snippetSavedDate=" + snippetSavedDate + "]";
-	}
 	
+	public int getCoderId() {
+		return coderId;
+	}
+	public void setCoderId(int coderId) {
+		this.coderId = coderId;
+	}
+	public String getPubpri() {
+		return pubpri;
+	}
+	public void setPubpri(String pubpri) {
+		this.pubpri = pubpri;
+	}
 }

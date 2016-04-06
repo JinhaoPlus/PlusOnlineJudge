@@ -83,7 +83,6 @@ public class IndexController {
 	
 	@RequestMapping(value="/save-snippet")
 	public void saveSnippet(HttpServletRequest request,HttpServletResponse response,CodeSnippet codeSnippet) {
-		System.out.println(codeSnippet);
 		codeSnippet.setSnippetSavedDate(new Date());
 		
 	}

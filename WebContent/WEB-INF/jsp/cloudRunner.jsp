@@ -32,7 +32,7 @@
 		var phpPre = "";
 		var goPre = "/**\r\n * please edit your code here\r\n */\r\n\r\npackage main\r\n \r\nimport \"fmt\"\r\n \r\nfunc main() {\r\n    /* code */\r\n}\r\n";
 		var jsPre = "";
-		var swiftPre = "";
+		var swiftPre = "//please edit your code here\r\n";
 		editor1.setValue(javaPre);
 		$('#addTab').click(function() {
 			var nextTab = $('#tabs li').size();
@@ -246,8 +246,8 @@
 									<option value="hs">Haskell</option>
 									<option value="go">Go</option>
 									<!-- <option value="php">Php</option>
-									<option value="javascript">Javascript</option>
-									<option value="swift">Swift</option> -->
+									<option value="javascript">Javascript</option>-->
+									<option value="swift">Swift</option> 
 								</select>
 							</div>
 							<div class="col-lg-2">
@@ -342,18 +342,16 @@
 				    	<input id="snippetDiscription" type="text" class="form-control" placeholder="Code Desciption Here">
 				   	</div>
 				   	<br/>
-				   	<div class="input-group">
-				    	<span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
-				    	<input type="text" class="form-control" placeholder="Tag">
-				    	<span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
-				    	<input type="text" class="form-control" placeholder="Tag">
-				    	<span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
-				    	<input type="text" class="form-control" placeholder="Tag">
-				   	</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-					<button id="saveButton" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>save</button>
+				<div class="row">
+					<button type="button" class="col-md-2 btn btn-default" data-dismiss="modal">cancel</button>
+					<select class="col-md-2" class="form-control">
+						<option value="public"><span class="glyphicon glyphicon-eye-open">public</span></option>
+						<option value="private"><span class="glyphicon glyphicon-eye-close">private</span></option>
+					</select>
+					<button id="saveButton" type="button" class="col-md-2 btn btn-primary"><span class="glyphicon glyphicon-save"></span>save</button>
+				</div>
 				</div>
 			</div>
 		</div>
