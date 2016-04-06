@@ -29,7 +29,7 @@
 		var pyPre = "#please edit your code here\r\n";
 		var rbPre = "#please edit your code here\r\n";
 		var hsPre = "--please edit your code here\r\n";
-		var phpPre = "<?php\r\n/*\r\nplease edit your code here\r\n*/\r\n?>";
+		var phpPre = "<?php\r\n/*\r\nplease edit your code here\r\n*/\r\n\r\n?>";
 		var goPre = "/**\r\n * please edit your code here\r\n */\r\n\r\npackage main\r\n \r\nimport \"fmt\"\r\n \r\nfunc main() {\r\n    /* code */\r\n}\r\n";
 		var jsPre = "//please edit your code here\r\//npowered by node.js\r\n";
 		var swiftPre = "//please edit your code here\r\n";
@@ -168,7 +168,10 @@
 							if (code == '201') {
 								$('#console'+tabId).attr("class","panel panel-success");
 								$('#cloud-result' + tabId).append(result.result);
-							} else if(code == '500') {
+							}else if(code == '500') {
+								$('#console'+tabId).attr("class","panel panel-warning");
+								$('#cloud-result' + tabId).html("<p><strong>"+result.message.message+"</strong></p><p>"+result.message.details+"</p>");
+							}else if(code == '501') {
 								$('#console'+tabId).attr("class","panel panel-danger");
 								$('#cloud-result' + tabId).html("<p><strong>"+result.message.message+"</strong></p><p>"+result.message.details+"</p>");
 							}

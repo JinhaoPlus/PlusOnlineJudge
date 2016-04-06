@@ -142,7 +142,6 @@ public class LangCoreResolver {
 		try {
 			Process runProcess = processBuilder.start();
 			sessionManager.syncedProcessToSession(cloudRunnnerSyncCode,runProcess);
-			System.out.println("***"+sessionManager);
 			final InputStream inputStream = runProcess.getInputStream();
 			final InputStream errorStream = runProcess.getErrorStream();
 			
