@@ -31,7 +31,7 @@
 		var hsPre = "--please edit your code here\r\n";
 		var phpPre = "";
 		var goPre = "/**\r\n * please edit your code here\r\n */\r\n\r\npackage main\r\n \r\nimport \"fmt\"\r\n \r\nfunc main() {\r\n    /* code */\r\n}\r\n";
-		var jsPre = "";
+		var jsPre = "//please edit your code here\r\npowered by node.js\r\n";
 		var swiftPre = "//please edit your code here\r\n";
 		editor1.setValue(javaPre);
 		$('#addTab').click(function() {
@@ -90,9 +90,9 @@
 				editor.getSession().setMode("ace/mode/golang");
 				$("#solutionLanguage" + tabId).val("go");
 				editor.setValue(goPre);
-			} else if (selectedLang == 'javascript') {
+			} else if (selectedLang == 'js') {
 				editor.getSession().setMode("ace/mode/js");
-				$("#solutionLanguage" + tabId).val("javascript");
+				$("#solutionLanguage" + tabId).val("js");
 				editor.setValue(jsPre);
 			} else if (selectedLang == 'swift') {
 				editor.getSession().setMode("ace/mode/swift");
@@ -245,8 +245,8 @@
 									<option value="rb">Ruby</option>
 									<option value="hs">Haskell</option>
 									<option value="go">Go</option>
-									<!-- <option value="php">Php</option>
-									<option value="javascript">Javascript</option>-->
+									<!-- <option value="php">Php</option>-->
+									<option value="js">Node.js</option>
 									<option value="swift">Swift</option> 
 								</select>
 							</div>
@@ -346,7 +346,7 @@
 				<div class="modal-footer">
 				<div class="row">
 					<button type="button" class="col-md-2 btn btn-default" data-dismiss="modal">cancel</button>
-					<select class="col-md-2" class="form-control">
+					<select class=" col-md-2">
 						<option value="public"><span class="glyphicon glyphicon-eye-open">public</span></option>
 						<option value="private"><span class="glyphicon glyphicon-eye-close">private</span></option>
 					</select>

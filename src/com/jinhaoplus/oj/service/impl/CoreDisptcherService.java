@@ -20,6 +20,7 @@ import com.jinhaoplus.oj.service.langCore.impl.CppCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.GoCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.HaskellCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.JavaCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.NodeCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.PyCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.RubyCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.SwiftCoreServiceImpl;
@@ -102,6 +103,12 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		this.swiftCoreServiceImpl = swiftCoreServiceImpl;
 	}
 
+	@Autowired
+	private NodeCoreServiceImpl nodeCoreServiceImpl;
+	public void setNodeCoreServiceImpl(NodeCoreServiceImpl nodeCoreServiceImpl) {
+		this.nodeCoreServiceImpl = nodeCoreServiceImpl;
+	}
+
 
 	@Override
 	public void dispatchSolution(ProblemSolution solution) {
@@ -129,6 +136,9 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		}
 		else if ("swift".equals(lang)) {
 			langCoreService = swiftCoreServiceImpl;
+		}
+		else if ("js".equals(lang)) {
+			langCoreService = nodeCoreServiceImpl;
 		}
 	}
 
