@@ -22,6 +22,7 @@ import com.jinhaoplus.oj.service.langCore.impl.HaskellCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.JavaCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.PyCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.RubyCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.SwiftCoreServiceImpl;
 import com.jinhaoplus.oj.util.DisplayRunUtils;
 import com.jinhaoplus.oj.util.PropertiesUtil;
 import com.jinhaoplus.oj.util.Source2FileUtils;
@@ -95,6 +96,12 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		this.goCoreServiceImpl = goCoreServiceImpl;
 	}
 
+	@Autowired
+	private SwiftCoreServiceImpl swiftCoreServiceImpl;
+	public void setSwiftCoreServiceImpl(SwiftCoreServiceImpl swiftCoreServiceImpl) {
+		this.swiftCoreServiceImpl = swiftCoreServiceImpl;
+	}
+
 
 	@Override
 	public void dispatchSolution(ProblemSolution solution) {
@@ -119,6 +126,9 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		}
 		else if ("go".equals(lang)) {
 			langCoreService = goCoreServiceImpl;
+		}
+		else if ("swift".equals(lang)) {
+			langCoreService = swiftCoreServiceImpl;
 		}
 	}
 
