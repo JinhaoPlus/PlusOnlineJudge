@@ -29,9 +29,9 @@
 		var pyPre = "#please edit your code here\r\n";
 		var rbPre = "#please edit your code here\r\n";
 		var hsPre = "--please edit your code here\r\n";
-		var phpPre = "";
+		var phpPre = "/*please edit your code here\r\n*/<?php\r\n\r\n?>";
 		var goPre = "/**\r\n * please edit your code here\r\n */\r\n\r\npackage main\r\n \r\nimport \"fmt\"\r\n \r\nfunc main() {\r\n    /* code */\r\n}\r\n";
-		var jsPre = "//please edit your code here\r\npowered by node.js\r\n";
+		var jsPre = "//please edit your code here\r\//npowered by node.js\r\n";
 		var swiftPre = "//please edit your code here\r\n";
 		editor1.setValue(javaPre);
 		$('#addTab').click(function() {
@@ -245,7 +245,7 @@
 									<option value="rb">Ruby</option>
 									<option value="hs">Haskell</option>
 									<option value="go">Go</option>
-									<!-- <option value="php">Php</option>-->
+									<option value="php">Php</option>
 									<option value="js">Node.js</option>
 									<option value="swift">Swift</option> 
 								</select>

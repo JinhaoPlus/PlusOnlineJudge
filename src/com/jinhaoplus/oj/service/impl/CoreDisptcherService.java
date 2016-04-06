@@ -21,6 +21,7 @@ import com.jinhaoplus.oj.service.langCore.impl.GoCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.HaskellCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.JavaCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.NodeCoreServiceImpl;
+import com.jinhaoplus.oj.service.langCore.impl.PhpCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.PyCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.RubyCoreServiceImpl;
 import com.jinhaoplus.oj.service.langCore.impl.SwiftCoreServiceImpl;
@@ -108,6 +109,12 @@ public class CoreDisptcherService implements CoreDispatcherService{
 	public void setNodeCoreServiceImpl(NodeCoreServiceImpl nodeCoreServiceImpl) {
 		this.nodeCoreServiceImpl = nodeCoreServiceImpl;
 	}
+	
+	@Autowired
+	private PhpCoreServiceImpl phpCoreServiceImpl;
+	public void setPhpCoreServiceImpl(PhpCoreServiceImpl phpCoreServiceImpl) {
+		this.phpCoreServiceImpl = phpCoreServiceImpl;
+	}
 
 
 	@Override
@@ -133,6 +140,9 @@ public class CoreDisptcherService implements CoreDispatcherService{
 		}
 		else if ("go".equals(lang)) {
 			langCoreService = goCoreServiceImpl;
+		}
+		else if ("php".equals(lang)) {
+			langCoreService = phpCoreServiceImpl;
 		}
 		else if ("swift".equals(lang)) {
 			langCoreService = swiftCoreServiceImpl;
