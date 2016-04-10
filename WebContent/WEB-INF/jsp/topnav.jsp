@@ -31,13 +31,13 @@
 						<li><a href="${ctx}/accounts/profile"><span class="glyphicon glyphicon-eye-open"> Profile</span></a></li>
 						<li class="divider"></li>
 						<li><a href="${ctx}/mySubmissions"><span
-								class="glyphicon glyphicon-list"> Submissions</span></a></li>
-						<li><a href="${ctx}/postProblem"><span
-								class="glyphicon glyphicon-upload"> Post Problem</span></a></li>
+								class="glyphicon glyphicon-list">&nbsp;Submissions</span></a></li>
+						<li><a href="${ctx}/myPosts"><span
+								class="glyphicon glyphicon-cloud-upload">&nbsp;Posts</span></a></li>
 						<li><a href="#"><span
-								class="glyphicon glyphicon-comment"> Snippets</span></a></li>
+								class="glyphicon glyphicon-paperclip">&nbsp;Snippets</span></a></li>
 						<li><a href="${ctx }/accounts/logout/"><span
-								class="glyphicon glyphicon-log-out"> Log out</span></a></li>
+								class="glyphicon glyphicon-log-out">&nbsp;Log out</span></a></li>
 					</ul>
 				</li>
 			</ul>

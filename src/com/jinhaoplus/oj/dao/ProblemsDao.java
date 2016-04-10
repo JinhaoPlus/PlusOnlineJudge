@@ -10,7 +10,11 @@ import com.jinhaoplus.oj.domain.ProblemTestResult;
 public interface ProblemsDao {
 	public List<Problem> getAllProblems();
 
+	public int insertProblem(Problem problem);
+	
 	public Problem getProblemById(int id);
+	
+	public List<Problem> getProblemByPosterId(int posterId);
 	
 	public void updateProblem(Problem problem);
 	

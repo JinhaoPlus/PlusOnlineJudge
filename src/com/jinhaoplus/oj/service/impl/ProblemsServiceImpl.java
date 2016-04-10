@@ -36,22 +36,33 @@ public class ProblemsServiceImpl implements ProblemsService{
 		return problems;
 	} 
 
-
+	@Override
+	public int insertProblem(Problem problem){
+		return problemsDao.insertProblem(problem);
+	}
+	
 
 	@Override
 	public Problem getProblemById(int id) {
 		return problemsDao.getProblemById(id);
 	}
+	
+	@Override
+	public List<Problem>  getProblemByPosterId(int posterId) {
+		return problemsDao.getProblemByPosterId(posterId);
+	}
 
 	@Override
 	public void updateProblem(Problem problem,ProblemSolution solution) {
-		problem.setProblemSolveTimes(problem.getProblemSolveTimes()+1);
-		if("AC".equals(solution.getFinalOJResult()))
-			problem.setProblemAcTimes(problem.getProblemAcTimes()+1);
-		else if("CE".equals(solution.getFinalOJResult()))
-			problem.setProblemCeTimes(problem.getProblemCeTimes()+1);
-		else if ("WA".equals(solution.getFinalOJResult())) {
-			problem.setProblemWaTimes(problem.getProblemWaTimes()+1);
+		if(solution!=null){
+			problem.setProblemSolveTimes(problem.getProblemSolveTimes()+1);
+			if("AC".equals(solution.getFinalOJResult()))
+				problem.setProblemAcTimes(problem.getProblemAcTimes()+1);
+			else if("CE".equals(solution.getFinalOJResult()))
+				problem.setProblemCeTimes(problem.getProblemCeTimes()+1);
+			else if ("WA".equals(solution.getFinalOJResult())) {
+				problem.setProblemWaTimes(problem.getProblemWaTimes()+1);
+			}
 		}
 		problemsDao.updateProblem(problem);
 	}

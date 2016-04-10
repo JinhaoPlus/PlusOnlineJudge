@@ -23,6 +23,17 @@
 		tbl_ploj_problems
 		where problem_available = '1'
 	</select>
+	
+	<insert id="insertProblem" parameterClass="problem">
+		insert into tbl_ploj_problems
+		(problem_id,problem_digest,problem_content,problem_language)
+		values
+		(#problemId#,#problemDigest#,#problemContent#,#problemLanguage#)
+		<selectKey resultClass="int" type="post" keyProperty="problemId">
+			select
+			LAST_INSERT_ID() as value
+		</selectKey>
+	</insert>
 
 	<!-- find problem by problemId -->
 	<select id="getProblemById" resultClass="problem">
@@ -34,16 +45,38 @@
 		problem_ac_times as problemAcTimes,
 		problem_wa_times as problemWaTimes,
 		problem_ce_times as problemCeTimes,
-		problem_solve_times as problemSolveTimes
+		problem_solve_times as problemSolveTimes,
+		problem_available as problemVisable
 		from
 		tbl_ploj_problems
 		where problem_id=#value#
+	</select>
+	
+	<!-- find problem by posterid -->
+	<select id="getProblemByPosterId" resultClass="problem">
+		select
+		problem_id as problemId,
+		problem_digest as problemDigest,
+		problem_content as problemContent,
+		problem_language as problemLanguage,
+		problem_ac_times as problemAcTimes,
+		problem_wa_times as problemWaTimes,
+		problem_ce_times as problemCeTimes,
+		problem_solve_times as problemSolveTimes,
+		problem_available as problemVisable
+		from
+		tbl_ploj_problems
+		where problem_poster=#value#
 	</select>
 	
 	<!-- update problem -->
 	<update id="updateProblem" parameterClass="problem">
 		update tbl_ploj_problems
 		set 
+		problem_id = #problemId#,
+		problem_digest = #problemDigest#,
+		problem_content = #problemContent#,
+		problem_language = #problemLanguage#,
 		problem_solve_times = #problemSolveTimes#,
 		problem_ac_times = #problemAcTimes#,
 		problem_wa_times = #problemWaTimes#,

@@ -61,6 +61,18 @@ public class IndexController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/myPosts")
+	public ModelAndView myPosts(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("my-posts");
+		User loginuser = (User) request.getSession().getAttribute("loginuser");
+		modelAndView.addObject("loginuser", loginuser);
+		List<Problem> problemPostList = problemsService.getProblemByPosterId(loginuser.getUserid());
+		modelAndView.addObject("problemPostList", problemPostList);
+		modelAndView.addObject("problemPostNum", problemPostList.size());
+		return modelAndView;
+	}
+	
 	@RequestMapping(value="/try")
 	public void tryOne(HttpServletRequest request,HttpServletResponse response) {
 		int problemNum = problemsService.getAllProblems(0).size();

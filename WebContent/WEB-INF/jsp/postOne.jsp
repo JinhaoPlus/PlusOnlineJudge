@@ -11,38 +11,62 @@
 	type="text/javascript" charset="utf-8"></script>
 <%@	include file="include.jsp"%>
 <script type="text/javascript">
+	tinymce.init({
+		selector : '#problemContent',
+		menubar : false,
+		statusbar : false,
+		init_instance_callback : function(editor) {
+		    editor.setContent('${problem.problemContent}');
+		  }
+	});
 	$(function() {
-		tinymce.init({
-			selector : '#problemContent',
-			menubar : false,
-			statusbar : false
-		});
+		$('#problemDigest').val("${problem.problemDigest}");
 		tinymce.init({
 			selector : '.problemIO',
 			menubar : false,
 			statusbar : false,
 			toolbar : false
 		});
+		$('.ok').click(function(){
+			var contents = tinymce.get('problemContent').setContent("hh");
+		});
 		$('.label').click(
 				function() {
-					if ($(this).attr('class') == 'label label-success') {
+					if ($(this).attr('class') == 'label label-success')
 						$(this).attr('class', 'label label-default');
-
-					} else if ($(this).attr('class') == 'label label-default') {
+					else if ($(this).attr('class') == 'label label-default')
 						$(this).attr('class', 'label label-success');
-						$('#problemLanguage').val(
-								$('#problemLanguage').val() + '&'
-										+ $(this).children().val());
-					}
 				});
 		$('#saveProblem').click(function() {
+			var problemLanguage = '';
+			var problemDigest = $('#problemDigest').val();
+			var problemContent = tinymce.get('problemContent').getContent();
+			$('.label-success').each(function(i){
+				problemLanguage += '&'+$(this).children().val();
+			});
+			if(problemLanguage == ''){
+				$('#warningContent').html('<strong>Please choose Problem Language !</strong>');
+				$('#warningModal').modal("show");
+				return;
+			}
+			if(problemDigest == ''){
+				$('#warningContent').html('<strong>Please give the Problem Digest out !</strong>');
+				$('#warningModal').modal("show");
+				return;
+			}
+			if(problemContent == ''){
+				$('#warningContent').html('<strong>Please add the Problem Content !</strong>');
+				$('#warningModal').modal("show");
+				return;
+			}
 			$.ajax({
 				type : 'POST',
 				url : '${ctx}/problems/tempSaveProblem',
 				data : {
-					problemDigest : $('#problemDigest').val(),
-					problemContent : tinymce.get('problemContent').getContent(),
-					problemLanguage : $('#problemLanguage').val()
+					problemId : $('#problemId').val(),
+					problemDigest : problemDigest,
+					problemContent : problemContent,
+					problemLanguage : problemLanguage
 				},
 				success : function(result) {
 
@@ -57,10 +81,6 @@
 		});
 		$(document).on('click', '.io-control', function(e) {
 			$('#problemIOModal').modal("show");
-		});
-		$('.ok').click(function() {
-			var contents = tinymce.activeEditor.getContent();
-			alert(contents);
 		});
 	});
 </script>
@@ -89,10 +109,8 @@
 				</div>
 				<br>
 				<div class="row">
-					<textarea class="editArea" id="problemContent"
-						style="height: 350px;">
-							Write down the problem contents here !
-						</textarea>
+					<textarea id="problemContent" style="height: 350px;">
+					</textarea>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -108,14 +126,20 @@
 			</div>
 			<div class="col-md-4">
 				<span class="label label-default"><input type="hidden"
-					value="c" />C</span> <span class="label label-default"><input
-					type="hidden" value="cpp" />C++</span> <span class="label label-default"><input
-					type="hidden" value="java" />Java</span> <span class="label label-default"><input
-					type="hidden" value="ruby" />Ruby</span> <span class="label label-default"><input
-					type="hidden" value="python" />Python</span> <span
-					class="label label-default"><input type="hidden"
-					value="haskell" />Haskell</span> <span class="label label-default"><input
-					type="hidden" value="go" />Go</span> <span class="label label-default"><input
+					value="c" />C</span> 
+				<span class="label label-default"><input
+					type="hidden" value="cpp" />C++</span> 
+				<span class="label label-default"><input
+					type="hidden" value="java" />Java</span> 
+				<span class="label label-default"><input
+					type="hidden" value="ruby" />Ruby</span> 
+				<span class="label label-default"><input
+					type="hidden" value="python" />Python</span> 
+				<span class="label label-default"><input type="hidden"
+					value="haskell" />Haskell</span> 
+				<span class="label label-default"><input
+					type="hidden" value="go" />Go</span> 
+				<span class="label label-default"><input
 					type="hidden" value="swift" />Swift</span>
 			</div>
 			<div class="col-md-4">
@@ -206,9 +230,29 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="warningModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3 class="modal-title" id="myModalLabel">
+						<strong>Waring</strong>
+					</h3>
+				</div>
+				<div class="modal-body">
+					<p id="warningContent"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="ok">ok</button>
 	<div class="hiddenPart" style="display: none">
-		<input id="problemLanguage" />
-		<textarea id="problemContentHidden"></textarea>
+		<input id="problemId"/>
 		<textarea id="problemI1"></textarea>
 		<textarea id="problemO1"></textarea>
 		<textarea id="problemI2"></textarea>

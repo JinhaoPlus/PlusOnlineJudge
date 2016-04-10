@@ -94,8 +94,17 @@ public class ProblemsController {
 	}
 	
 	@RequestMapping(value="/tempSaveProblem")
-	public void tempSaveProblem(HttpServletRequest request,HttpServletResponse response,Problem problem,ProblemTest problemTest){
-		
+	public int tempSaveProblem(HttpServletRequest request,HttpServletResponse response,Problem problem,ProblemTest problemTest){
+		int yetProblemId = -1;
+//		//No such problem yet
+//		if("".equals(problem.getProblemId())){
+//			yetProblemId = problemsService.insertProblem(problem);
+//		}
+//		//Have this problem already
+//		else{
+//			problemsService.updateProblem(problem, null);
+//		}
+		return yetProblemId;
 	}
 	
 	@RequestMapping(value="/cloudRunSync")
@@ -155,4 +164,14 @@ public class ProblemsController {
 		return modelAndView;
 	}
 	
+	
+	@RequestMapping(value="/editProblem/{problemId}")
+	@ResponseBody
+	public ModelAndView editProblem(HttpServletRequest request,HttpServletResponse response,@PathVariable("problemId") String problemId){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("postOne");
+		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
+		modelAndView.addObject("problem", problem);
+		return modelAndView;
+	}
 }

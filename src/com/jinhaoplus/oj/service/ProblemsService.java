@@ -13,7 +13,11 @@ import com.jinhaoplus.oj.domain.ProblemTestResult;
 public interface ProblemsService {
 	public List<Problem> getAllProblems(int coderId);
 	
+	public int insertProblem(Problem problem);
+	
 	public Problem getProblemById(int id);
+	
+	public List<Problem> getProblemByPosterId(int posterId);
 	
 	public void updateProblem(Problem problem, ProblemSolution solution);
 	
