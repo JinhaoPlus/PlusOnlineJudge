@@ -105,4 +105,12 @@ public class IndexController {
 		modelAndView.addObject("solutions", solutions);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/postProblem")
+	@ResponseBody
+	public ModelAndView postProblem(HttpServletRequest request,HttpServletResponse response){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("postOne");
+		return modelAndView;
+	}
 }

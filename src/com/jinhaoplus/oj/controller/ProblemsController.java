@@ -93,6 +93,11 @@ public class ProblemsController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/tempSaveProblem")
+	public void tempSaveProblem(HttpServletRequest request,HttpServletResponse response,Problem problem,ProblemTest problemTest){
+		
+	}
+	
 	@RequestMapping(value="/cloudRunSync")
 	@ResponseBody
 	public String cloudRunSyncCode(HttpServletRequest request,HttpServletResponse response){

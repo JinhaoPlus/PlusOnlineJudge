@@ -16,7 +16,16 @@
 <script
 	src="http://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 <script src="http://cdn.bootcss.com/ace/1.2.3/ace.js"
-	type="text/javascript" charset="utf-8"></script>
+	type="text/javascript" charset="utf-8">
+	
+</script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
+	tinymce.init({
+		selector : 'textarea'
+	});
+</script>
+</head>
 <style type="text/css" media="screen">
 #editor {
 	position: absolute;
@@ -29,25 +38,19 @@
 </head>
 <script type="text/javascript">
 	$(function() {
-
+		$('.ok').click(function(){
+			var contents = tinymce.activeEditor.getContent();
+			alert(contents);
+		});
 	});
 </script>
 </head>
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="panel panel-primary" style="height: 400px;">
-				<div class="panel-heading">
-					<h3 class="panel-title">Output Console #1</h3>
-				</div>
-				<div id="cloud-result1" class="panel-body" data-spy="scroll"
-					style="height: 350px; overflow: auto; position: relative;">
-				
-				hello<br/>	
-				</div>
-			</div>
-
+			<textarea>Easy! You should check out MoxieManager!</textarea>
 		</div>
+		<button class="ok">ok</button>
 	</div>
 
 </body>
