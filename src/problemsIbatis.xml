@@ -72,15 +72,32 @@
 	<!-- update problem -->
 	<update id="updateProblem" parameterClass="problem">
 		update tbl_ploj_problems
-		set 
-		problem_id = #problemId#,
-		problem_digest = #problemDigest#,
-		problem_content = #problemContent#,
-		problem_language = #problemLanguage#,
-		problem_solve_times = #problemSolveTimes#,
-		problem_ac_times = #problemAcTimes#,
-		problem_wa_times = #problemWaTimes#,
-		problem_ce_times = #problemCeTimes#
+		<dynamic prepend="SET">
+			<isNotNull prepend="," property="problemId">
+				problem_id = #problemId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemDigest">
+				problem_digest = #problemDigest#
+			</isNotNull>
+			<isNotNull prepend="," property="problemContent">
+				problem_content = #problemContent#
+			</isNotNull>
+			<isNotNull prepend="," property="problemLanguage">
+				problem_language = #problemLanguage#
+			</isNotNull>
+			<isNotNull prepend="," property="problemSolveTimes">
+				problem_solve_times = #problemSolveTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemAcTimes">
+				problem_ac_times = #problemAcTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemWaTimes">
+				problem_wa_times = #problemWaTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemCeTimes">
+				problem_ce_times = #problemCeTimes#
+			</isNotNull>
+		</dynamic>
 		WHERE problem_id = #problemId#
 	</update>
 

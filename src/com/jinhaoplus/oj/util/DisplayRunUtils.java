@@ -30,4 +30,8 @@ public class DisplayRunUtils {
 		testResult.setResult(testResult.getResult().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
 		return testResult;
 	}
+	
+	public static String tinyMCE2DB(String tinyMCEContent){
+		return tinyMCEContent.replaceAll("\'", "&apos;").replaceAll("\"", "&quot;").replaceAll("\\n", "");
+	}
 }

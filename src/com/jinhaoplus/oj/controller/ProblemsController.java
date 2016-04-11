@@ -94,16 +94,18 @@ public class ProblemsController {
 	}
 	
 	@RequestMapping(value="/tempSaveProblem")
+	@ResponseBody
 	public int tempSaveProblem(HttpServletRequest request,HttpServletResponse response,Problem problem,ProblemTest problemTest){
 		int yetProblemId = -1;
-//		//No such problem yet
-//		if("".equals(problem.getProblemId())){
-//			yetProblemId = problemsService.insertProblem(problem);
-//		}
-//		//Have this problem already
-//		else{
-//			problemsService.updateProblem(problem, null);
-//		}
+		problem.setProblemContent(DisplayRunUtils.tinyMCE2DB(problem.getProblemContent()));
+		//No such problem yet
+		if("".equals(problem.getProblemId())){
+			yetProblemId = problemsService.insertProblem(problem);
+		}
+		//Have this problem already
+		else{
+			problemsService.updateProblem(problem, null);
+		}
 		return yetProblemId;
 	}
 	
@@ -172,6 +174,8 @@ public class ProblemsController {
 		modelAndView.setViewName("postOne");
 		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
 		modelAndView.addObject("problem", problem);
+		List<ProblemTest> problemTests = problemsService.getTestsByProblemId(Integer.parseInt(problemId));
+		modelAndView.addObject("problemTests", problemTests);
 		return modelAndView;
 	}
 }

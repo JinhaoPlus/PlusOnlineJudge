@@ -7,7 +7,7 @@
 <head>
 <title>PlusOnlineJudge!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="http://cdn.tinymce.com/4/tinymce.min.js"
+<script src="//cdn.tinymce.com/4/tinymce.min.js"
 	type="text/javascript" charset="utf-8"></script>
 <%@	include file="include.jsp"%>
 <script type="text/javascript">
@@ -17,26 +17,30 @@
 		statusbar : false,
 		init_instance_callback : function(editor) {
 		    editor.setContent('${problem.problemContent}');
-		  }
+		}
 	});
+	tinymce.init({
+		selector : '.problemIO',
+		menubar : false,
+		statusbar : false,
+		toolbar : false
+	});
+	function initIO(testId,testInput,testOutput){
+		alert(testId+testInput+testOutput);
+	}
 	$(function() {
-		$('#problemDigest').val("${problem.problemDigest}");
-		tinymce.init({
-			selector : '.problemIO',
-			menubar : false,
-			statusbar : false,
-			toolbar : false
+		var problemLanguage = '${problem.problemLanguage}';
+		var languages = problemLanguage.split('&');
+		for (var i=0;i<languages.length;i++)
+		{
+			$("input[value='"+languages[i]+"']").parent().attr('class', 'label label-success');
+		}
+		$('.label').click(function() {
+			if ($(this).attr('class') == 'label label-success')
+				$(this).attr('class', 'label label-default');
+			else if ($(this).attr('class') == 'label label-default')
+				$(this).attr('class', 'label label-success');
 		});
-		$('.ok').click(function(){
-			var contents = tinymce.get('problemContent').setContent("hh");
-		});
-		$('.label').click(
-				function() {
-					if ($(this).attr('class') == 'label label-success')
-						$(this).attr('class', 'label label-default');
-					else if ($(this).attr('class') == 'label label-default')
-						$(this).attr('class', 'label label-success');
-				});
 		$('#saveProblem').click(function() {
 			var problemLanguage = '';
 			var problemDigest = $('#problemDigest').val();
@@ -105,7 +109,7 @@
 				<div class="input-group row">
 					<span class="input-group-addon">Digest</span> <input
 						id="problemDigest" type="text" class="form-control"
-						placeholder="Describe the problem">
+						placeholder="Describe the problem" value="${problem.problemDigest}">
 				</div>
 				<br>
 				<div class="row">
@@ -147,7 +151,8 @@
 			</div>
 			<div class="col-md-4">
 				<div class="panel panel-primary io-control">
-					<div class="panel-heading">
+					<input id="ioId1" type="hidden"/>
+					<div id="ioPanel1" class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
 							Output #1
@@ -156,7 +161,8 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="panel panel-primary io-control">
+				<div id="ioPanel2" class="panel panel-primary io-control">
+					<input id="ioId2" type="hidden"/>
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -166,7 +172,8 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="panel panel-primary io-control">
+				<div id="ioPanel3" class="panel panel-primary io-control">
+					<input id="ioId3" type="hidden"/>
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -176,7 +183,8 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="panel panel-primary io-control">
+				<div id="ioPanel4" class="panel panel-primary io-control">
+					<input id="ioId4" type="hidden"/>
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -186,7 +194,8 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="panel panel-primary io-control">
+				<div id="ioPanel5" class="panel panel-primary io-control">
+					<input id="ioId5" type="hidden"/>
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -252,7 +261,15 @@
 	</div>
 	<button class="ok">ok</button>
 	<div class="hiddenPart" style="display: none">
-		<input id="problemId"/>
+		<input id="problemId" value="${problem.problemId }"/>
+		<c:forEach items="${problemTests }" var="test">
+			<c:set var="testId" value="${test.problemTestId }"></c:set>
+			<c:set var="testInput" value="${test.problemTestInput }"></c:set>
+			<c:set var="testOutput" value="${test.problemTestOutput }"></c:set>
+			<script type="text/javascript">
+				initIO("${testId}","${testInput}","${testOutput}");
+			</script>
+		</c:forEach>
 		<textarea id="problemI1"></textarea>
 		<textarea id="problemO1"></textarea>
 		<textarea id="problemI2"></textarea>

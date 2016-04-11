@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value="session" , proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class SessionManager {
+public class SessionManager{
 	private HttpSession session;
 	
 	public HttpSession getSession() {
