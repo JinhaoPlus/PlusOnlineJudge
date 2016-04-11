@@ -17,17 +17,17 @@ public class DisplayRunUtils {
 	}
 	
 	public static ProblemTest displayTests(ProblemTest problemTest){
-		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
-		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
 		return problemTest;
 	}
 	
 	public static ProblemTestResult displayResults(ProblemTestResult testResult){
 		if(testResult.getTestInput()!=null)
-			testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
+			testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
 		if(testResult.getTestOutput()!=null)
-			testResult.setTestOutput(testResult.getTestOutput().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
-		testResult.setResult(testResult.getResult().replaceAll("\\n", "↵<br/>").replaceAll(" ", "&nbsp;"));
+			testResult.setTestOutput(testResult.getTestOutput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
+		testResult.setResult(testResult.getResult().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
 		return testResult;
 	}
 	

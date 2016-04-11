@@ -25,8 +25,10 @@
 		statusbar : false,
 		toolbar : false
 	});
-	function initIO(testId,testInput,testOutput){
-		alert(testId+testInput+testOutput);
+	function initIO(testNum,testId,testInput,testOutput){
+		$("#problemI"+testNum).val(testInput);
+		$("#problemO"+testNum).val(testOutput);
+		$("#ioId"+testNum).val(testId);
 	}
 	$(function() {
 		var problemLanguage = '${problem.problemLanguage}';
@@ -83,7 +85,15 @@
 		$('#ioSaveButton').click(function(){
 			
 		});
+		
+		$('#showTest').click(function(){
+			alert(tinymce.get('problemInput').getContent());
+			alert(tinymce.get('problemOutput').getContent());
+		});
 		$(document).on('click', '.io-control', function(e) {
+			var testNum = $(this).children().val();
+			tinymce.get('problemInput').setContent($('#problemI'+testNum).val());
+			tinymce.get('problemOutput').setContent($('#problemO'+testNum).val());
 			$('#problemIOModal').modal("show");
 		});
 	});
@@ -234,6 +244,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+					<button id="showTest" type="button" class="btn btn-default" data-dismiss="modal">show</button>
 					<button id="ioSaveButton" type="button" class="btn btn-success">save</button>
 				</div>
 			</div>
@@ -259,18 +270,8 @@
 			</div>
 		</div>
 	</div>
-	<button class="ok">ok</button>
 	<div class="hiddenPart" style="display: none">
 		<input id="problemId" value="${problem.problemId }"/>
-		<c:set var="testNum" value="1"></c:set>
-		<c:forEach items="${problemTests }" var="test">
-			<c:set var="testId" value="${test.problemTestId }"></c:set>
-			<c:set var="testInput" value="${test.problemTestInput }"></c:set>
-			<c:set var="testOutput" value="${test.problemTestOutput }"></c:set>
-			<script type="text/javascript">
-				initIO("${testId}","${testInput}","${testOutput}");
-			</script>
-		</c:forEach>
 		<textarea id="problemI1"></textarea>
 		<textarea id="problemO1"></textarea>
 		<textarea id="problemI2"></textarea>
@@ -281,7 +282,17 @@
 		<textarea id="problemO4"></textarea>
 		<textarea id="problemI5"></textarea>
 		<textarea id="problemO5"></textarea>
-
+		<c:set var="testNum" value="0"></c:set>
+		<c:forEach items="${problemTests }" var="test">
+			<c:set var="testId" value="${test.problemTestId }"></c:set>
+			<c:set var="testInput" value="${test.problemTestInput }"></c:set>
+			<c:set var="testOutput" value="${test.problemTestOutput }"></c:set>
+			<script type="text/javascript">
+				initIO("${testNum+1}","${testId}","${testInput}","${testOutput}");
+			</script>
+			<c:set var="testNum" value="${testNum+1}"></c:set>
+		</c:forEach>
+		
 	</div>
 </body>
 </html>

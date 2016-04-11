@@ -22,7 +22,7 @@
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
 	tinymce.init({
-		selector : 'textarea'
+		selector : 'ptextarea'
 	});
 </script>
 </head>
@@ -37,7 +37,17 @@
 </style>
 </head>
 <script type="text/javascript">
+	function initIO(x,y){
+		var num = 1;
+		$('#ta'+num).val(x+y);
+		alert($('#ip1').val());
+	}
 	$(function() {
+		var num = 1;
+		//$('#ta'+num).val("hh");
+		
+			$('#ip1').val("aabb");
+			$('#ta'+num).val("xxxxyyyyy");
 		$('.ok').click(function(){
 			var text = "<p><strong><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>Please Use C/C++ to implement the matrix multiplication:</span></strong><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>Here is the input and output principles:</span><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>You shoud tell us the scale of each matrix and each row of them:</span><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>like : <strong>the scale of matrix A</strong> [row column]</span><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>2 3</span></em><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>and then all elements in <strong>each row of matrix A</strong></span><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>1 2 3</span></em><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>4 5 6</span></em><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>then : <strong>the scale of matrix B</strong> [row column]</span><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>3 2</span></em><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>and then all elements in <strong>each row of matrix B</strong></span><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>1 2</span></em><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>3 4</span></em><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>5 6</span></em><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>After your code running , tell us <strong>the result of A x B</strong>:</span><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>22 28</span></em><br style=&quot;box-sizing: border-box; color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot; /><em><span style=&quot;color: #333333; font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 30px;&quot;>49 64</span></em></p>&apos;);";
 			var contents = tinymce.get('editor').setContent(text);
@@ -47,10 +57,17 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row">
-			<textarea id="editor">Easy! You should check out MoxieManager!</textarea>
-		</div>
+		
 		<button class="ok">ok</button>
+		
+		<textarea id="ta1" rows="" cols=""></textarea>
+		<input id="ip1" value="aabbvv"/>
+		
+		<script type="text/javascript">
+			var x = "aa";
+			var y  = "bb";
+			initIO(x,y);
+		</script>
 	</div>
 
 </body>
