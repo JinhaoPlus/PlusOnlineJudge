@@ -67,6 +67,11 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 	}
 	
 	@Override
+	public List<ProblemTest> getAllVisableTestsByProblemId(int problemId) {
+		return  (List<ProblemTest>) getSqlMapClientTemplate().queryForList("getAllVisableTestsByProblemId",problemId);
+	}
+	
+	@Override
 	public void insertTestResult(ProblemTestResult testResult) {
 		getSqlMapClientTemplate().insert("insertTestResult", testResult);
 		

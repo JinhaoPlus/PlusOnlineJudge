@@ -262,6 +262,7 @@
 	<button class="ok">ok</button>
 	<div class="hiddenPart" style="display: none">
 		<input id="problemId" value="${problem.problemId }"/>
+		<c:set var="testNum" value="1"></c:set>
 		<c:forEach items="${problemTests }" var="test">
 			<c:set var="testId" value="${test.problemTestId }"></c:set>
 			<c:set var="testInput" value="${test.problemTestInput }"></c:set>

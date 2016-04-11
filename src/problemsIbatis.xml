@@ -129,6 +129,20 @@
 		where test_problem_id=#value#
 		and test_visable = '1'
 	</select>
+	
+	<!-- find display tests by problemId -->
+	<select id="getAllVisableTestsByProblemId" resultClass="problemTest">
+		select
+		testid as
+		problemTestId,
+		test_problem_id as problemId,
+		test_input as
+		problemTestInput,
+		test_output as problemTestOutput,
+		test_visable as problemTestVisable
+		from tbl_ploj_tests
+		where test_problem_id=#value#
+	</select>
 
 
 	<!-- About Solution -->

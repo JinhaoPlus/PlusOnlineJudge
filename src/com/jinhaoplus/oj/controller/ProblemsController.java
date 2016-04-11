@@ -174,7 +174,7 @@ public class ProblemsController {
 		modelAndView.setViewName("postOne");
 		Problem problem = problemsService.getProblemById(Integer.parseInt(problemId));
 		modelAndView.addObject("problem", problem);
-		List<ProblemTest> problemTests = problemsService.getTestsByProblemId(Integer.parseInt(problemId));
+		List<ProblemTest> problemTests = problemsService.getAllVisableTestsByProblemId(Integer.parseInt(problemId));
 		modelAndView.addObject("problemTests", problemTests);
 		return modelAndView;
 	}
