@@ -1,5 +1,6 @@
 package com.jinhaoplus.oj.util;
 
+import com.jinhaoplus.oj.domain.Problem;
 import com.jinhaoplus.oj.domain.ProblemSolution;
 import com.jinhaoplus.oj.domain.ProblemTest;
 import com.jinhaoplus.oj.domain.ProblemTestResult;
@@ -17,27 +18,36 @@ public class DisplayRunUtils {
 	}
 	
 	public static ProblemTest displayTests(ProblemTest problemTest){
-		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
-		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "&crarr;<br>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "&crarr;<br>").replaceAll(" ", "&nbsp;"));
 		return problemTest;
 	}
 	
 	public static ProblemTest displayEditTests(ProblemTest problemTest){
-		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
-		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "</p><p>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "<br>").replaceAll(" ", "&nbsp;"));
 		return problemTest;
 	}
 	
 	public static ProblemTestResult displayResults(ProblemTestResult testResult){
 		if(testResult.getTestInput()!=null)
-			testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
+			testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "&crarr;<br>").replaceAll(" ", "&nbsp;"));
 		if(testResult.getTestOutput()!=null)
-			testResult.setTestOutput(testResult.getTestOutput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
-		testResult.setResult(testResult.getResult().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));
+			testResult.setTestOutput(testResult.getTestOutput().replaceAll("\\n", "&crarr;<br>").replaceAll(" ", "&nbsp;"));
+		testResult.setResult(testResult.getResult().replaceAll("\\n", "&crarr;<br>").replaceAll(" ", "&nbsp;"));
 		return testResult;
 	}
 	
-	public static String tinyMCE2DB(String tinyMCEContent){
-		return tinyMCEContent.replaceAll("\'", "&apos;").replaceAll("\"", "&quot;").replaceAll("\\n", "");
+	public static Problem problemTinyMCE2DB(Problem problem){
+		String problemContent = problem.getProblemContent();
+		problemContent = problemContent.replaceAll("\'", "&apos;").replaceAll("\"", "&quot;").replaceAll("\\n", "");
+		problem.setProblemContent(problemContent);
+		return problem;
+	}
+	
+	public static ProblemTest testTinyMCE2DB(ProblemTest problemTest){
+		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br>", "\n").replaceAll("<br>", "\n").replaceAll("&nbsp;", " "));
+		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br>", "\n").replaceAll("<br>", "\n").replaceAll("&nbsp;", " "));
+		return problemTest;
 	}
 }

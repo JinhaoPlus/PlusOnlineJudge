@@ -38,6 +38,13 @@ public class IndexController {
 		this.dataAnalyseService = dataAnalyseService;
 	}
 
+	@RequestMapping(value="/lab")
+	public ModelAndView lab(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("lab");
+		return modelAndView;
+	}
+	
 	@RequestMapping(value="/index")
 	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
 		CommonMessage message = new CommonMessage("200","To Login","");

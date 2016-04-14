@@ -40,9 +40,17 @@
 	$(function() {
 		var num = 1;
 		$('.ok').click(function(){
-			var text = "8&nbsp;2&crarr;<br/>43&nbsp;65&crarr;<br/>87&nbsp;20&crarr;<br/>97&nbsp;5&crarr;<br/>97&nbsp;52&crarr;<br/>18&nbsp;67&crarr;<br/>54&nbsp;22&crarr;<br/>71&nbsp;82&crarr;<br/>44&nbsp;15&crarr;<br/>2&nbsp;7&crarr;<br/>28&nbsp;75&nbsp;5&nbsp;67&nbsp;57&nbsp;21&nbsp;71&crarr;<br/>20&nbsp;21&nbsp;27&nbsp;99&nbsp;19&nbsp;11&nbsp;99&crarr;<br/>";
-			var contents = tinymce.get('editor').getContent({format: 'raw'});
-			alert(contents);
+			var text = "3 1\n66\n29";
+			tinymce.get('editor').setContent(text);
+			
+		});
+		$('.show').click(function(){
+			tinymce.get('editor').getContent();
+			
+		});
+		$('.rawshow').click(function(){
+			tinymce.get('editor').getContent({format:"raw"});
+			
 		});
 	});
 </script>
@@ -51,7 +59,8 @@
 	<div class="container">
 		
 		<button class="ok">ok</button>
-		
+		<button class="show">ok</button>
+		<button class="rawshow">ok</button>
 		<textarea id="editor" rows="" cols=""></textarea>
 	</div>
 

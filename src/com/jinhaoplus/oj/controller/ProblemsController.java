@@ -1,5 +1,6 @@
 package com.jinhaoplus.oj.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -10,8 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -94,22 +96,6 @@ public class ProblemsController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/tempSaveProblem")
-	@ResponseBody
-	public int tempSaveProblem(HttpServletRequest request,HttpServletResponse response,Problem problem, @RequestParam(value = "problemTests[]") ProblemTest[] problemTests){
-		int yetProblemId = -1;
-		problem.setProblemContent(DisplayRunUtils.tinyMCE2DB(problem.getProblemContent()));
-		//No such problem yet
-		if("".equals(problem.getProblemId())){
-			yetProblemId = problemsService.insertProblem(problem);
-		}
-		//Have this problem already
-		else{
-			problemsService.updateProblem(problem, null);
-		}
-		return yetProblemId;
-	}
-	
 	@RequestMapping(value="/cloudRunSync")
 	@ResponseBody
 	public String cloudRunSyncCode(HttpServletRequest request,HttpServletResponse response){
@@ -178,5 +164,37 @@ public class ProblemsController {
 		List<ProblemTest> problemTests = problemsService.getAllVisableTestsByProblemId(Integer.parseInt(problemId));
 		modelAndView.addObject("problemTests", problemTests);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/tempSaveProblemContent",method=RequestMethod.POST)
+	@ResponseBody
+	public int tempSaveProblemContent(HttpServletRequest request,HttpServletResponse response,Problem problem){
+		int yetProblemId = -1;
+		DisplayRunUtils.problemTinyMCE2DB(problem);
+		//No such problem yet
+		if("".equals(problem.getProblemId())){
+			yetProblemId = problemsService.insertProblem(problem);
+		}
+		//Have this problem already
+		else{
+			problemsService.updateProblem(problem, null);
+		}
+		return yetProblemId;
+	}
+	
+	@RequestMapping(value="/tempSaveProblemTest",method=RequestMethod.POST)
+	@ResponseBody
+	public int tempSaveProblemTest(HttpServletRequest request,HttpServletResponse response,@RequestBody ProblemTest[] problemTests){
+		for (ProblemTest problemTest : problemTests) {
+			DisplayRunUtils.testTinyMCE2DB(problemTest);
+			System.out.println("****************************************");
+			System.out.println(problemTest.getProblemTestId());
+			System.out.println(problemTest.getProblemTestInput());
+			System.out.println(problemTest.getProblemTestOutput());
+			System.out.println("****************************************");
+			problemsService.updateProblemTest(problemTest);
+		}
+		
+		return 0;
 	}
 }

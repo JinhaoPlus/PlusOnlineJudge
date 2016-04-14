@@ -93,6 +93,10 @@ public class ProblemsServiceImpl implements ProblemsService{
 		return visableProblemTests;
 	}
 
+	@Override
+	public void updateProblemTest(ProblemTest problemTest){
+		problemsDao.updateProblemTest(problemTest);
+	}
 
 
 	@Override

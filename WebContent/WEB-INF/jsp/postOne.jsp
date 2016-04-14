@@ -41,7 +41,7 @@
 		$('#saveProblem').click(function() {
 			var problemLanguage = '';
 			var problemDigest = $('#problemDigest').val();
-			var problemContent = tinymce.get('problemContent').getContent();
+			var problemContent = tinymce.get('problemContent').getContent({format:'raw'});
 			$('.label-success').each(function(i){
 				problemLanguage += '&'+$(this).children().val();
 			});
@@ -60,17 +60,36 @@
 				$('#warningModal').modal("show");
 				return;
 			}
+			var problemTests = new Array();
+			for(k=1;k<=1;k++){
+				var problemId = $('#problemId').val();
+				var problemTestId = $('#testNum'+k).val();
+				var problemTestInput = $('#problemI'+k).val();
+				var problemTestOutput = $('#problemO'+k).val();
+				var problemTestVisable = $('#ioVisable').attr('class')=='btn btn-info active'?'1':'0';
+				problemTests.push({problemId:problemId,problemTestId:problemTestId,problemTestInput:problemTestInput,problemTestOutput:problemTestOutput,problemTestVisable:problemTestVisable});
+			}
+			problemTests = JSON.stringify(problemTests);
 			$.ajax({
 				type : 'POST',
-				url : '${ctx}/problems/tempSaveProblem',
-				data : {
-					problemId : $('#problemId').val(),
-					problemDigest : problemDigest,
-					problemContent : problemContent,
-					problemLanguage : problemLanguage
-				},
+				url : '${ctx}/problems/tempSaveProblemTest',
+				dataType:"json",
+				contentType:"application/json;charset=utf-8",
+				data : problemTests,
 				success : function(result) {
-
+					$.ajax({
+						type : 'POST',
+						url : '${ctx}/problems/tempSaveProblemContent',
+						data : {
+							problemId : $('#problemId').val(),
+							problemDigest : problemDigest,
+							problemContent : problemContent,
+							problemLanguage : problemLanguage
+						},
+						success : function(result) {
+							alert("save successfully");
+						}
+					});
 				}
 			});
 		});
@@ -86,6 +105,17 @@
 			$('#problemIOModal').modal("hide");
 		});
 		
+		$('#ioVisable').click(function(){
+			if($('#ioVisable').attr('class')=='btn btn-info active'){
+				$('#ioVisable').attr('class','btn btn-info');
+				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-close"></span>');
+			}
+			else{
+				$('#ioVisable').attr('class','btn btn-info active');
+				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-open"></span>');
+			}
+		});
+		
 		$('#showTest').click(function(){
 			alert(tinymce.get('problemInput').getContent({format:"raw"}));
 			alert(tinymce.get('problemOutput').getContent({format:"raw"}));
@@ -93,8 +123,16 @@
 		$(document).on('click', '.io-control', function(e) {
 			var testNum = $(this).attr("iono");
 			$('#currentIO').val(testNum);
-			tinymce.get('problemInput').setContent($('#problemI'+testNum).val());
-			tinymce.get('problemOutput').setContent($('#problemO'+testNum).val());
+			tinymce.get('problemInput').setContent($('#problemI'+testNum).val(),{format: 'raw'});
+			tinymce.get('problemOutput').setContent($('#problemO'+testNum).val(),{format: 'raw'});
+			if($('#testVis'+testNum).val()=='1'){
+				$('#ioVisable').attr('class','btn btn-info active');
+				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-open"></span>');
+			}
+			else{
+				$('#ioVisable').attr('class','btn btn-info');
+				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-close"></span>');
+			}
 			$('#problemIOModal').modal("show");
 		});
 	});
@@ -240,6 +278,7 @@
 						style="height: 150px;">Write down the problem output here !</textarea>
 				</div>
 				<div class="modal-footer">
+					<button id="ioVisable" type="button"></button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
 					<button id="showTest" type="button" class="btn btn-default">show</button>
 					<button id="ioSaveButton" type="button" class="btn btn-success">save</button>
@@ -272,6 +311,7 @@
 		<c:set var="testNum" value="0"></c:set>
 		<c:forEach items="${problemTests }" var="test" varStatus="status">
 			<input id="testNum${status.index+1}" value="${test.problemTestId }">
+			<input id="testVis${status.index+1}" value="${test.problemTestVisable }">
 			<textarea id="problemI${status.index+1}">${test.problemTestInput }</textarea>
 			<textarea id="problemO${status.index+1}">${test.problemTestOutput }</textarea>
 		</c:forEach>

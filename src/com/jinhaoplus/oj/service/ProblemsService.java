@@ -27,6 +27,8 @@ public interface ProblemsService {
 	
 	public List<ProblemTest> getAllVisableTestsByProblemId(int problemId);
 	
+	public void updateProblemTest(ProblemTest problemTest);
+	
 	public int insertSolution(ProblemSolution problemSolution);
 	
 	public void updateSolution(ProblemSolution problemSolution);

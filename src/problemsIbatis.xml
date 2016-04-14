@@ -133,16 +133,37 @@
 	<!-- find display tests by problemId -->
 	<select id="getAllVisableTestsByProblemId" resultClass="problemTest">
 		select
-		testid as
-		problemTestId,
+		testid as problemTestId,
 		test_problem_id as problemId,
-		test_input as
-		problemTestInput,
+		test_input as problemTestInput,
 		test_output as problemTestOutput,
 		test_visable as problemTestVisable
 		from tbl_ploj_tests
 		where test_problem_id=#value#
 	</select>
+	
+	<!-- update Tests -->
+	<update id="updateProblemTest" parameterClass="problemTest">
+		update tbl_ploj_tests
+		<dynamic prepend="SET">
+			<isNotNull prepend="," property="problemTestId">
+				testid = #problemTestId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemId">
+				test_problem_id = #problemId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestInput">
+				test_input = #problemTestInput#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestOutput">
+				test_output = #problemTestOutput#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestVisable">
+				test_visable = #problemTestVisable#
+			</isNotNull>
+		</dynamic>
+		WHERE testid = #problemTestId#
+	</update>
 
 
 	<!-- About Solution -->
