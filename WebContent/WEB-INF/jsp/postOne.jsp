@@ -29,6 +29,7 @@
 		$("#problemI"+testNum).val(testInput);
 		$("#problemO"+testNum).val(testOutput);
 		$("#ioId"+testNum).val(testId);
+		$("#ioId"+testNum).parent().attr("class","panel panel-success io-control");
 	}
 	$(function() {
 		var problemLanguage = '${problem.problemLanguage}';
@@ -72,7 +73,28 @@
 					problemId : $('#problemId').val(),
 					problemDigest : problemDigest,
 					problemContent : problemContent,
-					problemLanguage : problemLanguage
+					problemLanguage : problemLanguage,
+					problemTests : [{
+							problemTestId:$('#ioId1').val(),
+							problemTestInput:$("#problemI1").val(),
+							problemTestOutput:$("#problemO1").val()
+						},{
+							problemTestId:$('#ioId2').val(),
+							problemTestInput:$("#problemI2").val(),
+							problemTestOutput:$("#problemO2").val()
+						},{
+							problemTestId:$('#ioId3').val(),
+							problemTestInput:$("#problemI3").val(),
+							problemTestOutput:$("#problemO3").val()
+						},{
+							problemTestId:$('#ioId4').val(),
+							problemTestInput:$("#problemI4").val(),
+							problemTestOutput:$("#problemO4").val()
+						},{
+							problemTestId:$('#ioId5').val(),
+							problemTestInput:$("#problemI5").val(),
+							problemTestOutput:$("#problemO5").val()
+						}]
 				},
 				success : function(result) {
 
@@ -83,17 +105,25 @@
 
 		});
 		$('#ioSaveButton').click(function(){
-			
+			var currentIONum = $('#currentIO').val();
+			var problemInput = tinymce.get('problemInput').getContent({format: 'raw'});
+			var problemOutput = tinymce.get('problemOutput').getContent({format: 'raw'});
+			$('#problemI'+currentIONum).val(problemInput);
+			$('#problemO'+currentIONum).val(problemOutput);
+			$('#problemIOModal').modal("hide");
 		});
 		
 		$('#showTest').click(function(){
-			alert(tinymce.get('problemInput').getContent());
-			alert(tinymce.get('problemOutput').getContent());
+			alert(tinymce.get('problemInput').getContent({format: 'raw'}));
+			alert(tinymce.get('problemOutput').getContent({format: 'raw'}));
 		});
 		$(document).on('click', '.io-control', function(e) {
-			var testNum = $(this).children().val();
-			tinymce.get('problemInput').setContent($('#problemI'+testNum).val());
-			tinymce.get('problemOutput').setContent($('#problemO'+testNum).val());
+			var testNum = $(this).attr('iono');
+			$('#currentIO').val(testNum);
+			var problemInput = $('#problemI'+testNum).val();
+			var problemOutput = $('#problemO'+testNum).val();
+			tinymce.get('problemInput').setContent(problemInput);
+			tinymce.get('problemOutput').setContent(problemOutput);
 			$('#problemIOModal').modal("show");
 		});
 	});
@@ -160,7 +190,7 @@
 				<hr>
 			</div>
 			<div class="col-md-4">
-				<div class="panel panel-primary io-control">
+				<div id="ioPanel1" class="panel panel-primary io-control" iono="1">
 					<input id="ioId1" type="hidden"/>
 					<div id="ioPanel1" class="panel-heading">
 						<h3 class="panel-title">
@@ -171,7 +201,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div id="ioPanel2" class="panel panel-primary io-control">
+				<div id="ioPanel2" class="panel panel-primary io-control" iono="2">
 					<input id="ioId2" type="hidden"/>
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -182,7 +212,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div id="ioPanel3" class="panel panel-primary io-control">
+				<div id="ioPanel3" class="panel panel-primary io-control" iono="3">
 					<input id="ioId3" type="hidden"/>
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -193,7 +223,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div id="ioPanel4" class="panel panel-primary io-control">
+				<div id="ioPanel4" class="panel panel-primary io-control" iono="4">
 					<input id="ioId4" type="hidden"/>
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -204,7 +234,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div id="ioPanel5" class="panel panel-primary io-control">
+				<div id="ioPanel5" class="panel panel-primary io-control" iono="5">
 					<input id="ioId5" type="hidden"/>
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -234,6 +264,7 @@
 					</h3>
 				</div>
 				<div class="modal-body">
+					<input type="hidden" id="currentIO"/>
 					<p>Problem Input Here!</p>
 					<textarea class="problemIO" id="problemInput"
 						style="height: 150px;">Write down the problem input here !</textarea>
@@ -244,7 +275,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-					<button id="showTest" type="button" class="btn btn-default" data-dismiss="modal">show</button>
+					<button id="showTest" type="button" class="btn btn-default">show</button>
 					<button id="ioSaveButton" type="button" class="btn btn-success">save</button>
 				</div>
 			</div>
