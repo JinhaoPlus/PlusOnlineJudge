@@ -25,11 +25,6 @@
 		statusbar : false,
 		toolbar : false
 	});
-	function initIO(testNum,testId,testInput,testOutput){
-		$("#problemI"+testNum).val(testInput);
-		$("#problemO"+testNum).val(testOutput);
-		$("#ioId"+testNum).val(testId);
-	}
 	$(function() {
 		var problemLanguage = '${problem.problemLanguage}';
 		var languages = problemLanguage.split('&');
@@ -87,11 +82,11 @@
 		});
 		
 		$('#showTest').click(function(){
-			alert(tinymce.get('problemInput').getContent());
-			alert(tinymce.get('problemOutput').getContent());
+			alert(tinymce.get('problemInput').getContent({format:"raw"}));
+			alert(tinymce.get('problemOutput').getContent({format:"raw"}));
 		});
 		$(document).on('click', '.io-control', function(e) {
-			var testNum = $(this).children().val();
+			var testNum = $(this).attr("iono");
 			tinymce.get('problemInput').setContent($('#problemI'+testNum).val());
 			tinymce.get('problemOutput').setContent($('#problemO'+testNum).val());
 			$('#problemIOModal').modal("show");
@@ -160,8 +155,7 @@
 				<hr>
 			</div>
 			<div class="col-md-4">
-				<div class="panel panel-primary io-control">
-					<input id="ioId1" type="hidden"/>
+				<div id="ioPanel1" class="panel panel-primary io-control" iono="1">
 					<div id="ioPanel1" class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -171,8 +165,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div id="ioPanel2" class="panel panel-primary io-control">
-					<input id="ioId2" type="hidden"/>
+				<div id="ioPanel2" class="panel panel-primary io-control" iono="2">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -182,8 +175,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div id="ioPanel3" class="panel panel-primary io-control">
-					<input id="ioId3" type="hidden"/>
+				<div id="ioPanel3" class="panel panel-primary io-control" iono="3">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -193,8 +185,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div id="ioPanel4" class="panel panel-primary io-control">
-					<input id="ioId4" type="hidden"/>
+				<div id="ioPanel4" class="panel panel-primary io-control" iono="4">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -204,8 +195,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div id="ioPanel5" class="panel panel-primary io-control">
-					<input id="ioId5" type="hidden"/>
+				<div id="ioPanel5" class="panel panel-primary io-control" iono="5">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							<span class="glyphicon glyphicon-th-list"></span> &nbsp;Input and
@@ -272,25 +262,11 @@
 	</div>
 	<div class="hiddenPart" style="display: none">
 		<input id="problemId" value="${problem.problemId }"/>
-		<textarea id="problemI1"></textarea>
-		<textarea id="problemO1"></textarea>
-		<textarea id="problemI2"></textarea>
-		<textarea id="problemO2"></textarea>
-		<textarea id="problemI3"></textarea>
-		<textarea id="problemO3"></textarea>
-		<textarea id="problemI4"></textarea>
-		<textarea id="problemO4"></textarea>
-		<textarea id="problemI5"></textarea>
-		<textarea id="problemO5"></textarea>
 		<c:set var="testNum" value="0"></c:set>
-		<c:forEach items="${problemTests }" var="test">
-			<c:set var="testId" value="${test.problemTestId }"></c:set>
-			<c:set var="testInput" value="${test.problemTestInput }"></c:set>
-			<c:set var="testOutput" value="${test.problemTestOutput }"></c:set>
-			<script type="text/javascript">
-				initIO("${testNum+1}","${testId}","${testInput}","${testOutput}");
-			</script>
-			<c:set var="testNum" value="${testNum+1}"></c:set>
+		<c:forEach items="${problemTests }" var="test" varStatus="status">
+			<input id="testNum${status.index+1}" value="${test.problemTestId }">
+			<textarea id="problemI${status.index+1}">${test.problemTestInput }</textarea>
+			<textarea id="problemO${status.index+1}">${test.problemTestOutput }</textarea>
 		</c:forEach>
 		
 	</div>
