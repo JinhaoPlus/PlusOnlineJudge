@@ -78,7 +78,12 @@
 
 		});
 		$('#ioSaveButton').click(function(){
-			
+			var currentIONum = $('#currentIO').val();
+			var problemInput = tinymce.get('problemInput').getContent({format: 'raw'});
+			var problemOutput = tinymce.get('problemOutput').getContent({format: 'raw'});
+			$('#problemI'+currentIONum).val(problemInput);
+			$('#problemO'+currentIONum).val(problemOutput);
+			$('#problemIOModal').modal("hide");
 		});
 		
 		$('#showTest').click(function(){
@@ -87,6 +92,7 @@
 		});
 		$(document).on('click', '.io-control', function(e) {
 			var testNum = $(this).attr("iono");
+			$('#currentIO').val(testNum);
 			tinymce.get('problemInput').setContent($('#problemI'+testNum).val());
 			tinymce.get('problemOutput').setContent($('#problemO'+testNum).val());
 			$('#problemIOModal').modal("show");
@@ -219,11 +225,12 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
 					<h3 class="modal-title" id="myModalLabel">
-						<strong>You should give several groups of inputs and
-							outputs here</strong>
+						<strong>You should give this group of input and
+							output here</strong>
 					</h3>
 				</div>
 				<div class="modal-body">
+					<input type="hidden" id="currentIO"/>
 					<p>Problem Input Here!</p>
 					<textarea class="problemIO" id="problemInput"
 						style="height: 150px;">Write down the problem input here !</textarea>
@@ -234,7 +241,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-					<button id="showTest" type="button" class="btn btn-default" data-dismiss="modal">show</button>
+					<button id="showTest" type="button" class="btn btn-default">show</button>
 					<button id="ioSaveButton" type="button" class="btn btn-success">save</button>
 				</div>
 			</div>

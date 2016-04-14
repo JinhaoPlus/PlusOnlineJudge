@@ -22,6 +22,12 @@ public class DisplayRunUtils {
 		return problemTest;
 	}
 	
+	public static ProblemTest displayEditTests(ProblemTest problemTest){
+		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
+		return problemTest;
+	}
+	
 	public static ProblemTestResult displayResults(ProblemTestResult testResult){
 		if(testResult.getTestInput()!=null)
 			testResult.setTestInput(testResult.getTestInput().replaceAll("\\n", "&crarr;<br/>").replaceAll(" ", "&nbsp;"));

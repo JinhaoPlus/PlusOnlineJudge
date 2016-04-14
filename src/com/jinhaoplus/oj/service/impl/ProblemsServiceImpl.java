@@ -88,7 +88,7 @@ public class ProblemsServiceImpl implements ProblemsService{
 	public List<ProblemTest> getAllVisableTestsByProblemId(int problemId) {
 		List<ProblemTest> visableProblemTests = problemsDao.getAllVisableTestsByProblemId(problemId);
 		for (ProblemTest problemTest : visableProblemTests) {
-			DisplayRunUtils.displayTests(problemTest);
+			DisplayRunUtils.displayEditTests(problemTest);
 		}
 		return visableProblemTests;
 	}
