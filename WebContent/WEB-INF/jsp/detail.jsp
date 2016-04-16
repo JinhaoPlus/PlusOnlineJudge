@@ -24,47 +24,45 @@
 	<%@	include file="topnav.jsp"%>
 	<form action="${ctx }/problems/submitCode" method="post">
 	<div class="container">
-		<div class="row">
-			<div class="col-md-11">
-				<div class="question-title" style="overflow: hidden;">
-					<h1 style="display: inline-block; margin-top: 0px;">
-						#${chosenProblem.problemId}. ${chosenProblem.problemDigest}
-					</h1>
+		<div class="row col-md-offset-1 col-md-10">
+			<div class="question-title" style="overflow: hidden;">
+				<h1 style="display: inline-block; margin-top: 0px;">
+					#${chosenProblem.problemId}. ${chosenProblem.problemDigest}
+				</h1>
 
-					<h5>Tips : You can use <span class="orange">${chosenProblem.problemLanguage}</span> as your programming Languages.</h5>
-				</div>
-				<hr>
-				
-				<div class="row question-content">
-					<div class="col-md-12">${chosenProblem.problemContent }</div>
-				</div>
-				<div class="row result-content table-responsive">
-					<table class="table table-hover table-striped col-md-2">
-						<caption>Optional OJ Tests</caption>
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Content</th>
+				<h5>Tips : You can use <span class="orange">${chosenProblem.problemLanguage}</span> as your programming Languages.</h5>
+			</div>
+			<hr>
+			
+			<div class="row question-content">
+				<div class="col-md-12">${chosenProblem.problemContent }</div>
+			</div>
+			<div class="row result-content table-responsive">
+				<table class="table table-hover table-striped col-md-2">
+					<caption>Optional OJ Tests</caption>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Content</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${displayTests }" var="test">
+							<tr class="warning">
+								<td>Input</td>
+								<td>${test.problemTestInput }</td>
 							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${displayTests }" var="test">
-								<tr class="warning">
-									<td>Input</td>
-									<td>${test.problemTestInput }</td>
-								</tr>
-								<tr class="info">
-									<td>Output</td>
-									<td>${test.problemTestOutput }</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
+							<tr class="info">
+								<td>Output</td>
+								<td>${test.problemTestOutput }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<br />
-		<div class="row" style="margin-bottom: 12px;">
+		<div class="row col-md-offset-1 col-md-10" style="margin-bottom: 12px;">
 			<div class="col-md-2">
 				<select class="form-control" id="lang" onchange="changeLanguage();">
 					<c:forEach items="${problemLanguages }" var="language">
@@ -109,8 +107,7 @@
 					Go to Discuss !</button>
 			</div>
 		</div>
-		<pre id="embedded_ace_code" style="height: 400px;" class="col-md-12"
-			style="margin-bottom: 12px;">
+		<pre id="embedded_ace_code" style="height: 400px;" class="col-md-offset-1 col-md-10" style="margin-bottom: 12px;">
 			<div id="editor"></div>
 		</pre>
 		<div>

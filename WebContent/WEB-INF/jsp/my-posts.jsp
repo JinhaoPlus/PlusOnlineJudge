@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,7 +75,9 @@
 								<tr>
 									<td>${problem.problemId }</td>
 									<td><a href="${ctx }/problems/${problem.problemId }">${problem.problemDigest }</a></td>
-									<td>${problem.problemLanguage }</td>
+									<c:set var="orilan" value="${problem.problemLanguage }"></c:set>
+									<c:set var="translan" value="${fn:replace(orilan,'&',' ')}"></c:set>
+									<td>${translan}</td>
 									<td>
 										<c:if test="${problem.problemVisable == 1}"><button class="btn btn-sm btn-success" disabled="disabled">Passed</button></c:if>
 										<c:if test="${problem.problemVisable != 1}"><button class="btn btn-sm btn-warning" disabled="disabled">Waited</button></c:if>
