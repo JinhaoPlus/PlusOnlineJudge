@@ -8,7 +8,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +27,6 @@ import com.jinhaoplus.oj.service.CoreDispatcherService;
 import com.jinhaoplus.oj.service.ProblemsService;
 import com.jinhaoplus.oj.util.DisplayRunUtils;
 import com.jinhaoplus.oj.util.ProblemUtils;
-import com.sun.javafx.image.impl.IntArgb;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 
 @Controller
 @RequestMapping(value="/problems")
