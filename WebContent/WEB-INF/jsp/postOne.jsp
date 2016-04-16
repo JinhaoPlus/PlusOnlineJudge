@@ -34,6 +34,101 @@
 		$('#ioVisable').attr('ioVis',"1");
 		$('#ioVisable').html('<span class="glyphicon glyphicon-eye-open"></span>');
 	}
+	function validate(problemLanguage,problemDigest,problemContent){
+		if(problemLanguage == ''){
+			$('#warningContent').html('<strong>Please choose Problem Language !</strong>');
+			$('#warningModal').modal("show");
+			return;
+		}
+		if(problemDigest == ''){
+			$('#warningContent').html('<strong>Please give the Problem Digest out !</strong>');
+			$('#warningModal').modal("show");
+			return;
+		}
+		if(problemContent == ''){
+			$('#warningContent').html('<strong>Please add the Problem Content !</strong>');
+			$('#warningModal').modal("show");
+			return;
+		}
+	}
+	function toSave(problemLanguage,problemDigest,problemContent){
+		var problemTests = new Array();
+		for(k=1;k<=5;k++){
+			var problemId = $('#problemId').val();
+			var problemTestId = $('#testNum'+k).val();
+			var problemTestInput = $('#problemI'+k).val();
+			var problemTestOutput = $('#problemO'+k).val();
+			var problemTestVisable = $('#testVis'+k).val();
+			problemTests.push({problemId:problemId,problemTestId:problemTestId,problemTestInput:problemTestInput,problemTestOutput:problemTestOutput,problemTestVisable:problemTestVisable});
+		}
+		problemTests = JSON.stringify(problemTests);
+		$.ajax({
+			type : 'POST',
+			url : '${ctx}/problems/tempSaveProblemContent',
+			data : {
+				problemId : $('#problemId').val(),
+				problemDigest : problemDigest,
+				problemContent : problemContent,
+				problemLanguage : problemLanguage
+			},
+			success : function(result) {
+				$('#problemId').val(result);
+				$.ajax({
+					type : 'POST',
+					url : '${ctx}/problems/tempSaveProblemTest?newProblem='+result,
+					dataType:"json",
+					contentType:"application/json;charset=utf-8",
+					data : problemTests,
+					success : function(result) {
+						var testSum = result.length;
+						for(k=1;k<=5;k++){
+							$('#testNum'+k).val(result[k-1]);
+						}
+						$('#warningContent').html('<strong>Saved to <span class="orange">Plusoj</span> !</strong>');
+					}
+				});
+			}
+		});
+	}
+	function toPost(problemLanguage,problemDigest,problemContent){
+		var problemTests = new Array();
+		for(k=1;k<=5;k++){
+			var problemId = $('#problemId').val();
+			var problemTestId = $('#testNum'+k).val();
+			var problemTestInput = $('#problemI'+k).val();
+			var problemTestOutput = $('#problemO'+k).val();
+			var problemTestVisable = $('#testVis'+k).val();
+			problemTests.push({problemId:problemId,problemTestId:problemTestId,problemTestInput:problemTestInput,problemTestOutput:problemTestOutput,problemTestVisable:problemTestVisable});
+		}
+		problemTests = JSON.stringify(problemTests);
+		$.ajax({
+			type : 'POST',
+			url : '${ctx}/problems/saveProblemContent',
+			data : {
+				problemId : $('#problemId').val(),
+				problemDigest : problemDigest,
+				problemContent : problemContent,
+				problemLanguage : problemLanguage
+			},
+			success : function(result) {
+				$('#problemId').val(result);
+				$.ajax({
+					type : 'POST',
+					url : '${ctx}/problems/tempSaveProblemTest?newProblem='+result,
+					dataType:"json",
+					contentType:"application/json;charset=utf-8",
+					data : problemTests,
+					success : function(result) {
+						var testSum = result.length;
+						for(k=1;k<=5;k++){
+							$('#testNum'+k).val(result[k-1]);
+						}
+						window.location.href="${ctx}/myPosts";
+					}
+				});
+			}
+		});
+	}
 	$(function() {
 		var problemLanguage = '${problem.problemLanguage}';
 		var languages = problemLanguage.split('&');
@@ -55,61 +150,27 @@
 			$('.label-success').each(function(i){
 				problemLanguage += '&'+$(this).children().val();
 			});
-			if(problemLanguage == ''){
-				$('#warningContent').html('<strong>Please choose Problem Language !</strong>');
-				$('#warningModal').modal("show");
-				return;
-			}
-			if(problemDigest == ''){
-				$('#warningContent').html('<strong>Please give the Problem Digest out !</strong>');
-				$('#warningModal').modal("show");
-				return;
-			}
-			if(problemContent == ''){
-				$('#warningContent').html('<strong>Please add the Problem Content !</strong>');
-				$('#warningModal').modal("show");
-				return;
-			}
-			var problemTests = new Array();
-			for(k=1;k<=5;k++){
-				var problemId = $('#problemId').val();
-				var problemTestId = $('#testNum'+k).val();
-				var problemTestInput = $('#problemI'+k).val();
-				var problemTestOutput = $('#problemO'+k).val();
-				var problemTestVisable = $('#testVis'+k).val();
-				problemTests.push({problemId:problemId,problemTestId:problemTestId,problemTestInput:problemTestInput,problemTestOutput:problemTestOutput,problemTestVisable:problemTestVisable});
-			}
-			problemTests = JSON.stringify(problemTests);
-			$.ajax({
-				type : 'POST',
-				url : '${ctx}/problems/tempSaveProblemContent',
-				data : {
-					problemId : $('#problemId').val(),
-					problemDigest : problemDigest,
-					problemContent : problemContent,
-					problemLanguage : problemLanguage
-				},
-				success : function(result) {
-					$('#problemId').val(result);
-					$.ajax({
-						type : 'POST',
-						url : '${ctx}/problems/tempSaveProblemTest?newProblem='+result,
-						dataType:"json",
-						contentType:"application/json;charset=utf-8",
-						data : problemTests,
-						success : function(result) {
-							var testSum = result.length;
-							for(k=1;k<=5;k++){
-								$('#testNum'+k).val(result[k-1]);
-							}
-							alert("success");
-						}
-					});
-				}
-			});
+			validate(problemLanguage,problemDigest,problemContent);
+			$('#warningContent').html('<strong>Saving to <span class="orange">Plusoj</span> !</strong>');
+			$('#warningModal').modal("show");
+			toSave(problemLanguage,problemDigest,problemContent);
 		});
 		$('#postProblem').click(function() {
-
+			var problemLanguage = '';
+			var problemDigest = $('#problemDigest').val();
+			var problemContent = tinymce.get('problemContent').getContent({format:'raw'});
+			$('.label-success').each(function(i){
+				problemLanguage += '&'+$(this).children().val();
+			});
+			validate(problemLanguage,problemDigest,problemContent);
+			validate();
+			for(k=1;k<=5;k++){
+				if($('#problemI'+k).val()==''||$('#problemO'+k).val()==''){
+					$('#warningContent').html('<strong>You should complete the input and output in #'+k+'!</strong>');
+					return;
+				}
+			}
+			toPost(problemLanguage,problemDigest,problemContent);
 		});
 		$('#ioSaveButton').click(function(){
 			var currentIONum = $('#currentIO').val();
@@ -300,7 +361,7 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
 					<h3 class="modal-title" id="myModalLabel">
-						<strong>Warning</strong>
+						<strong>Operating Info</strong>
 					</h3>
 				</div>
 				<div class="modal-body">
@@ -331,7 +392,5 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	
-	<input value="${problemTests }"/>
 </body>
 </html>

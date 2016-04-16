@@ -101,7 +101,14 @@
 			LAST_INSERT_ID() as value
 		</selectKey>
 	</insert>
-
+	
+	<!-- delete problem -->
+	<delete id="deleteProblemById">
+         delete from tbl_ploj_problems
+         where problem_id = #value#
+	</delete>
+	
+	
 	<!-- find problem by problemId -->
 	<select id="getProblemById" resultClass="problem">
 		select
@@ -287,6 +294,12 @@
 			LAST_INSERT_ID() as value
 		</selectKey>
 	</insert>
+
+	<!-- delete test -->
+	<delete id="deleteTestsByProblemId">
+         delete from tbl_ploj_tests
+         where test_problem_id = #value#
+	</delete>
 
 	<!-- About Solution -->
 	<!-- insert Solution -->

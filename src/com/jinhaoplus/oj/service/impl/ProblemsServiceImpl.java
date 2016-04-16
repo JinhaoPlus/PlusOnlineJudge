@@ -66,6 +66,12 @@ public class ProblemsServiceImpl implements ProblemsService{
 		}
 		problemsDao.updateProblem(problem);
 	}
+	
+	@Override
+	public void deleteProblemById(int problemId) {
+		problemsDao.deleteProblemById(problemId);
+		
+	}
 
 
 	@Override
@@ -96,6 +102,11 @@ public class ProblemsServiceImpl implements ProblemsService{
 	@Override
 	public void updateProblemTest(ProblemTest problemTest){
 		problemsDao.updateProblemTest(problemTest);
+	}
+	
+	@Override
+	public void deleteTestsByProblemId(int problemId){
+		problemsDao.deleteTestsByProblemId(problemId);
 	}
 	
 	@Override

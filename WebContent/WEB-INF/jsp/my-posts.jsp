@@ -10,6 +10,21 @@
 <%@	include file="include.jsp"%>
 <script type="text/javascript">
 	$(function(){
+		$('.delete-control').click(function(){
+			var problemId = $(this).parent().parent().children().html();
+			$('#warningModal').data("problemId",problemId).modal("show");
+		});
+		$('#delete-ok').click(function(){
+			var problemId = $('#warningModal').data("problemId");
+			$.ajax({
+				url : '${ctx}/problems/deleteProblem/'+problemId,
+				success : function(result) {
+					$('#warningModal').modal("hide");
+					window.location.href="${ctx}/myPosts";
+				}
+			});
+			
+		});
 		
 	});
 </script>
@@ -61,17 +76,17 @@
 									<td><a href="${ctx }/problems/${problem.problemId }">${problem.problemDigest }</a></td>
 									<td>${problem.problemLanguage }</td>
 									<td>
-										<c:if test="${problem.problemVisable == 1}"><button class="btn btn-success" disabled="disabled">Passed</button></c:if>
-										<c:if test="${problem.problemVisable != 1}"><button class="btn btn-warning" disabled="disabled">Waited</button></c:if>
+										<c:if test="${problem.problemVisable == 1}"><button class="btn btn-sm btn-success" disabled="disabled">Passed</button></c:if>
+										<c:if test="${problem.problemVisable != 1}"><button class="btn btn-sm btn-warning" disabled="disabled">Waited</button></c:if>
 									</td>
 									<td>
 										<c:if test="${problem.problemVisable == 1}">
 											<button class="btn btn-info" disabled="disabled">Edit</button>
-											<button class="btn btn-danger" disabled="disabled">Delete</button>
+											<button class="btn btn-danger delete-control">Delete</button>
 										</c:if>
 										<c:if test="${problem.problemVisable != 1}">
-											<a id="editProblemButton" class="btn btn-info" href="${ctx }/problems/editProblem/${problem.problemId }">Edit</a>
-											<a class="btn btn-danger">Delete</a>
+											<a class="btn btn-info" href="${ctx }/problems/editProblem/${problem.problemId }">Edit</a>
+											<button class="btn btn-danger delete-control">Delete</button>
 										</c:if>
 									</td>
 								</tr>
@@ -83,5 +98,27 @@
 		</div>
 	</div>
 	<%@	include file="footer.jsp"%>
+	<div class="modal fade" id="warningModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3 class="modal-title" id="myModalLabel">
+						<strong>Warning</strong>
+					</h3>
+				</div>
+				<div class="modal-body">
+					<h3>You're about to delete this Problem ?</h3>
+					<p> if you delete this problem , no one will see it any more !</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button id="delete-ok" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

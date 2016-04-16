@@ -29,6 +29,7 @@ import com.jinhaoplus.oj.service.ProblemsService;
 import com.jinhaoplus.oj.util.DisplayRunUtils;
 import com.jinhaoplus.oj.util.ProblemUtils;
 import com.sun.javafx.image.impl.IntArgb;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 @Controller
 @RequestMapping(value="/problems")
@@ -169,6 +170,15 @@ public class ProblemsController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/deleteProblem/{problemId}")
+	@ResponseBody
+	public int deleteProblem(HttpServletRequest request,HttpServletResponse response,@PathVariable("problemId") String problemId){
+		int id = Integer.parseInt(problemId);
+		problemsService.deleteProblemById(id);
+		problemsService.deleteTestsByProblemId(id);
+		return id;
+	}
+	
 	@RequestMapping(value="/tempSaveProblemContent",method=RequestMethod.POST)
 	@ResponseBody
 	public int tempSaveProblemContent(HttpServletRequest request,HttpServletResponse response,Problem problem){
@@ -182,6 +192,26 @@ public class ProblemsController {
 		}
 		//Have this problem already
 		else {
+			problemsService.updateProblem(problem, null);
+			yetProblemId = problem.getProblemId();
+		}
+		return yetProblemId;
+	}
+	
+	@RequestMapping(value="/saveProblemContent",method=RequestMethod.POST)
+	@ResponseBody
+	public int saveProblemContent(HttpServletRequest request,HttpServletResponse response,Problem problem){
+		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
+		int yetProblemId = -1;
+		DisplayRunUtils.problemTinyMCE2DB(problem);
+		//No such problem yet
+		if(problem.getProblemId()==null){
+			ProblemUtils.postProblemInfo(problem, userId);
+			yetProblemId = problemsService.insertProblem(problem);
+		}
+		//Have this problem already
+		else {
+			ProblemUtils.postProblemInfo(problem, userId);
 			problemsService.updateProblem(problem, null);
 			yetProblemId = problem.getProblemId();
 		}
