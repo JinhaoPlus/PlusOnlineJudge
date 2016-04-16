@@ -24,8 +24,8 @@ public class DisplayRunUtils {
 	}
 	
 	public static ProblemTest displayEditTests(ProblemTest problemTest){
-		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "</p><p>").replaceAll(" ", "&nbsp;"));
-		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "<br>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll(" ", "&nbsp;"));
 		return problemTest;
 	}
 	
@@ -46,8 +46,8 @@ public class DisplayRunUtils {
 	}
 	
 	public static ProblemTest testTinyMCE2DB(ProblemTest problemTest){
-		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br>", "\n").replaceAll("<br>", "\n").replaceAll("&nbsp;", " "));
-		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br>", "\n").replaceAll("<br>", "\n").replaceAll("&nbsp;", " "));
+		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("&nbsp;", " "));
+		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("&nbsp;", " "));
 		return problemTest;
 	}
 }

@@ -10,6 +10,11 @@
 <script src="//cdn.tinymce.com/4/tinymce.min.js"
 	type="text/javascript" charset="utf-8"></script>
 <%@	include file="include.jsp"%>
+<style type="text/css">
+.problemIO {
+    resize: none;
+}
+</style>
 <script type="text/javascript">
 	tinymce.init({
 		selector : '#problemContent',
@@ -18,12 +23,6 @@
 		init_instance_callback : function(editor) {
 		    editor.setContent('${problem.problemContent}');
 		}
-	});
-	tinymce.init({
-		selector : '.problemIO',
-		menubar : false,
-		statusbar : false,
-		toolbar : false
 	});
 	$(function() {
 		var problemLanguage = '${problem.problemLanguage}';
@@ -98,8 +97,8 @@
 		});
 		$('#ioSaveButton').click(function(){
 			var currentIONum = $('#currentIO').val();
-			var problemInput = tinymce.get('problemInput').getContent({format: 'raw'});
-			var problemOutput = tinymce.get('problemOutput').getContent({format: 'raw'});
+			var problemInput = $('#problemInput').val();
+			var problemOutput = $('#problemOutput').val();
 			$('#problemI'+currentIONum).val(problemInput);
 			$('#problemO'+currentIONum).val(problemOutput);
 			$('#problemIOModal').modal("hide");
@@ -116,15 +115,11 @@
 			}
 		});
 		
-		$('#showTest').click(function(){
-			alert(tinymce.get('problemInput').getContent({format:"raw"}));
-			alert(tinymce.get('problemOutput').getContent({format:"raw"}));
-		});
-		$(document).on('click', '.io-control', function(e) {
+		$('.io-control').click(function(){
 			var testNum = $(this).attr("iono");
 			$('#currentIO').val(testNum);
-			tinymce.get('problemInput').setContent($('#problemI'+testNum).val(),{format: 'raw'});
-			tinymce.get('problemOutput').setContent($('#problemO'+testNum).val(),{format: 'raw'});
+			$('#problemInput').val($('#problemI'+testNum).val());
+			$('#problemOutput').val($('#problemO'+testNum).val());
 			if($('#testVis'+testNum).val()=='1'){
 				$('#ioVisable').attr('class','btn btn-info active');
 				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-open"></span>');
@@ -263,24 +258,22 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
 					<h3 class="modal-title" id="myModalLabel">
-						<strong>You should give this group of input and
-							output here</strong>
+						<strong>You should give this group of input and output</strong>
 					</h3>
 				</div>
 				<div class="modal-body">
 					<input type="hidden" id="currentIO"/>
-					<p>Problem Input Here!</p>
-					<textarea class="problemIO" id="problemInput"
+					<p>Problem Input Here !</p>
+					<textarea class="problemIO form-control" id="problemInput"
 						style="height: 150px;">Write down the problem input here !</textarea>
 					<hr>
 					<p>Problem Output fit input above Here!</p>
-					<textarea class="problemIO" id="problemOutput"
-						style="height: 150px;">Write down the problem output here !</textarea>
+					<textarea class="problemIO form-control" id="problemOutput"
+						style="height: 150px;">Write down the problem output here ! </textarea>
 				</div>
 				<div class="modal-footer">
 					<button id="ioVisable" type="button"></button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-					<button id="showTest" type="button" class="btn btn-default">show</button>
 					<button id="ioSaveButton" type="button" class="btn btn-success">save</button>
 				</div>
 			</div>
