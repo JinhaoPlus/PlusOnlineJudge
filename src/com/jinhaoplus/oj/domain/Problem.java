@@ -12,6 +12,7 @@ public class Problem{
 	private Integer problemSolveTimes;
 	private String someUserResult;
 	private String problemVisable;
+	private String problemPoster;
 	
 	public Integer getProblemId() {
 		return problemId;
@@ -69,25 +70,23 @@ public class Problem{
 	public void setProblemSolveTimes(Integer problemSolveTimes) {
 		this.problemSolveTimes = problemSolveTimes;
 	}
-	
 	public String getSomeUserResult() {
 		return someUserResult;
 	}
 	public void setSomeUserResult(String someUserResult) {
 		this.someUserResult = someUserResult;
 	}
-	
-	
 	public String getProblemVisable() {
 		return problemVisable;
 	}
 	public void setProblemVisable(String problemVisable) {
 		this.problemVisable = problemVisable;
 	}
-	@Override
-	public String toString() {
-		return "Problem [problemId=" + problemId + ", problemDigest=" + problemDigest + ", problemCategory="
-				+ problemCategory + ", problemContent=" + problemContent + ", problemLanguage=" + problemLanguage + "]";
+	public String getProblemPoster() {
+		return problemPoster;
+	}
+	public void setProblemPoster(String problemPoster) {
+		this.problemPoster = problemPoster;
 	}
 	
 }

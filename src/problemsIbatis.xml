@@ -25,10 +25,77 @@
 	</select>
 	
 	<insert id="insertProblem" parameterClass="problem">
-		insert into tbl_ploj_problems
-		(problem_id,problem_digest,problem_content,problem_language)
-		values
-		(#problemId#,#problemDigest#,#problemContent#,#problemLanguage#)
+		insert into tbl_ploj_problems(
+		<dynamic prepend=" ">
+			<isNotNull prepend="," property="problemId">
+				problem_id
+			</isNotNull>
+			<isNotNull prepend="," property="problemDigest">
+				problem_digest
+			</isNotNull>
+			<isNotNull prepend="," property="problemContent">
+				problem_content
+			</isNotNull>
+			<isNotNull prepend="," property="problemLanguage">
+				problem_language
+			</isNotNull>
+			<isNotNull prepend="," property="problemAcTimes">
+				problem_ac_times
+			</isNotNull>
+			<isNotNull prepend="," property="problemWaTimes">
+				problem_wa_times
+			</isNotNull>
+			<isNotNull prepend="," property="problemCeTimes">
+				problem_ce_times
+			</isNotNull>
+			<isNotNull prepend="," property="problemSolveTimes">
+				problem_solve_times
+			</isNotNull>
+			<isNotNull prepend="," property="problemVisable">
+				problem_available
+			</isNotNull>
+			<isNotNull prepend="," property="problemPoster">
+				problem_poster
+			</isNotNull>
+		</dynamic>
+		<![CDATA[ 
+        ) VALUES ( 
+    	]]>
+		<dynamic prepend=" ">
+			<isNotNull prepend="," property="problemId">
+				#problemId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemDigest">
+				#problemDigest#
+			</isNotNull>
+			<isNotNull prepend="," property="problemContent">
+				#problemContent#
+			</isNotNull>
+			<isNotNull prepend="," property="problemLanguage">
+				#problemLanguage#
+			</isNotNull>
+			<isNotNull prepend="," property="problemAcTimes">
+				#problemAcTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemWaTimes">
+				#problemWaTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemCeTimes">
+				#problemCeTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemSolveTimes">
+				#problemSolveTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemVisable">
+				#problemVisable#
+			</isNotNull>
+			<isNotNull prepend="," property="problemPoster">
+				#problemPoster#
+			</isNotNull>
+		</dynamic>
+		<![CDATA[ 
+        ) 
+    	]]>  
 		<selectKey resultClass="int" type="post" keyProperty="problemId">
 			select
 			LAST_INSERT_ID() as value
@@ -97,9 +164,16 @@
 			<isNotNull prepend="," property="problemCeTimes">
 				problem_ce_times = #problemCeTimes#
 			</isNotNull>
+			<isNotNull prepend="," property="problemPoster">
+				problem_poster = #problemPoster#
+			</isNotNull>
+			<isNotNull prepend="," property="problemVisable">
+				problem_available = #problemVisable#
+			</isNotNull>
 		</dynamic>
 		WHERE problem_id = #problemId#
 	</update>
+	
 
 	<!-- About problem Tests -->
 	<!-- find tests by problemId -->
@@ -165,6 +239,54 @@
 		WHERE testid = #problemTestId#
 	</update>
 
+	<!-- insert test -->
+	<insert id="insertProblemTest" parameterClass="problemTest">
+		insert into tbl_ploj_tests(
+		<dynamic prepend=" ">
+			<isNotNull prepend="," property="problemTestId">
+				testid
+			</isNotNull>
+			<isNotNull prepend="," property="problemId">
+				test_problem_id
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestInput">
+				test_input
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestOutput">
+				test_output
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestVisable">
+				test_visable
+			</isNotNull>
+		</dynamic>
+		<![CDATA[ 
+        ) VALUES ( 
+    	]]>
+		<dynamic prepend=" ">
+			<isNotNull prepend="," property="problemTestId">
+				#problemTestId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemId">
+				#problemId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestInput">
+				#problemTestInput#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestOutput">
+				#problemTestOutput#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestVisable">
+				#problemTestVisable#
+			</isNotNull>
+		</dynamic>
+		<![CDATA[ 
+        ) 
+    	]]>  
+		<selectKey resultClass="int" type="post" keyProperty="problemTestId">
+			select
+			LAST_INSERT_ID() as value
+		</selectKey>
+	</insert>
 
 	<!-- About Solution -->
 	<!-- insert Solution -->

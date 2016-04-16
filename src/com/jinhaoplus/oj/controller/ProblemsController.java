@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,8 @@ import com.jinhaoplus.oj.domain.User;
 import com.jinhaoplus.oj.service.CoreDispatcherService;
 import com.jinhaoplus.oj.service.ProblemsService;
 import com.jinhaoplus.oj.util.DisplayRunUtils;
+import com.jinhaoplus.oj.util.ProblemUtils;
+import com.sun.javafx.image.impl.IntArgb;
 
 @Controller
 @RequestMapping(value="/problems")
@@ -169,32 +172,39 @@ public class ProblemsController {
 	@RequestMapping(value="/tempSaveProblemContent",method=RequestMethod.POST)
 	@ResponseBody
 	public int tempSaveProblemContent(HttpServletRequest request,HttpServletResponse response,Problem problem){
+		int userId = ((User)request.getSession().getAttribute("loginuser")).getUserid();
 		int yetProblemId = -1;
 		DisplayRunUtils.problemTinyMCE2DB(problem);
 		//No such problem yet
-		if("".equals(problem.getProblemId())){
+		if(problem.getProblemId()==null){
+			ProblemUtils.initProblemInfo(problem, userId);
 			yetProblemId = problemsService.insertProblem(problem);
 		}
 		//Have this problem already
-		else{
+		else {
 			problemsService.updateProblem(problem, null);
+			yetProblemId = problem.getProblemId();
 		}
 		return yetProblemId;
 	}
 	
 	@RequestMapping(value="/tempSaveProblemTest",method=RequestMethod.POST)
 	@ResponseBody
-	public int tempSaveProblemTest(HttpServletRequest request,HttpServletResponse response,@RequestBody ProblemTest[] problemTests){
+	public Integer[] tempSaveProblemTest(HttpServletRequest request,HttpServletResponse response,@RequestBody ProblemTest[] problemTests){
+		List<Integer> retTestIds = new ArrayList<Integer>();
+		String newProblemId = request.getParameter("newProblem");
 		for (ProblemTest problemTest : problemTests) {
-			DisplayRunUtils.testTinyMCE2DB(problemTest);
-			System.out.println("****************************************");
-			System.out.println(problemTest.getProblemTestId());
-			System.out.println(problemTest.getProblemTestInput());
-			System.out.println(problemTest.getProblemTestOutput());
-			System.out.println("****************************************");
-			problemsService.updateProblemTest(problemTest);
+			if(problemTest.getProblemTestId()!=null&&problemTest.getProblemId()!=null){
+				DisplayRunUtils.testTinyMCE2DB(problemTest);
+				problemsService.updateProblemTest(problemTest);
+				retTestIds.add(problemTest.getProblemTestId());
+			}else {
+				DisplayRunUtils.testTinyMCE2DB(problemTest);
+				problemTest.setProblemId(Integer.parseInt(newProblemId));
+				int newTestId = problemsService.insertProblemTest(problemTest);
+				retTestIds.add(newTestId);
+			}
 		}
-		
-		return 0;
+		return retTestIds.toArray(new Integer[0]);
 	}
 }

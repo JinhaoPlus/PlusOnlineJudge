@@ -97,7 +97,11 @@ public class ProblemsServiceImpl implements ProblemsService{
 	public void updateProblemTest(ProblemTest problemTest){
 		problemsDao.updateProblemTest(problemTest);
 	}
-
+	
+	@Override
+	public int insertProblemTest(ProblemTest problemTest) {
+		return problemsDao.insertProblemTest(problemTest);
+	};
 
 	@Override
 	public void insertTestResult(ProblemTestResult testResult) {

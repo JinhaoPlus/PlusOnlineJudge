@@ -24,12 +24,23 @@
 		    editor.setContent('${problem.problemContent}');
 		}
 	});
+	function ioOpen2Close(){
+		$('#ioVisable').attr('class','btn btn-info');
+		$('#ioVisable').attr('ioVis',"0");
+		$('#ioVisable').html('<span class="glyphicon glyphicon-eye-close"></span>');
+	}
+	function ioClose2Open(){
+		$('#ioVisable').attr('class','btn btn-info active');
+		$('#ioVisable').attr('ioVis',"1");
+		$('#ioVisable').html('<span class="glyphicon glyphicon-eye-open"></span>');
+	}
 	$(function() {
 		var problemLanguage = '${problem.problemLanguage}';
 		var languages = problemLanguage.split('&');
 		for (var i=0;i<languages.length;i++)
 		{
-			$("input[value='"+languages[i]+"']").parent().attr('class', 'label label-success');
+			if(languages[i] != "")
+				$("input[value='"+languages[i]+"']").parent().attr('class', 'label label-success');
 		}
 		$('.label').click(function() {
 			if ($(this).attr('class') == 'label label-success')
@@ -60,33 +71,38 @@
 				return;
 			}
 			var problemTests = new Array();
-			for(k=1;k<=1;k++){
+			for(k=1;k<=5;k++){
 				var problemId = $('#problemId').val();
 				var problemTestId = $('#testNum'+k).val();
 				var problemTestInput = $('#problemI'+k).val();
 				var problemTestOutput = $('#problemO'+k).val();
-				var problemTestVisable = $('#ioVisable').attr('class')=='btn btn-info active'?'1':'0';
+				var problemTestVisable = $('#testVis'+k).val();
 				problemTests.push({problemId:problemId,problemTestId:problemTestId,problemTestInput:problemTestInput,problemTestOutput:problemTestOutput,problemTestVisable:problemTestVisable});
 			}
 			problemTests = JSON.stringify(problemTests);
 			$.ajax({
 				type : 'POST',
-				url : '${ctx}/problems/tempSaveProblemTest',
-				dataType:"json",
-				contentType:"application/json;charset=utf-8",
-				data : problemTests,
+				url : '${ctx}/problems/tempSaveProblemContent',
+				data : {
+					problemId : $('#problemId').val(),
+					problemDigest : problemDigest,
+					problemContent : problemContent,
+					problemLanguage : problemLanguage
+				},
 				success : function(result) {
+					$('#problemId').val(result);
 					$.ajax({
 						type : 'POST',
-						url : '${ctx}/problems/tempSaveProblemContent',
-						data : {
-							problemId : $('#problemId').val(),
-							problemDigest : problemDigest,
-							problemContent : problemContent,
-							problemLanguage : problemLanguage
-						},
+						url : '${ctx}/problems/tempSaveProblemTest?newProblem='+result,
+						dataType:"json",
+						contentType:"application/json;charset=utf-8",
+						data : problemTests,
 						success : function(result) {
-							alert("save successfully");
+							var testSum = result.length;
+							for(k=1;k<=5;k++){
+								$('#testNum'+k).val(result[k-1]);
+							}
+							alert("success");
 						}
 					});
 				}
@@ -101,17 +117,16 @@
 			var problemOutput = $('#problemOutput').val();
 			$('#problemI'+currentIONum).val(problemInput);
 			$('#problemO'+currentIONum).val(problemOutput);
+			$('#testVis'+currentIONum).val($('#ioVisable').attr('ioVis'));
 			$('#problemIOModal').modal("hide");
 		});
 		
 		$('#ioVisable').click(function(){
-			if($('#ioVisable').attr('class')=='btn btn-info active'){
-				$('#ioVisable').attr('class','btn btn-info');
-				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-close"></span>');
+			if($('#ioVisable').attr('ioVis')=='1'){
+				ioOpen2Close();
 			}
 			else{
-				$('#ioVisable').attr('class','btn btn-info active');
-				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-open"></span>');
+				ioClose2Open();
 			}
 		});
 		
@@ -121,12 +136,10 @@
 			$('#problemInput').val($('#problemI'+testNum).val());
 			$('#problemOutput').val($('#problemO'+testNum).val());
 			if($('#testVis'+testNum).val()=='1'){
-				$('#ioVisable').attr('class','btn btn-info active');
-				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-open"></span>');
+				ioClose2Open();
 			}
 			else{
-				$('#ioVisable').attr('class','btn btn-info');
-				$('#ioVisable').html('<span class="glyphicon glyphicon-eye-close"></span>');
+				ioOpen2Close();
 			}
 			$('#problemIOModal').modal("show");
 		});
@@ -287,7 +300,7 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
 					<h3 class="modal-title" id="myModalLabel">
-						<strong>Waring</strong>
+						<strong>Warning</strong>
 					</h3>
 				</div>
 				<div class="modal-body">
@@ -301,14 +314,24 @@
 	</div>
 	<div class="hiddenPart" style="display: none">
 		<input id="problemId" value="${problem.problemId }"/>
-		<c:set var="testNum" value="0"></c:set>
-		<c:forEach items="${problemTests }" var="test" varStatus="status">
-			<input id="testNum${status.index+1}" value="${test.problemTestId }">
-			<input id="testVis${status.index+1}" value="${test.problemTestVisable }">
-			<textarea id="problemI${status.index+1}">${test.problemTestInput }</textarea>
-			<textarea id="problemO${status.index+1}">${test.problemTestOutput }</textarea>
-		</c:forEach>
-		
+		<c:if test="${addNew != 1}">
+			<c:forEach items="${problemTests }" var="test" varStatus="status">
+				<input id="testNum${status.index+1}" value="${test.problemTestId }">
+				<input id="testVis${status.index+1}" value="${test.problemTestVisable }">
+				<textarea id="problemI${status.index+1}">${test.problemTestInput }</textarea>
+				<textarea id="problemO${status.index+1}">${test.problemTestOutput }</textarea>
+			</c:forEach>
+		</c:if>
+		<c:if test="${addNew == 1}">
+			<c:forEach begin="1" end="5" varStatus="status">
+				<input id="testNum${status.index}">
+				<input id="testVis${status.index}">
+				<textarea id="problemI${status.index}"></textarea>
+				<textarea id="problemO${status.index}"></textarea>
+			</c:forEach>
+		</c:if>
 	</div>
+	
+	<input value="${problemTests }"/>
 </body>
 </html>

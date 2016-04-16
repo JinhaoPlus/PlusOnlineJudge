@@ -26,6 +26,8 @@ public interface ProblemsDao {
 	
 	public void updateProblemTest(ProblemTest problemTest);
 	
+	public int insertProblemTest(ProblemTest problemTest);
+	
 	public void insertTestResult(ProblemTestResult testResult);
 
 	public int insertSolution(ProblemSolution problemSolution);

@@ -29,6 +29,8 @@ public interface ProblemsService {
 	
 	public void updateProblemTest(ProblemTest problemTest);
 	
+	public int insertProblemTest(ProblemTest problemTest);
+	
 	public int insertSolution(ProblemSolution problemSolution);
 	
 	public void updateSolution(ProblemSolution problemSolution);

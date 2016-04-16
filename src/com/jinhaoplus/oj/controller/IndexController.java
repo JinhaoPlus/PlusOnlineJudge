@@ -130,6 +130,7 @@ public class IndexController {
 	public ModelAndView postProblem(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("postOne");
+		modelAndView.addObject("addNew", "1");
 		return modelAndView;
 	}
 }
