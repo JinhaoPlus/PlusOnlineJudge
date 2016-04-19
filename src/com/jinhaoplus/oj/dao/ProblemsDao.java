@@ -18,6 +18,8 @@ public interface ProblemsDao {
 	
 	public void updateProblem(Problem problem);
 	
+	public void deleteProblemById(int problemId);
+	
 	public List<ProblemTest> getTestsByProblemId(int problemId);
 	
 	public List<ProblemTest> getVisableTestsByProblemId(int problemId);
@@ -25,6 +27,10 @@ public interface ProblemsDao {
 	public List<ProblemTest> getAllVisableTestsByProblemId(int problemId);
 	
 	public void updateProblemTest(ProblemTest problemTest);
+	
+	public void deleteTestsByProblemId(int problemId);
+	
+	public int insertProblemTest(ProblemTest problemTest);
 	
 	public void insertTestResult(ProblemTestResult testResult);
 

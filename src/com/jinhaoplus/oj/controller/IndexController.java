@@ -38,16 +38,15 @@ public class IndexController {
 		this.dataAnalyseService = dataAnalyseService;
 	}
 
-	@RequestMapping(value="/lab")
+	@RequestMapping(value="/404")
 	public ModelAndView lab(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("lab");
+		modelAndView.setViewName("404");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/index")
 	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
-		CommonMessage message = new CommonMessage("200","To Login","");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("index");
 		User loginuser = (User) request.getSession().getAttribute("loginuser");
@@ -61,7 +60,6 @@ public class IndexController {
 		}
 		modelAndView.addObject("solvedNum", solvedNum);
 		modelAndView.addObject("problemsNum", problemList.size());
-		modelAndView.addObject("message", message);
 		
 		List<DataAnalyseBean> dataAnalyseBeans = dataAnalyseService.getTopCodersData();
 		modelAndView.addObject("dataAnalyseBeans", dataAnalyseBeans);
@@ -130,6 +128,7 @@ public class IndexController {
 	public ModelAndView postProblem(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("postOne");
+		modelAndView.addObject("addNew", "1");
 		return modelAndView;
 	}
 }

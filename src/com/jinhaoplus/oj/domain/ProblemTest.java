@@ -1,21 +1,23 @@
 package com.jinhaoplus.oj.domain;
 
 public class ProblemTest {
-	private int problemTestId;
-	private int problemId;
+	private Integer problemTestId;
+	private Integer problemId;
 	private String problemTestInput;
 	private String problemTestOutput;
 	private String problemTestVisable;
-	public int getProblemTestId() {
+	
+	
+	public Integer getProblemTestId() {
 		return problemTestId;
 	}
-	public void setProblemTestId(int problemTestId) {
+	public void setProblemTestId(Integer problemTestId) {
 		this.problemTestId = problemTestId;
 	}
-	public int getProblemId() {
+	public Integer getProblemId() {
 		return problemId;
 	}
-	public void setProblemId(int problemId) {
+	public void setProblemId(Integer problemId) {
 		this.problemId = problemId;
 	}
 	public String getProblemTestInput() {

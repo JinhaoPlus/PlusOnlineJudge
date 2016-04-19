@@ -93,15 +93,15 @@
 					</table>
 				</div>
 				<hr/>
-				<div class="col-md-10">
-					<span class="label label-primary">
+				<div class="row col-md-10">
+					<span class="label label-primary col-md-1">
 						${solution.solutionLanguage } </span>
 					<c:if test="${solution.finalOJResult == 'AC'}">
-						<span class="label label-success"> ${solution.finalOJResult }
+						<span class="label label-success col-md-1"> ${solution.finalOJResult }
 						</span>
 					</c:if>
 					<c:if test="${solution.finalOJResult != 'AC'}">
-						<span class="label label-danger"> ${solution.finalOJResult }
+						<span class="label label-danger col-md-1"> ${solution.finalOJResult }
 						</span>
 					</c:if>
 				</div>

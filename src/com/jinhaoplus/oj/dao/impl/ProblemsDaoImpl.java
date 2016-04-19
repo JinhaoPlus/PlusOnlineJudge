@@ -57,6 +57,11 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 	}
 	
 	@Override
+	public void deleteProblemById(int problemId){
+		getSqlMapClientTemplate().delete("deleteProblemById", problemId);
+	}
+	
+	@Override
 	public List<ProblemTest> getTestsByProblemId(int problemId) {
 		return  (List<ProblemTest>) getSqlMapClientTemplate().queryForList("getTestsByProblemId",problemId);
 	}
@@ -75,7 +80,17 @@ public class ProblemsDaoImpl extends SqlMapClientDaoSupport implements ProblemsD
 	public void updateProblemTest(ProblemTest problemTest){
 		getSqlMapClientTemplate().update("updateProblemTest", problemTest);
 	}
+	
+	@Override
+	public void deleteTestsByProblemId(int problemId){
+		getSqlMapClientTemplate().delete("deleteTestsByProblemId", problemId);
+	}
 
+	@Override
+	public int insertProblemTest(ProblemTest problemTest){
+		return (Integer) getSqlMapClientTemplate().insert("insertProblemTest", problemTest);
+	}
+	
 	@Override
 	public void insertTestResult(ProblemTestResult testResult) {
 		getSqlMapClientTemplate().insert("insertTestResult", testResult);

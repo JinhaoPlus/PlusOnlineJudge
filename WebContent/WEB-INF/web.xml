@@ -6,7 +6,7 @@
 	<display-name>OJ</display-name>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/index</location>
+		<location>/404</location>
 	</error-page>
 	<welcome-file-list>
 		<welcome-file>/index</welcome-file>

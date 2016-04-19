@@ -22,34 +22,19 @@
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
 	tinymce.init({
-		selector : 'textarea'
+		selector : 'textareas'
 	});
 </script>
 </head>
 <style type="text/css" media="screen">
-#editor {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-}
 </style>
 </head>
 <script type="text/javascript">
 	$(function() {
 		var num = 1;
 		$('.ok').click(function(){
-			var text = "3 1\n66\n29";
-			tinymce.get('editor').setContent(text);
-			
-		});
-		$('.show').click(function(){
-			tinymce.get('editor').getContent();
-			
-		});
-		$('.rawshow').click(function(){
-			tinymce.get('editor').getContent({format:"raw"});
+			var text = "3 1<br/>66<br/>29";
+			$('#editor').val(text);
 			
 		});
 	});
@@ -59,8 +44,6 @@
 	<div class="container">
 		
 		<button class="ok">ok</button>
-		<button class="show">ok</button>
-		<button class="rawshow">ok</button>
 		<textarea id="editor" rows="" cols=""></textarea>
 	</div>
 
