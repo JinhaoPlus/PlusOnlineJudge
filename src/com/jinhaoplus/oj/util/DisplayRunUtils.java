@@ -24,8 +24,8 @@ public class DisplayRunUtils {
 	}
 	
 	public static ProblemTest displayEditTests(ProblemTest problemTest){
-		problemTest.setProblemTestInput(problemTest.getProblemTestInput().replaceAll("\\n", "</p><p>").replaceAll(" ", "&nbsp;"));
-		problemTest.setProblemTestOutput(problemTest.getProblemTestOutput().replaceAll("\\n", "<br>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestInput( "<p>"+problemTest.getProblemTestInput().replaceAll("\\n", "</p><p>").replaceAll(" ", "&nbsp;"));
+		problemTest.setProblemTestOutput("<p>"+problemTest.getProblemTestOutput().replaceAll("\\n", "<br>").replaceAll(" ", "&nbsp;"));
 		return problemTest;
 	}
 	
