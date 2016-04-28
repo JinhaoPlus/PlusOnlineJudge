@@ -3,6 +3,7 @@
 <head>
 <title>Login!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 
 <link
 	href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -10,8 +11,10 @@
 	href="http://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"
 	rel="stylesheet">
 <link href="${ctx }/css/customize.css" rel="stylesheet">
+ -->
 
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<!-- 
 <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script
 	src="http://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
@@ -25,25 +28,27 @@
 		selector : 'textareas'
 	});
 </script>
+ -->
 </head>
 <style type="text/css" media="screen">
 </style>
 </head>
 <script type="text/javascript">
 	$(function() {
-		var num = 1;
-		$('.ok').click(function(){
-			var text = "3 1<br/>66<br/>29";
-			$('#editor').val(text);
-			
+		$('#okbutton').click(function(){
+			alert("xxx");
+		});
+		$(document).on('keyup', '.std-control', function(e) {
+			if(e.keyCode == 13){
+				$('#okbutton').click();
+			}
 		});
 	});
 </script>
 </head>
 <body>
 	<div class="container">
-		
-		<button class="ok">ok</button>
+		<button id="okbutton" class="std-control">ok</button>
 		<textarea id="editor" rows="" cols=""></textarea>
 	</div>
 
